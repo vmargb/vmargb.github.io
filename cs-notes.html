@@ -4,24 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CS Notes</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif']
-          }
-        }
-      }
+  <style>
+    @font-face {
+      font-family: 'Inconsolata';
+      src: url('/fonts/Inconsolata.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
     }
-  </script>
+    body, a, h2, p {
+      font-family: 'Inconsolata', sans-serif;
+      font-size: 20px;
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans leading-relaxed">
-
+<body class="bg-gray-900 text-gray-100 leading-relaxed">
   <div class="flex min-h-screen">
-    
-    <!-- Sidebar -->
     <aside class="hidden sm:flex flex-col w-64 bg-gray-800 p-6 space-y-4 border-r border-gray-700">
       <a href="index.html" class="text-2xl font-bold text-white hover:text-blue-400 transition">
         ← Home
@@ -48,7 +46,6 @@
           <p class="text-gray-300 text-sm">Sorting, searching, Asymptotic notation, dynamic programming, and more.</p>
         </a>
 
-        <!-- Card: Cryptography -->
         <a href="notes/cryptography.html" class="group bg-gray-800 hover:bg-gray-700 transition-all duration-300 rounded-xl p-6 shadow-lg flex flex-col items-start space-y-3 transform hover:scale-105">
           <div class="flex items-center space-x-3">
             <h2 class="text-2xl font-semibold group-hover:text-blue-300">🔐 Cryptography</h2>
@@ -56,7 +53,6 @@
           <p class="text-gray-300 text-sm">RSA, ECC, hashing, number theory, and security concepts.</p>
         </a>
 
-        <!-- Card: AI -->
         <a href="notes/introai.html" class="group bg-gray-800 hover:bg-gray-700 transition-all duration-300 rounded-xl p-6 shadow-lg flex flex-col items-start space-y-3 sm:col-span-2 transform hover:scale-105">
           <div class="flex items-center space-x-3">
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="w-6 h-6" alt="🤖">

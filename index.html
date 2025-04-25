@@ -4,16 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
     <style>
-        .diagonal-lines {
-            background-image: url("http://googleusercontent.com/image_generation_content/0");
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
+        @font-face {
+          font-family: 'Inconsolata';
+          src: url('/fonts/Inconsolata.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+        }
+        @font-face {
+          font-family: 'Limelight';
+          src: url('/fonts/Limelight.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+        }
+        body {
+          font-family: 'Inconsolata', sans-serif;
+          font-size: 18px;
+        }
+        h1 {
+          font-family: 'Limelight', cursive;
         }
     </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans">
+<body class="bg-gray-900 text-gray-100">
     <nav class="bg-transparent sticky top-0 z-50">
         <div class="max-w-5xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
