@@ -11,63 +11,73 @@
       font-weight: normal;
       font-style: normal;
     }
-    body, a, h2, p {
+    body {
       font-family: 'Inconsolata', sans-serif;
-      font-size: 20px;
+      font-size: 18px;
+    }
+    h1, h2 {
+       font-family: 'Inconsolata', sans-serif;
+    }
+     a {
+       font-family: 'Inconsolata', sans-serif;
+     }
+     p {
+        font-family: 'Inconsolata', sans-serif;
+        font-size: 18px;
+     }
+
+    body {
+      background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+      background-size: 20px 20px;
     }
   </style>
   <script src="https://cdn.tailwindcss.com"></script>
+   <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'accent': '#63b3ed',
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="bg-gray-900 text-gray-100 leading-relaxed">
-  <div class="flex min-h-screen">
-    <aside class="hidden sm:flex flex-col w-64 bg-gray-800 p-6 space-y-4 border-r border-gray-700">
-      <a href="index.html" class="text-2xl font-bold text-white hover:text-blue-400 transition">
-        ← Home
-      </a>
-      <nav class="mt-10 space-y-4 text-lg">
-        <a href="notes/algorithms.html" class="block text-gray-300 hover:text-white">📘 Algorithms</a>
-        <a href="notes/cryptography.html" class="block text-gray-300 hover:text-white">🔐 Cryptography</a>
-        <a href="notes/introai.html" class="block text-gray-300 hover:text-white">🤖 Intro to AI</a>
-      </nav>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 px-6 py-12 max-w-4xl mx-auto">
-      <h1 class="text-4xl sm:text-5xl font-bold mb-12 text-center">My CS Notes</h1>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-
-        <!-- Card: Algorithms -->
-        <a href="notes/algorithms.html" class="group bg-gray-800 hover:bg-gray-700 transition-all duration-300 rounded-xl p-6 shadow-lg flex flex-col items-start space-y-3 transform hover:scale-105">
-          <div class="flex items-center space-x-3">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" class="w-6 h-6" alt="📘">
-            <h2 class="text-2xl font-semibold group-hover:text-blue-300">Algorithms</h2>
-          </div>
-          <p class="text-gray-300 text-sm">Sorting, searching, Asymptotic notation, dynamic programming, and more.</p>
+<body class="bg-gray-950 text-gray-200 leading-relaxed">
+  <div class="flex flex-col min-h-screen">
+    <header class="py-6 shadow-xl">
+      <div class="container mx-auto flex justify-between items-center px-6">
+        <a href="index.html" class="text-xl font-bold text-white hover:text-accent transition-colors">
+          ← Back to Home
         </a>
+        <h1 class="text-3xl font-bold text-white">My CS Notes</h1>
+      </div>
+    </header>
 
-        <a href="notes/cryptography.html" class="group bg-gray-800 hover:bg-gray-700 transition-all duration-300 rounded-xl p-6 shadow-lg flex flex-col items-start space-y-3 transform hover:scale-105">
-          <div class="flex items-center space-x-3">
-            <h2 class="text-2xl font-semibold group-hover:text-blue-300">🔐 Cryptography</h2>
+    <main class="flex-1 px-6 py-12 max-w-3xl mx-auto w-full">
+      <div class="space-y-8"> <a href="notes/algorithms.html" class="group bg-gray-900 hover:bg-gray-800 transition-all duration-300 rounded-xl p-6 shadow-xl border border-gray-800 hover:border-accent flex flex-col space-y-3 transform hover:-translate-y-1 hover:shadow-2xl">
+          <div class="flex items-center space-x-4"> <span class="text-3xl text-accent group-hover:text-white transition-colors">📘</span>
+            <h2 class="text-2xl font-semibold text-gray-100 group-hover:text-accent transition-colors">Algorithms</h2>
           </div>
-          <p class="text-gray-300 text-sm">RSA, ECC, hashing, number theory, and security concepts.</p>
-        </a>
+          <p class="text-gray-300 text-base">Sorting, searching, Asymptotic notation, dynamic programming, graph theory, and more.</p> </a>
 
-        <a href="notes/introai.html" class="group bg-gray-800 hover:bg-gray-700 transition-all duration-300 rounded-xl p-6 shadow-lg flex flex-col items-start space-y-3 sm:col-span-2 transform hover:scale-105">
-          <div class="flex items-center space-x-3">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="w-6 h-6" alt="🤖">
-            <h2 class="text-2xl font-semibold group-hover:text-blue-300">Intro AI</h2>
+        <a href="notes/cryptography.html" class="group bg-gray-900 hover:bg-gray-800 transition-all duration-300 rounded-xl p-6 shadow-xl border border-gray-800 hover:border-accent flex flex-col space-y-3 transform hover:-translate-y-1 hover:shadow-2xl">
+          <div class="flex items-center space-x-4"> <span class="text-3xl text-accent group-hover:text-white transition-colors">🔐</span>
+             <h2 class="text-2xl font-semibold text-gray-100 group-hover:text-accent transition-colors">Cryptography</h2>
           </div>
-          <p class="text-gray-300 text-sm">Search algorithms, MCTS, knowledge representation, and basic reasoning.</p>
-        </a>
+          <p class="text-gray-300 text-base">RSA, ECC, hashing, number theory, digital signatures, and security concepts.</p> </a>
 
+        <a href="notes/introai.html" class="group bg-gray-900 hover:bg-gray-800 transition-all duration-300 rounded-xl p-6 shadow-xl border border-gray-800 hover:border-accent flex flex-col space-y-3 transform hover:-translate-y-1 hover:shadow-2xl">
+          <div class="flex items-center space-x-4"> <span class="text-3xl text-accent group-hover:text-white transition-colors">🤖</span>
+            <h2 class="text-2xl font-semibold text-gray-100 group-hover:text-accent transition-colors">Intro AI</h2>
+          </div>
+          <p class="text-gray-300 text-base">Search algorithms, Minimax, MCTS, knowledge representation and other optimisations</p> </a>
       </div>
     </main>
+
+    <footer class="py-8 text-center text-gray-500 border-t border-gray-800 bg-gray-900 mt-auto"> <p class="text-sm">&copy; 2025 [Umar Sharif]. All rights reserved.</p>
+    </footer>
   </div>
-
-  <footer class="py-6 text-center text-gray-500 border-t border-gray-700 mt-10">
-    © 2025 [Umar Sharif]. All rights reserved.
-  </footer>
-
 </body>
 </html>
