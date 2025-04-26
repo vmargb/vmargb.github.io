@@ -21,6 +21,7 @@
         body {
           font-family: 'Inconsolata', sans-serif;
           font-size: 18px;
+          background-color: #111827;
         }
         h1 {
           font-family: 'Limelight', cursive;
@@ -28,7 +29,7 @@
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-gray-100">
+<body class="text-gray-100">
     <nav class="bg-transparent sticky top-0 z-50">
         <div class="max-w-5xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
@@ -41,16 +42,16 @@
         </div>
     </nav>
 
-    <section id="about" class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-blue-900 to-blue-950 diagonal-lines">
+    <section id="about" class="min-h-screen flex flex-col justify-center items-center">
         <h1 class="text-8xl font-bold mb-4 text-center">Welcome to My Portfolio</h1>
         <p class="text-xl max-w-xl text-center mb-8">I'm a developer and CS grad interested in AI and Web technologies. Also this website is written in Tailwind!</p>
         <a href="#projects" class="px-6 py-3 bg-blue-700 hover:bg-blue-800 rounded-full text-gray-100 font-semibold shadow-md hover:shadow-lg transition-all duration-300">See My Projects</a>
     </section>
 
-    <section id="projects" class="py-16 px-4 mb-44 bg-gradient-to-b from-blue-900 to-blue-950 diagonal-lines">
+    <section id="projects" class="py-16 px-4 mb-44">
         <h2 class="text-3xl font-bold text-center mb-10 text-white">My GitHub Projects</h2>
         <div class="max-w-5xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2">
-            
+
             <div class="group relative bg-gray-700 rounded-lg shadow-lg overflow-hidden">
                 <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                     <img src="images/funcy-demo.gif" alt="funcy.nvim Preview" class="w-full h-full object-cover">
@@ -129,7 +130,7 @@
         </div>
     </section>
 
-    <section class="py-16 px-4 mt-24 mb-34 bg-gray-900 flex flex-col items-center">
+    <section class="py-16 px-4 mt-24 mb-34 flex flex-col items-center">
         <h2 class="text-3xl font-bold mb-4">My YouTube Channel</h2>
         <p class="mb-6 text-center max-w-lg text-gray-300">
             I regularly post coding tutorials and project walkthroughs related to Computer Science and Neovim!
@@ -140,13 +141,13 @@
         </a>
     </section>
 
-    <section id="notes" class="py-16 px-4 mt-24 mb-44 bg-gradient-to-t from-blue-900 to-blue-950 flex flex-col items-center diagonal-lines">
+    <section id="notes" class="py-16 px-4 mt-24 mb-44 flex flex-col items-center">
         <h2 class="text-2xl font-bold mb-4">Interested in my CS Notes?</h2>
         <p class="mb-8 text-center max-w-lg">These are my old compiled notes on Computer Science topics. Click below to explore them!</p>
         <a href="cs-notes.html" class="px-6 py-3 bg-blue-700 hover:bg-blue-800 rounded-full text-gray-100 font-semibold shadow-md hover:shadow-lg transition-all duration-300">Go to CS Notes</a>
     </section>
 
-    <footer class="py-6 text-center text-gray-400 bg-gray-900">
+    <footer class="py-6 text-center text-gray-400">
         © 2025 [Umar Sharif]. All rights reserved.
     </footer>
 </body>
