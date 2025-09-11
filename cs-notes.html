@@ -16,15 +16,15 @@
       font-size: 18px;
     }
     h1, h2 {
-       font-family: 'Inconsolata', sans-serif;
+      font-family: 'Inconsolata', sans-serif;
     }
-     a {
-       font-family: 'Inconsolata', sans-serif;
-     }
-     p {
-        font-family: 'Inconsolata', sans-serif;
-        font-size: 18px;
-     }
+    a {
+      font-family: 'Inconsolata', sans-serif;
+    }
+    p {
+      font-family: 'Inconsolata', sans-serif;
+      font-size: 18px;
+    }
 
     body {
       background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
@@ -32,7 +32,7 @@
     }
   </style>
   <script src="https://cdn.tailwindcss.com"></script>
-   <script>
+  <script>
     tailwind.config = {
       theme: {
         extend: {
@@ -56,27 +56,49 @@
     </header>
 
     <main class="flex-1 px-6 py-12 max-w-3xl mx-auto w-full">
-      <div class="space-y-8"> <a href="notes/algorithms.html" class="group bg-gray-900 hover:bg-gray-800 transition-all duration-300 rounded-xl p-6 shadow-xl border border-gray-800 hover:border-accent flex flex-col space-y-3 transform hover:-translate-y-1 hover:shadow-2xl">
-          <div class="flex items-center space-x-4"> <span class="text-3xl text-accent group-hover:text-white transition-colors">📘</span>
+      <div class="space-y-8">
+        
+        <!-- Algorithms -->
+        <a href="notes/algorithms.html" class="group bg-gray-900 hover:bg-gray-800 transition-all duration-300 rounded-xl p-6 shadow-xl border border-gray-800 hover:border-accent flex flex-col space-y-3 transform hover:-translate-y-1 hover:shadow-2xl">
+          <div class="flex items-center space-x-4">
+            <span class="text-3xl text-accent group-hover:text-white transition-colors">📘</span>
             <h2 class="text-2xl font-semibold text-gray-100 group-hover:text-accent transition-colors">Algorithms</h2>
           </div>
-          <p class="text-gray-300 text-base">Sorting, searching, Asymptotic notation, dynamic programming, graph theory, and more.</p> </a>
+          <p class="text-gray-300 text-base">Sorting, searching, Asymptotic notation, dynamic programming, graph theory, and more.</p>
+        </a>
 
+        <!-- Cryptography -->
         <a href="notes/cryptography.html" class="group bg-gray-900 hover:bg-gray-800 transition-all duration-300 rounded-xl p-6 shadow-xl border border-gray-800 hover:border-accent flex flex-col space-y-3 transform hover:-translate-y-1 hover:shadow-2xl">
-          <div class="flex items-center space-x-4"> <span class="text-3xl text-accent group-hover:text-white transition-colors">🔐</span>
-             <h2 class="text-2xl font-semibold text-gray-100 group-hover:text-accent transition-colors">Cryptography</h2>
+          <div class="flex items-center space-x-4">
+            <span class="text-3xl text-accent group-hover:text-white transition-colors">🔐</span>
+            <h2 class="text-2xl font-semibold text-gray-100 group-hover:text-accent transition-colors">Cryptography</h2>
           </div>
-          <p class="text-gray-300 text-base">RSA, ECC, hashing, number theory, digital signatures, and security concepts.</p> </a>
+          <p class="text-gray-300 text-base">RSA, ECC, hashing, number theory, digital signatures, and security concepts.</p>
+        </a>
 
+        <!-- Intro AI -->
         <a href="notes/introai.html" class="group bg-gray-900 hover:bg-gray-800 transition-all duration-300 rounded-xl p-6 shadow-xl border border-gray-800 hover:border-accent flex flex-col space-y-3 transform hover:-translate-y-1 hover:shadow-2xl">
-          <div class="flex items-center space-x-4"> <span class="text-3xl text-accent group-hover:text-white transition-colors">🤖</span>
+          <div class="flex items-center space-x-4">
+            <span class="text-3xl text-accent group-hover:text-white transition-colors">🤖</span>
             <h2 class="text-2xl font-semibold text-gray-100 group-hover:text-accent transition-colors">Intro AI</h2>
           </div>
-          <p class="text-gray-300 text-base">Search algorithms, Minimax, MCTS, knowledge representation and other optimisations</p> </a>
+          <p class="text-gray-300 text-base">Search algorithms, Minimax, MCTS, knowledge representation and other optimisations.</p>
+        </a>
+
+        <!-- Linux & NixOS -->
+        <a href="https://www.notion.so/Installation-part-1-2401ea842a24801397f9f70795379bc2?source=copy_link" target="_blank" class="group bg-gray-900 hover:bg-gray-800 transition-all duration-300 rounded-xl p-6 shadow-xl border border-gray-800 hover:border-accent flex flex-col space-y-3 transform hover:-translate-y-1 hover:shadow-2xl">
+          <div class="flex items-center space-x-4">
+            <span class="text-3xl text-accent group-hover:text-white transition-colors">🐧</span>
+            <h2 class="text-2xl font-semibold text-gray-100 group-hover:text-accent transition-colors">Linux & NixOS</h2>
+          </div>
+          <p class="text-gray-300 text-base">My complete guide and setup notes on Linux and NixOS, hosted on Notion.</p>
+        </a>
+
       </div>
     </main>
 
-    <footer class="py-8 text-center text-gray-500 border-t border-gray-800 bg-gray-900 mt-auto"> <p class="text-sm">&copy; 2025 [Umar Sharif]. All rights reserved.</p>
+    <footer class="py-8 text-center text-gray-500 border-t border-gray-800 bg-gray-900 mt-auto">
+      <p class="text-sm">&copy; 2025 [Umar Sharif]. All rights reserved.</p>
     </footer>
   </div>
 </body>
