@@ -5,150 +5,189 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
     <link rel="icon" type="image/png" href="/images/favicon.png">
-    <style>
-        @font-face {
-          font-family: 'Inconsolata';
-          src: url('/fonts/Inconsolata.woff') format('woff');
-          font-weight: normal;
-          font-style: normal;
-        }
-        @font-face {
-          font-family: 'Limelight';
-          src: url('/fonts/Limelight.woff') format('woff');
-          font-weight: normal;
-          font-style: normal;
-        }
-        body {
-          font-family: 'Inconsolata', sans-serif;
-          font-size: 18px;
-          background-color: #111827;
-        }
-        h1 {
-          font-family: 'Limelight', cursive;
-        }
-    </style>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="text-gray-100">
-    <nav class="bg-transparent sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <a href="#" class="text-xl font-bold">Home</a>
-                <div class="space-x-4">
-                    <a href="aboutme.html" class="text-gray-300 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About Me</a>
-                    <a href="cs-notes.html" class="text-gray-300 hover:bg-blue-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">My Notes</a>
-                </div>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">umar@portfolio:~$</div>
+            <div class="nav-links">
+                <a href="#about">about_me</a>
+                <a href="#projects">my_projects</a>
+                <a href="#notes">cs_notes</a>
+                <a href="#contact">contact</a>
             </div>
         </div>
     </nav>
 
-    <section id="about" class="min-h-screen flex flex-col justify-center items-center">
-        <h1 class="text-8xl font-bold mb-4 text-center">Welcome to My Portfolio</h1>
-        <p class="text-xl max-w-xl text-center mb-8">I'm a CS grad and developer interested in AI, Web technologies and Android Development</p>
-        <a href="#projects" class="px-6 py-3 bg-blue-700 hover:bg-blue-800 rounded-full text-gray-100 font-semibold shadow-md hover:shadow-lg transition-all duration-300">See My Projects</a>
-    </section>
-
-    <section id="projects" class="py-16 px-4 mb-44">
-        <h2 class="text-3xl font-bold text-center mb-10 text-white">My GitHub Projects</h2>
-        <div class="max-w-5xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2">
-
-            <div class="group relative bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <img src="images/funcy-demo.gif" alt="funcy.nvim Preview" class="w-full h-full object-cover">
+    <section class="hero" id="about">
+        <h1>Umar Sharif<span class="cursor">_</span></h1>
+        <p>CS grad & developer | AI, Web & Android enthusiast</p>
+        
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <div class="terminal-button close"></div>
+                    <div class="terminal-button minimize"></div>
+                    <div class="terminal-button maximize"></div>
                 </div>
-                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500 z-[5]"></div>
-                <div class="p-8 flex flex-col justify-between min-h-[300px] z-10 relative text-white">
-                    <div>
-                        <div class="flex items-center space-x-2 mb-2">
-                          <img src="images/lua.svg" alt="Lua" class="w-6 h-6">
-                          <h3 class="text-xl font-semibold">funcy.nvim</h3>
-                        </div>
-                        <p class="mb-4">funcy.nvim lets you easily create and refactor function definitions in any language within Neovim using Regex and LSP</p>
-                    </div>
-                    <div class="flex gap-2">
-                    <a href="https://github.com/vmargb/funcy.nvim" target="_blank" class="px-6 py-3 bg-blue-700 hover:bg-blue-800 rounded-full text-gray-100 font-semibold shadow-md hover:shadow-lg transition-all duration-300">View on GitHub</a>
-                    </div>
-                </div>
+                <div class="terminal-title">about_me.sh</div>
             </div>
-
-            <div class="group relative bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                 <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <img src="images/langton-loops.gif" alt="Langton Loop Preview" class="w-full h-full object-cover">
+            <div class="terminal-body">
+                <div class="terminal-line">
+                    <span class="prompt">umar@portfolio:~$</span>
+                    <span class="command"> cat about_me.txt</span>
                 </div>
-                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-500 z-[5]"></div>
-                <div class="p-8 flex flex-col justify-between min-h-[300px] z-10 relative text-white">
-                    <div>
-                        <div class="flex items-center space-x-2 mb-2">
-                          <img src="images/go.svg" alt="Go" class="w-6 h-6">
-                          <h3 class="text-xl font-semibold">Evo-Loop Simulator</h3>
-                        </div>
-                        <p class="mb-4">Self reproducing and evolving automata simulator in an infinite space</p>
-                    </div>
-                    <div class="flex gap-2">
-                    <a href="https://github.com/physicsKnight/Artificial-Life" target="_blank" class="px-6 py-3 bg-blue-700 hover:bg-blue-800 rounded-full text-gray-100 font-semibold shadow-md hover:shadow-lg transition-all duration-300">View on GitHub</a>
-                    </div>
+                <div class="output">
+                    <p>> Hobbies: Language learning, Reading, Calisthenics</p>
+                    <p>> Favorite horror: Hereditary & Midnight Mass</p>
+                    <p>> Favorite book: Mistborn & Ready player one</p>
+                    <p>> Tools I love: Emacs, Org-roam, Nix</p>
                 </div>
-            </div>
-
-            <div class="group relative bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                 <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <img src="images/chessgif.gif" alt="Chess AI Preview" class="w-full h-full object-cover">
-                </div>
-                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-70 transition-opacity duration-500 z-[5]"></div>
-                <div class="p-8 flex flex-col justify-between min-h-[300px] z-10 relative text-white">
-                    <div>
-                        <div class="flex items-center space-x-2 mb-2">
-                          <img src="images/python.svg" alt="Lua" class="w-6 h-6">
-                          <h3 class="text-xl font-semibold">Chess AI</h3>
-                        </div>
-                        <p class="mb-4">Monte-Carlo Tree Search with Minimax AI for playing chess</p>
-                    </div>
-                    <div class="flex gap-2">
-                    <a href="https://github.com/physicsKnight/MCTS-Minimax" target="_blank" class="px-6 py-3 bg-blue-700 hover:bg-blue-800 rounded-full text-gray-100 font-semibold shadow-md hover:shadow-lg transition-all duration-300">View on GitHub</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="group relative bg-gray-700 rounded-lg shadow-lg overflow-hidden">
-                 <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <img src="images/visualiser.gif" alt="Pathfinding Preview" class="w-full h-full object-cover">
-                </div>
-                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-60 transition-opacity duration-500 z-[5]"></div>
-                <div class="p-8 flex flex-col justify-between min-h-[300px] z-10 relative text-white">
-                    <div>
-                        <div class="flex items-center space-x-2 mb-2">
-                          <img src="images/python.svg" alt="Python" class="w-6 h-6">
-                          <h3 class="text-xl font-semibold">Pathfinding Visualiser</h3>
-                        </div>
-                        <p class="mb-4">An interactive tool for visualising graph algorithms such as DFS, BFS, UCS, and A*</p>
-                    </div>
-                    <div class="flex gap-2">
-                    <a href="https://github.com/physicsKnight/Pathfinder" target="_blank" class="px-6 py-3 bg-blue-700 hover:bg-blue-800 rounded-full text-gray-100 font-semibold shadow-md hover:shadow-lg transition-all duration-300">View on GitHub</a>
-                    </div>
+                <div class="terminal-line">
+                    <span class="prompt">umar@portfolio:~$</span>
+                    <span class="command"> <span class="cursor">_</span></span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-16 px-4 mt-24 mb-34 flex flex-col items-center">
-        <h2 class="text-3xl font-bold mb-4">My YouTube Channel</h2>
-        <p class="mb-6 text-center max-w-lg text-gray-300">
-            I regularly post coding tutorials and project walkthroughs related to Computer Science and Neovim!
-        </p>
-        <img src="https://yt3.googleusercontent.com/7d0jsPi4J1xFWc9EURGpuRybqdjKy4w4qQv_vtPuKJgmrDqPoeA2ie3Jt84lmb0WzF0OrAP-AQ=w2560-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" alt="YouTube Channel" class="w-58 h-28 object-cover rounded-lg shadow mb-6">
-        <a href="https://www.youtube.com/@formulaint" target="_blank" class="px-6 py-3 bg-blue-700 hover:bg-blue-800 rounded-full text-gray-100 font-semibold shadow-md hover:shadow-lg transition-all duration-300">
-            Visit My YouTube
-        </a>
+    <section id="projects">
+        <h2 class="section-title">my_projects/</h2>
+        
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📘</div>
+                    <h3 class="project-title">funcy.nvim</h3>
+                </div>
+                <p class="project-description">Neovim plugin that uses LSP to create function & class declarations using Regex.</p>
+                <a href="https://github.com/vmargb/funcy.nvim" class="project-link" target="_blank">View on GitHub</a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">🔄</div>
+                    <h3 class="project-title">Evo-Loop Simulator</h3>
+                </div>
+                <p class="project-description">Self-reproducing cellular automata in an infinite space.</p>
+                <a href="https://github.com/physicsKnight/Artificial-Life" class="project-link" target="_blank">View on GitHub</a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">♟️</div>
+                    <h3 class="project-title">Chess AI</h3>
+                </div>
+                <p class="project-description">Monte-Carlo Tree Search with Minimax AI for playing chess.</p>
+                <a href="https://github.com/physicsKnight/MCTS-Minimax" class="project-link" target="_blank">View on GitHub</a>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">🗺️</div>
+                    <h3 class="project-title">Pathfinding Visualiser</h3>
+                </div>
+                <p class="project-description">Interactive tool for visualising DFS, BFS, UCS, and A* algorithms.</p>
+                <a href="https://github.com/physicsKnight/Pathfinder" class="project-link" target="_blank">View on GitHub</a>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">🌐</div>
+                    <h3 class="project-title">Lookahead</h3>
+                </div>
+                <p class="project-description">A Firefox extension that automates web navigation and simplifies link switching for you.</p>
+                <a href="https://github.com/vmargb/lookahead" class="project-link" target="_blank">View on GitHub</a>
+            </div>
+        </div>
     </section>
 
-    <section id="notes" class="py-16 px-4 mt-24 mb-44 flex flex-col items-center">
-        <h2 class="text-2xl font-bold mb-4">Interested in my CS Notes?</h2>
-        <p class="mb-8 text-center max-w-lg">These are my old compiled notes on Computer Science topics. Click below to explore them!</p>
-        <a href="cs-notes.html" class="px-6 py-3 bg-blue-700 hover:bg-blue-800 rounded-full text-gray-100 font-semibold shadow-md hover:shadow-lg transition-all duration-300">Go to CS Notes</a>
+    <section id="notes" class="notes-section">
+        <h2 class="section-title">old_cs_notes/</h2>
+        
+        <div class="notes-grid">
+            <a href="notes/algorithms.html" class="note-card">
+                <h3 class="note-title">Algorithms</h3>
+                <p class="note-description">Sorting, searching, asymptotic notation, dynamic programming, graph theory.</p>
+            </a>
+            
+            <a href="notes/cryptography.html" class="note-card">
+                <h3 class="note-title">Cryptography</h3>
+                <p class="note-description">RSA, ECC, hashing, number theory, diffie hellman.</p>
+            </a>
+            
+            <a href="notes/introai.html" class="note-card">
+                <h3 class="note-title">Intro AI</h3>
+                <p class="note-description">Search algorithms, Minimax, MCTS, knowledge representation, optimisations.</p>
+            </a>
+            
+            <a href="https://www.notion.so/Installation-part-1-2401ea842a24801397f9f70795379bc2?source=copy_link" target="_blank" class="note-card">
+                <h3 class="note-title">Linux & NixOS</h3>
+                <p class="note-description">Complete guide and setup notes on Linux and NixOS.</p>
+            </a>
+        </div>
     </section>
 
-    <footer class="py-6 text-center text-gray-400">
-        © 2025 [Umar Sharif]. All rights reserved.
+    <section id="contact" class="notes-section">
+        <h2 class="section-title">contact/</h2>
+        
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <div class="terminal-button close"></div>
+                    <div class="terminal-button minimize"></div>
+                    <div class="terminal-button maximize"></div>
+                </div>
+                <div class="terminal-title">contact.sh</div>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line">
+                    <span class="prompt">umar@portfolio:~$</span>
+                    <span class="command"> echo "Let's connect!"</span>
+                </div>
+                <div class="output">
+                    <p>> Email: umarsharif812 AT gmail DOT com</p>
+                    <p>> YouTube: <a href="https://www.youtube.com/@formulaint" style="color: var(--accent);">@formulaint</a></p>
+                    <p>> Response time: Usually within a few days</p>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">umar@portfolio:~$</span>
+                    <span class="command"> <span class="cursor">_</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="aboutme.html">About Me</a>
+            <a href="cs-notes.html">CS Notes</a>
+            <a href="https://github.com/physicsKnight">GitHub</a>
+            <a href="https://www.youtube.com/@formulaint">YouTube</a>
+        </div>
+        <p>© 2025 Umar Sharif. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() { // typewriter effect
+            const cursor = document.querySelector('.cursor');
+            if (cursor) {
+                setInterval(() => {
+                    cursor.style.visibility = (cursor.style.visibility === 'hidden' ? 'visible' : 'hidden');
+                }, 500);
+            }
+            
+            const textElements = document.querySelectorAll('h1, h2, h3, .project-title'); // glow effect on hover
+            textElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    el.style.textShadow = '0 0 10px var(--text-primary)';
+                });
+                el.addEventListener('mouseleave', () => {
+                    el.style.textShadow = '0 0 5px var(--text-primary)';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
