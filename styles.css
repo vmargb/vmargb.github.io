@@ -27,11 +27,11 @@ body {
     font-family: 'Inconsolata', monospace;
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    margin: 0;
-    padding: 0;
+    margin: 0; 
+    padding: 0; 
     line-height: 1.5;
     font-size: 16px;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* CRT monitor effect */
@@ -87,23 +87,22 @@ body::after {
     color: var(--accent);
 }
 
-/* Navigation */
 nav {
     background-color: var(--bg-secondary);
     border-bottom: 1px solid var(--border);
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    padding: 1rem 0; /* increased vertical padding */
+    position: sticky; /* position fixed to top on scroll */
+    top: 0; /* 0 distance from top */
+    z-index: 10; /* stay above other content */
 }
 
 .nav-container {
-    max-width: 1200px;
+    max-width: 1200px; /* limit max width of content itself */
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
+    justify-content: space-between; /* space between logo and nav links */
+    align-items: center; /* center vertically */
+    padding: 0 1rem; /* horizontal padding to nav */
 }
 
 .logo {
@@ -114,15 +113,15 @@ nav {
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: 2rem; /* gap between links */
 }
 
 .nav-links a {
     color: var(--text-primary);
     text-decoration: none;
     position: relative;
-    padding: 0.5rem 0;
-    transition: color 0.3s ease;
+    padding: 0.5rem 0; /* increased vertical padding for easier clicking */
+    transition: color 0.3s ease; /* smooth color transition */
 }
 
 .nav-links a::after {
@@ -141,7 +140,7 @@ nav {
 }
 
 .nav-links a:hover::after {
-    width: 100%;
+    width: 100%; /* underline expands to full width on hover */
 }
 
 .hero {
