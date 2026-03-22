@@ -113,9 +113,9 @@ The Emacs learning curve is real and I won't pretend otherwise. I've been using 
 
 -----
 
-If that resonates, it might be worth trying. If it doesn't, Obsidian is excellent. The best notes system is the one you actually use.
+If that resonates, it might be worth trying. Now I wont hate you if you still choose Obsidian, the best system is the one that you will actually use.
 
-But if you find yourself wanting more — wanting your notes to /do/ things, not just /be/ things — then Org-mode is waiting. It's been waiting since 1990. It'll probably be here in 2050 too. Obsidian might not be. That's the kind of bet I'm willing to make.
+But if you find yourself wanting more, then Org-mode is waiting. It's been waiting since 1990. It'll probably be here in 2050 too. Obsidian might not be. That's the kind of bet I'm willing to make.
 
 # ----Post footer---- (boilerplate)
 #+BEGIN_EXPORT html

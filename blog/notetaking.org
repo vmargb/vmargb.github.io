@@ -1,0 +1,99 @@
+#+SETUPFILE: ../blog-setup.org
+#+TITLE: The self-corrective approach to learning
+
+# ----Post metadata---- (boilerplate)
+# .post-meta bar underneath title
+#+BEGIN_EXPORT html
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">ai</span>
+  <h1 class="post-title">The self-corrective approach to learning</h1>
+  <div class="post-meta">
+    <span>02 Jan 2026</span>
+    <span class="post-meta-sep">·</span>
+    <span>8 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+#+END_EXPORT
+
+# ----normal Org mode----
+# Export: C-c C-e h o
+
+* Evidence
+This learning system is anecdotal, but it does align with evidence-based meta-learning principles such as:
+- *Constructivism* - knowledge is constructed by you. Instead of simply absoring information or copying/rewriting, the explanation only comes from your memory [1]
+
+- *Errorful generation* - generating your own explanation that is initially *wrong/incomplete* actually produces stronger memory once it is corrected. Correcting yourself is better for deeper understanding than getting it right the first time [2]
+
+- *Successive elaboration* - successively self-correcting your explanation over multiple passes leads to deeper 'encoding' of the concept by creating richer memory traces [3]
+
+- *Desirable difficulties* - Instead of copying, make the model *personal* & “dumbified”, which more realistically resembles your current understanding with the concept [4]
+
+- *The Feynman technique* - *teach* your current explanation(even if its wrong) without your notes, which improves active recall and exposes gaps in your explanation [5]
+
+- *Contextual learning* - use real practical examples & use-cases as *context* for each concept [6]
+
+* Self-Corrective learning
+** Basic Idea
+The essence of this method is:
+1. *Your Model*: For each concept, write down your own personal version of the concept. Don't try to sound perfect or formal, just write it down in the most *'frictionless'* way possible(exactly as it appears in your mind) /even/ if it is *wrong*. Treat it as a brain dump.
+
+2. *Self Iterate*: This is just "version 1" of your model, and now you will self-iterate your model through *multiple passes*. So whenever you notice something missing or something that needs to be corrected, or a new connection you've discovered, you refine your model.
+
+   *Note: This model is only for you, so feel free to make it sound as silly and personal as possible. Assume you could read it 6 months later and understand exactly what you meant when you wrote it.*
+
+** Format/Structure
+Create a google doc, notion, obsidian etc. with the following structure:
+
+** First section (Index)
+A list of every concept as you see them. Add a hyperlink for each one, that jumps you to the concept header/file.
+
+** Second section (Concepts):
+Dedicate a chapter(or a file) to each concept with these subsections:
+
+** My Model (recursively improve):
+    After encountering a new concept, without copying, write down the first mental picture that pops up into your mind, but only do this after a couple hours to a day(so that it really comes from your memory). This should easily be understood *without any friction*, so make it as personal as possible. Write as if nobody else would understand except for your mind alone.
+
+** Inbox:
+    - *Reading Inbox:* Store articles, books and any other resource links you plan to read and jot down what you learned from these material. Use this research/find answers to problems in your writing inbox below.
+
+    - *Writing Inbox:* This is where you collect incomplete thoughts. A checklist of any question that arises, things that still feel /fuzzy/, no matter how silly the question is. Then research/find answers to insert into your model (from memory)
+
+    - *Feynman Attempt:* This technique allows you to expose gaps in your explanation by finding what you failed to explain, note the exact sentence/step where you failed, and if any *gaps* arose in your explanation, write down what this gap was so you can correct it later. If you simply just forgot what to say, your model is not /dumbified/ or simple enough, make it even more personal and understandable until its completely easy to recall. Remember to not be formal at all.
+
+
+** Hidden knowledge
+      It's impossible to fit everything that there is to say about about a concept into one page. An unwritten rule is that authors purposefully embed extra lessons into the *exercises* that is left for you to discover on your own. These extra lessons which I'm going to call *"hidden knowledge"* give you the complete picture, which is stuff that you're usually tested on. The problem is, we never keep track of or write this down as we discover them. It's your job to make a list of each of these discoveries and insert them into your model.
+
+
+* Conclusion
+That is it. This is what I've formulated as the ultimate note-taking technique which I wish I had known much earlier. Now one common problem is, what do you do with your already existing notes taken in between lectures, seminars or in the classroom? I would treat these notes simply as your /scratchpad/. You take them exactly as you've already been doing. Once you've given yourself enough time to *forget* these notes(preferrably at the end of the day), that is the perfect time to create or add to your *Model* from memory and follow the steps above.
+
+
+* References
+
+[1] Piaget, J. (1952). The origins of intelligence in children. International Universities Press.
+
+[2] Kornell, N., Hays, M. J., & Bjork, R. A. (2009). Unsuccessful retrieval attempts enhance subsequent learning. Journal of Experimental Psychology: Learning, Memory, and Cognition, 35(4), 989–998.
+
+[3] Anderson, J. R. (1983). The architecture of cognition. Harvard University Press.
+(Also related: elaborative encoding; Craik, F. I. M., & Tulving, E. (1975). Journal of Experimental Psychology: General, 104(3), 268–294.)
+
+[4] Bjork, R. A. (1994). Memory and metamemory considerations in the training of human beings. In J. Metcalfe & A. Shimamura (Eds.), Metacognition: Knowing about knowing (pp. 185–205). MIT Press.
+
+[5] Chi, M. T. H., Bassok, M., Lewis, M. W., Reimann, P., & Glaser, R. (1989). Self-explanations: How students study and use examples in learning to solve problems. Cognitive Science, 13(2), 145–182.
+
+[6] Bransford, J. D., Brown, A. L., & Cocking, R. R. (2000). How people learn: Brain, mind, experience, and school. National Academy Press.
+
+
+# ----Post footer---- (boilerplate)
+#+BEGIN_EXPORT html
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 02 Jan 2026</span>
+</footer>
+</div>
+#+END_EXPORT
