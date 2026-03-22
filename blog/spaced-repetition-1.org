@@ -1,0 +1,118 @@
+#+SETUPFILE: ../blog-setup.org
+#+TITLE: My thoughts on building a Better Anki
+
+# ----Post metadata---- (boilerplate)
+# .post-meta bar underneath title
+#+BEGIN_EXPORT html
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">ai</span>
+  <h1 class="post-title">Building a Better Anki: Enhancing Flashcards for Multi-Step Active Recall</h1>
+  <div class="post-meta">
+    <span>08 Oct 2025</span>
+    <span class="post-meta-sep">·</span>
+    <span>8 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+#+END_EXPORT
+
+# ----normal Org mode----
+# Export: C-c C-e h o
+
+Flashcards persistently remain essential for all forms of learning and disciplines. Anki's spaced-repetition excels for simple tasks like remembering facts, definitions, vocabulary etc... However it clearly reveals its limitation with complex tasks like coding, problem-solving or studying grammar(over vocabulary) which demand more sophisticated approaches. The obvious answer here would be to transition to traditional note-taking for anything that goes beyond brute-memorisation, but what if there's a better way? This post outlines my vision for a next-generation flashcard system which prioritises multi-step active recall and adaptive learning.
+
+** The Problem with Linear Flashcards
+Most flashcards assume knowledge is binary, you either know it or you don’t. But learning is often more of a /progressive/ process.
+
+You might grasp a concept in plain English but struggle to implement it in code.
+
+You might remember a formula but fail to derive it step-by-step.
+
+You might recognise a grammatical rule but forget how to arrive there
+
+A better system would:
+
+Break complex topics into sequential recall steps.
+Adjust review frequency per step (not per card).
+Allow branching paths, different routes to the same answer.
+
+Instead of a single "answer," each flashcard has multiple checkpoints, each reinforcing understanding.
+
+** Multi-Step Active Recall
+Traditional flashcards present linear front/back interactions, but more complicated concepts are not as simple as that, sometimes understanding a concept requires passing through multiple /bridges/ or middle-men that help you arrive at the conclusion. For example, lets say we're solving a coding problem:
+
+    1. *Front*: Question text
+    2. *First Recall*: Solution in plain-english
+    3. *Second Recall*: Code implementation
+
+    *or:*
+    1. *Front*: Question text
+    2. *First Recall*: Solution in plain-english
+    3. *Second Recall*: Step-by-step solution (still in english)
+    4. *Third Recall*: Code implementation
+
+*** Example
+#+BEGIN_QUOTE
+*Front*
+How would you reverse a linked list?
+
+
+*First Recall (Plain English Explanation)*
+Start from the head, and iteratively reverse the pointers of each node until reaching the end.
+
+
+*Second Recall (Step-by-Step Explanation)*
+1. Initialise three pointers: previous, current, next.
+2. Iterate through the list:
+   - Store the next node.
+   - Reverse the current node's pointer to point to the previous node.
+   - Move the previous and current pointers forward.
+3. Return the new head (previous pointer).
+
+
+*Third Recall (Code Implementation)*
+#+BEGIN_SRC python
+def reverselinkedlist(head):
+    prev, curr = None, head
+    while curr:
+        nextnode = curr.next
+        curr.next = prev
+        prev = curr
+        curr = nextnode
+    return prev
+#+END_SRC
+#+END_QUOTE
+
+And each layer towards the solution has its own confidence prompt. Perhaps it is more difficult to arrive at the code straight away, but an explanation in plain english creates a /eureka/ moment for you. This allows you to solidify each layer and systematically arrive at the solution slowly. Which allows you to focus on one cognitive task at a time without overloading your working memory.
+
+The system should evaluate each recall layer independently. A user might:
+    - Find the conceptual explanation straightforward (easy rating)
+    - Struggle with edge cases in implementation (hard rating)
+    - Require more frequent review for the coding step while spacing out the conceptual review
+
+** Branching Paths for Adaptive Learning
+Some topics require different approaches. Instead of rigid steps, we could instead allow optional alternate pathways:
+
+#+begin_quote
+## Grammar: Past Perfect Tense  
+- **Front:** When do you use past perfect?  
+- **Path A (Rule-Based):**  
+  - Answer: "For actions completed before another past action."  
+- **Path B (Example-Based):**  
+  - Answer: "E.g., 'She had left before I arrived.'"  
+#+end_quote
+
+This approach would make flashcards completely different from how Anki usually works because Anki treats each card as a fixed question–answer pair, with one “right” response. In contrast, a multi-path system introduces more flexibility. Where instead of memorising isolated facts, you could have multiple angles within a single card, this prevents review sessions from becoming repetitive-drills.
+
+
+# ----Post footer---- (boilerplate)
+#+BEGIN_EXPORT html
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 08 Oct 2025</span>
+</footer>
+</div>
+#+END_EXPORT

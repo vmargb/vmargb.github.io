@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MCTS vs Minimax: when to explore, when to exploit</title>
+<meta name="generator" content="Org Mode" />
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog.css">
+</head>
+<body>
+<div id="content" class="content">
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">ai</span>
+  <h1 class="post-title">MCTS vs Minimax: when to explore, when to exploit</h1>
+  <div class="post-meta">
+    <span>30 Nov 2024</span>
+    <span class="post-meta-sep">·</span>
+    <span>10 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+
+<p>
+When I built my chess AI last year, I originally started with the Minimax algorithm as it's the standard choice for board game AI, it's what every tutorial starts with. Then I later added Monte-Carlo Tree Search on top of it. The combination ended up being more interesting than with either algorithm alone, and the process of figuring out why taught me something deeper between these two approaches.
+</p>
+<div id="outline-container-orgf3b54b7" class="outline-2">
+<h2 id="orgf3b54b7">Minimax: the exhaustive reasoner</h2>
+<div class="outline-text-2" id="text-orgf3b54b7">
+<p>
+Minimax is clean in a sort of brute-force manner. You build a game tree and alternate between maximising your score and minimising the opponents score, then pick the move from the root that leads to the best outcome(the highest overall evaluation from maximising your scores). Additionally, alpha-beta pruning proved to cut the tree roughly in half allowing to look ahead by <code>n=3</code>. Now if you add a good evaluation function, this plays decently good chess.
+</p>
+
+<p>
+The problem is that chess has a branching factor of around 35. At depth <code>n=5</code>, you're evaluating roughly 35<sup>5</sup> ≈ 52 million positions. At depth 7, 35<sup>7</sup> ≈ 64 billion. Allowing this many evaluations to happen for <b>every</b> move in the game becomes computationaly expensive and tedious. Moreover, the evaluation function is also a load-bearing assumption, if your heuristic is wrong then Minimax will still confidently find the best move toward a bad outcome. Is there a way to better determine which paths are worth exploring?
+</p>
+</div>
+</div>
+<div id="outline-container-org5e13c97" class="outline-2">
+<h2 id="org5e13c97">MCTS: the gambler</h2>
+<div class="outline-text-2" id="text-org5e13c97">
+<p>
+Monte-Carlo Tree Search takes a slightly different approach. Rather than applying static evaluation to every possible position, it instead runs <b>playouts</b>, which basically simulates full games to completion and uses the result(win/loss) to estimate ahead of time which moves are promising. The key to this stategy is the UCB1 formula, which balances <b>exploration and exploitation</b>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">UCB1 = (w / n) + c * sqrt(ln(N) / n)
+
+# w = wins from this node
+# n = times this node was visited
+# N = times parent was visited
+# c = exploration constant (typically sqrt(2))
+</pre>
+</div>
+
+<p>
+The first term is exploitation, which prefer to <i>exploit</i> nodes that have won often. The second is exploration which prefers nodes that haven't been tried/tested as much(worth exploring). But if you set <code>c</code> too high then you start to explore just randomly which is not good. Too low and you exploit greedily and miss better moves(favouring exploitation more over exploration). This is why there needs to be a <b>balance</b>.
+</p>
+
+<p>
+However, pure MCTS with random playouts is actually bad at chess. Random chess games are just noise. The winning side in a random playout is almost unrelated to who's winning after a good play.
+</p>
+</div>
+</div>
+<div id="outline-container-orgc92265a" class="outline-2">
+<h2 id="orgc92265a">Why the combination works</h2>
+<div class="outline-text-2" id="text-orgc92265a">
+<p>
+The approach I ended up with is: use MCTS to decide <i>which parts</i> of the tree to explore, and replace random playouts with shallow Minimax evaluations (depth 1-3).
+</p>
+
+<p>
+MCTS handles the <b>strategic</b> decisions, which is which branches are worth spending time on. It grows the tree asymmetrically, allocating more computation to positions that actually matter and are worth exploring, rather than giving equal computation to paths that don't matter as much.
+</p>
+
+<p>
+Minimax handles the <b>tactical</b> decisions within a branch MCTS has decided to explore, it can calculate forcing lines, spot checkmates, avoid blunders etc.
+</p>
+
+<blockquote>
+<p>
+MCTS asks "which direction should I think harder about?" whereas Minimax asks "given that I'm thinking about this direction, what's the best move?"
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-org44219f9" class="outline-2">
+<h2 id="org44219f9">The evaluation function, revisited</h2>
+<div class="outline-text-2" id="text-org44219f9">
+<p>
+This is an example of a simple staic evaluation function used for chess: material count, piece-square tables, a bonus for castling and connected rooks.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">def evaluate(board):
+    score = 0
+    for square, piece in board.piece_map().items():
+        value = PIECE_VALUES[piece.piece_type]
+        positional = PIECE_SQUARE_TABLES[piece.piece_type][square]
+        if piece.color == chess.WHITE:
+            score += value + positional
+        else:
+            score -= value + positional
+    return score
+</pre>
+</div>
+
+<p>
+Despite implementing Minimax and every module correctly, everything is held back by the strength of the static evaluation. A weak evaluation leads to a weak agent, and a strong evaluation leads to a strong agent. The problem is that not every game of chess can be accurately represented by an evaluation that is hardcoded and never changes.
+</p>
+
+<p>
+Interestingly, MCTS has to compensate substantially for a weak evaluation function. Because it selects <i>which</i> positions to evaluate rather than evaluating everything. For example, a mediocre heuristic applied to the <b>right positions</b> outperforms the same heuristic applied uniformly. This is probably why AlphaZero was such a leap where a more sophisticated learned evaluator replaced the traditional method of random playouts.
+</p>
+</div>
+</div>
+<div id="outline-container-org3c49fc8" class="outline-2">
+<h2 id="org3c49fc8">Things I'd do differently</h2>
+<div class="outline-text-2" id="text-org3c49fc8">
+<p>
+The exploration constant <code>c</code> was 1.4 (the theoretical default). In practice the right value depends on your evaluation function and time budget. I never tuned it systematically, which is a bad way to tune a hyperparameter when you can generate objective win/loss data.
+</p>
+
+<p>
+I also never implemented transposition tables for the MCTS tree. Which is the case where you reach the same position via different move orders, you should obviously reuse the accumulated statistics rather than treating it as a new node and repeating the same calculation again. Transpostion tables essentially cache the accumulated statistic for common positions to save cost throughout the game.
+</p>
+
+<p>
+Lastly, the biggest weakness of any board game agent is an evaluation that does not adapt. A more dynamic evaluation beats static evaluation in because it tackles the <b>horizon effect</b>. Basically, static eval just scores a position as-is, which can be wildly misleading mid-tactics like a capture sequence where you're temporarily up material but about to lose more. Instead, a better approach is to keep searching "forcing" moves (captures, checks, promotions) via <b>quiescence search</b>, ensuring a stable, realistic score that avoids tactical blunders. The way this works is, run normal minimax to an odd-depth limit like <code>n=3</code>, then at the leaves switch over to a quiescence searce. This makes the engine way sharper while being able to adapt to different situations. <a href="https://en.wikipedia.org/wiki/Quiescence_search">wikipedia</a>
+</p>
+
+<p>
+An even more sophisticated approach would be to use a large dataset of grandmaster games with a collection of random eval functions that test for different things. Then test which ones <i>adapt</i> or <i>mimic</i> good plays the best and assign them a higher <b>fitness score</b>. You can then use something like simulated annealing or a genetic algorithm that dynamically refines the evaluation into something that closely resembles grandmaster-level evals. The problem is this process is extremely compute-heavy and takes a long time to get right.
+</p>
+
+<hr>
+
+<p>
+What I came away with is a better intuition for when each approach is right. Minimax is right when the search space is small enough to reason through completely, or when you need precise tactical calculation(perfect for simpler games like connect 4 and checkers). MCTS is right when the space is too large to enumerate, or when you want to allocate computation dynamically. Combining them is right when you need both. Interestingly, this explore-exploit tradeoff <code>UCB1</code> balances also shows up in other scenarios like A/B testing, recommendation systems, and reinforcement learning broadly.
+</p>
+
+<p>
+The code for this project can be found here: <a href="https://github.com/physicsKnight/MCTS-Minimax">https://github.com/physicsKnight/MCTS-Minimax</a>
+</p>
+
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 30 Nov 2024</span>
+</footer>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

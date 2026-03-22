@@ -1,0 +1,127 @@
+#+SETUPFILE: ../blog-setup.org
+#+TITLE: NixOS: the first month in
+
+# ----Post metadata---- (boilerplate)
+# .post-meta bar underneath title
+#+BEGIN_EXPORT html
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">ai</span>
+  <h1 class="post-title">NixOS: the first month in</h1>
+  <div class="post-meta">
+    <span>19 Aug 2025</span>
+    <span class="post-meta-sep">·</span>
+    <span>7 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+#+END_EXPORT
+
+# ----normal Org mode----
+# Export: C-c C-e h o
+
+* Why I Left Obsidian for Org-roam (And Why You Probably Shouldn't)
+
+Every few months someone rediscovers Obsidian and posts about it on Hacker News or YouTube, and the cycle begins again. I was one of those people once. I spent a weekend migrating all my notes(from google keep) into a vault, installed all the essential plugins, and felt genuinely productive for about three weeks or so.
+
+This isn't an "Obsidian is bad" post. Obsidian is genuinely good, if not one of the best pieces of software that has graced us. But after using Emacs and Org-mode seriously for the past year, there is just simply no going back(annoyingly)
+
+The problem isn't the features. It's that Markdown is fundamentally inadequate for what I actually want to do with my notes, and Obsidian inherits every limitation of that format. Org-mode however is a completely different category of tool that happens to also do notes.
+
+** What Obsidian gets right
+
+The onboarding is essentially frictionless. You open it, point it at a folder, and you have a note-taking app. The graph view is attractive and the plugin ecosystem is the best out there, and the defaults are sensible. If you're a normal person who wants to immediately take notes in a frictionless way, you might as well stop reading here, Obsidian is the right answer.
+
+** Where it started to fall apart for me
+
+The problem wasn't any single feature. It was the accumulated weight of the Electron app sitting between me and a text file. Every time I wanted to do something slightly non-standard, run a script against my notes, grep across them, pipe them into something else, harpoon across my frequently used notes. I was constantly reminded that this was a tool designed for non-developers.
+
+My notes are just files on disk. The idea that I should have to open a specific application to interact with them started to feel absurd. With Org files, every tool I already know works: =grep=, =sed=, =find=, =git diff=, anything. They're plain text.
+
+#+BEGIN_QUOTE
+The test I now apply to any tool: if the company shut down tomorrow, or the app stopped working, would I lose anything I can't recover? With Obsidian vaults on disk, the answer is no. But the habits and workflows built around the GUI are a different kind of lock-in.
+#+END_QUOTE
+
+** Why Org-mode
+
+I write documentation in Markdown. I write READMEs in Markdown. It's perfect for those things.
+
+
+But using Markdown for a serious knowledge base has always been limited. It works, technically. You'll get there eventually. But you're making it harder than it needs to be.
+
+Here's what I mean:
+
+| Feature                    | Markdown + Obsidian        | Org-mode                     |
+|----------------------------+----------------------------+------------------------------|
+| TODO tracking              | Plugin (Tasks, Kanban)     | Built-in, with states        |
+| Code execution             | Plugin (Execute Code)      | Built-in (org-babel)         |
+| Tables                     | Basic, painful to edit     | Spreadsheet-like, editable   |
+| Citations                  | Plugin (Citations)         | Built-in (org-cite)          |
+| Agenda/scheduling          | Plugin (Calendar, Tasks)   | Built-in, decades of refinement |
+| Export formats             | PDF, HTML (via plugins)    | Everything, natively         |
+| Custom queries             | Dataview (learn a DSL)     | Org query language + Elisp   |
+
+None of these are dealbreakers individually. But the pattern is clear: Obsidian needs plugins for things Org-mode has had since 2008. And plugins mean maintenance, compatibility issues, and someone else's timeline for features you need.
+
+The other thing: Markdown has /no semantic structure/ beyond headings, lists, and links. Org-mode has properties, drawers, blocks, source code with language-specific highlighting and execution, LaTeX math that actually works with exporting and conversions, footnotes that don't break your export, etc... the list goes on.
+
+** What Org-roam actually is
+
+Org-roam is a package for Emacs that implements a Zettelkasten-style note graph on top of Org mode. It gives you bidirectional links and a node database (SQLite under the hood) for a daily journal workflow. But still all operating on ordinary =.org= files.
+
+The relevant bits of my config:
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-roam
+  :custom
+  (org-roam-directory "~/notes/roam")
+  (org-roam-completion-everywhere t)
+  :bind
+  (("C-c n f" . org-roam-node-find)
+   ("C-c n i" . org-roam-node-insert)
+   ("C-c n c" . org-roam-capture)
+   ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  (org-roam-db-autosync-mode))
+#+END_SRC
+
+That's most of it. =org-roam-node-find= opens a fuzzy-search over all your nodes. =org-roam-node-insert= creates a link inline while you're writing. The dailies workflow gives you a journal entry per day, automatically linked to whatever nodes you reference in it.
+
+#+BEGIN_QUOTE
+If you're curious about this without committing to full Emacs, Denote is a simpler Emacs package that does the file-linking part without the database. It's a much gentler entry point.
+#+END_QUOTE
+
+** The things I can't do in Obsidian
+
+Now everything I described above just demonstrates that both applications /can/ do the same thing. The difference is that Emacs as an application is far superior to Obsidian for my actual workflow, because Emacs is an environment and Obsidian is a silo.
+
+As a developer, I live in my editor. My terminal is inside my editor. My git client is inside my editor. My project navigation is inside my editor. When I switch to Obsidian to take a note, I am leaving my work environment. I lose my keybindings. I lose my project context. I lose the ability to fd or grep across my project and notes simultaneously without opening a separate window.
+
+In Emacs, an Org file is just another buffer. It obeys the same rules as a Python file or a Rust file.
+
+The cognitive load of context switching is real. I didn't realize how much friction I was accepting until I removed it. Every time I alt-tabbed to Obsidian, there was a micro-pause where my brain had to switch modes from "coding" to "note-taking."
+
+This extends to customization. If I want Obsidian to behave differently, I install a plugin written by someone else, hoping it doesn't break on the next update. If I want Emacs to behave differently, I write ten lines of Elisp in my =init.el=.
+
+This is why I can't go back. It's not about the notes. It's about the workflow. Obsidian asks me to adapt to its way of working. Emacs adapts to me.
+
+** The honest tradeoffs (and why I still chose this)
+
+The Emacs learning curve is real and I won't pretend otherwise. I've been using it for a year and I'm still learning new things. The configuration is Lisp, which is either delightful or horrifying depending on your prior coding experience(if any). The worst is that there is no sophisticated cross-platform mobile solution worth using. Syncing requires you to sort it out yourself(syncthing, dropbox, git etc.)
+
+-----
+
+If that resonates, it might be worth trying. If it doesn't, Obsidian is excellent. The best notes system is the one you actually use.
+
+But if you find yourself wanting more — wanting your notes to /do/ things, not just /be/ things — then Org-mode is waiting. It's been waiting since 1990. It'll probably be here in 2050 too. Obsidian might not be. That's the kind of bet I'm willing to make.
+
+# ----Post footer---- (boilerplate)
+#+BEGIN_EXPORT html
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 19 Aug 2025</span>
+</footer>
+</div>
+#+END_EXPORT

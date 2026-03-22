@@ -1,0 +1,138 @@
+#+SETUPFILE: ../blog-setup.org
+#+TITLE: NixOS: the first month in
+
+# ----Post metadata---- (boilerplate)
+# .post-meta bar underneath title
+#+BEGIN_EXPORT html
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">ai</span>
+  <h1 class="post-title">NixOS: the first month in</h1>
+  <div class="post-meta">
+    <span>19 Aug 2025</span>
+    <span class="post-meta-sep">·</span>
+    <span>7 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+#+END_EXPORT
+
+# ----normal Org mode----
+# Export: C-c C-e h o
+
+A couple months ago, I put NixOS on my main machine. I want to write down what that's actually been like, not the honeymoon version you see on youtube or read in blog posts from people who just finished setting it up, but where I am after weeks of fighting with it for real work.
+
+tldr: it was rougher than what was advertised, the mental model takes real time to build, and there are things that are still genuinely annoying. But the thing it promises which is a declarative and reproducible system that you can actually understand and rebuild from scratch actually delivers.
+
+** What Nix even is
+
+If you haven't heard of it, NixOS is a Linux distribution built around the Nix package manager. The core idea is that your entire system configuration, packages, services, users, dotfiles, everything lives in a collection of =.nix= files(or a single file if you want) that you can commit using version control like Git. Nix being a functional and declarative programming language means whatever you declare, will always reproduce the exact same system, every time.
+
+The opposite of this is how most Linux systems work, you install packages imperatively in the terminal over time, modify config files by hand and eventually end up with a system where the current state exists only as a history of commands you may or may not remember entering. The equivalent would be if someone asked for your neovim configuration, and you could only tell them all the settings you "remember" changing/installing.
+
+** Month one: I regret everything
+
+The first month was genuinely painful. Every minute was wanting to return back to Windows or MacOS.
+
+You can't just =apt install= or =brew install= something. You can't just download a binary and run it. You can't just follow a tutorial that says "put this in =/usr/local/bin=." Everything must be declared and configured in a =.nix=. Everything. The friction is exhausting before it becomes useful.
+
+When things work, you don't know why. When things break, you don't know why either. You're just... trusting the system which feels like an ominous black-box. Which is the opposite of how most people use Linux. I want to know what's happening. I want to see the files. I want to understand the state of my machine.
+
+I also hit the shebang problem that everyone does. You write a script, make it executable, try to run it, and get:
+
+#+BEGIN_QUOTE
+=bad interpreter: No such file or directory=
+#+END_QUOTE
+
+Because =/usr/bin/python3= doesn't exist. Turns out everything is in =/nix/store= under a unique hash. You learn to use =nix-shell=. Or you write a derivation. Or you give up and use a wrapper script. None of these feel good on day fifteen when you just want everything to run.
+
+#+BEGIN_QUOTE
+The fastest way through month one: keep search.nixos.org/options and search.nixos.org/packages open in separate tabs. Close them at your own risk. They answer 90% of questions. The other 10% require reading source code(or asking an llm)
+#+END_QUOTE
+
+** Flakes (nix in latin means snow btw)
+
+The next few weeks in I switched from the traditional =configuration.nix= setup to flakes. Flakes are technically still "experimental" but in practice everyone in the community uses them. The difference is that flakes give you a locked =flake.lock= file, similar to how every package manager that handles dependencies work. This is an exact pinned version of every input, including nixpkgs itself. Your system is now fully reproducible not just structurally but in terms of exact package versions.
+
+My =flake.nix= looks roughly like this:
+
+#+BEGIN_SRC nix
+{
+  description = "my system config";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { self, nixpkgs, home-manager, ... }: {
+    nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./hosts/laptop/configuration.nix
+        home-manager.nixosModules.home-manager
+        { home-manager.users.{user} = import ./home/{user}.nix; }
+      ];
+    };
+  };
+}
+#+END_SRC
+
+The other half of this is Home Manager, which extends the same declarative approach at the system-level to a user-level config dotfiles, shell config, user packages etc. My entire Emacs config, my =.zshrc=, my git settings, all of it is managed through Home Manager and lives in the same repo as the system config. =git clone= the repo on a new machine, run =nixos-rebuild switch --flake .#laptop=, and you have my exact setup.
+
+That's not a hypothetical. I tested it. It works.
+
+** The things I actually like now
+
+*** Rollbacks
+
+If a system rebuild breaks something, you boot into the previous generation from the bootloader menu. This has saved me a couple times, once when the WiFi driver broke, once when I made a bad change to my Niri config and couldn't get a desktop to load. Both times: reboot, select previous generation, rebuild. Now other distros can kind of achieve something similar to this, but none at the sophistication and guarantee of NixOS.
+
+*** Development shells
+
+=nix develop= and =nix-shell= let you drop into a shell with exactly the dependencies a project needs, without installing anything globally. You put a =shell.nix= in most of your project directories. Enter the directory, run =nix-shell=, and the right version of Python/Node/whatever is available. Leave the directory, it's gone. No annoying virtualenvs, =nvm= or version conflicts to deal with anymore.
+
+#+BEGIN_SRC nix
+# shell.nix for a typical Python project
+{ pkgs ? import <nixpkgs> {} }:
+pkgs.mkShell {
+  buildInputs = with pkgs; [
+    python311
+    python311Packages.pip
+    python311Packages.black
+    ruff
+    sqlite
+  ];
+}
+#+END_SRC
+
+*** The config is the documentation
+
+On previous setups, I had a =setup.md= file listing things I'd installed, which was perpetually out of date and constantly changing. Now the configuration files themselves /are/ the documentation, they're always accurate because they're declarative and the system handles the rest for me.
+
+** The things that are still annoying
+
+Some proprietary software is a pain. Anything that ships its own bundled libraries and expects to find them at standard paths will fail in creative ways. =steam-run= exists for this, and the nixpkgs Steam package works fine, but if you need to run some random closed-source binary you found somewhere, good luck.
+
+The error messages from Nix can be genuinely impenetrable. When something goes wrong in a derivation, you sometimes get a stack trace that requires knowing the internals of the Nix evaluator to parse. This gets better as you learn more but it's not fun at all.
+
+Build times. If something isn't cached in the Nix binary cache, it builds from source. Most things are cached. Some things aren't.
+
+-----
+
+Currently, I think NixOS is worth it for a specific kind of person: someone who finds the "it works on my machine" problem genuinely frustrating. And someone who spends most of their time tinkering and configuring anyway. For that type of person(me), the payoff is real. Your system is recoverable and portable in a way that no other mainstream distro gives you.
+
+
+# ----Post footer---- (boilerplate)
+#+BEGIN_EXPORT html
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 19 Aug 2025</span>
+</footer>
+</div>
+#+END_EXPORT

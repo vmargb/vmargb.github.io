@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--
+        BLOG POST TEMPLATE
+        ==================
+        1. Update <title>, .post-title, .post-date, .post-tag, .post-meta-reading
+        2. Write your post inside <article class="post-body">
+        3. Save as blog/your-slug.html
+        4. Add a row to blog.html
+    -->
+    <title>Post Title — umar</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <!-- Google Font: Lora for body text (serif, Medium-like feel) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* ─── Post page layout ──────────────────────────────── */
+        body { height: auto; display: block; overflow: auto; }
+
+        /* Reading progress bar */
+        #progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            background: var(--accent);
+            width: 0%;
+            z-index: 1000;
+            transition: width .1s linear;
+        }
+
+        .post-wrap {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 6rem;
+        }
+
+        /* ─── Post header ───────────────────────────────────── */
+        .post-header { margin-bottom: 2.5rem; }
+
+        .post-tag {
+            display: inline-block;
+            font-family: 'Inconsolata', monospace;
+            font-size: .75rem;
+            color: var(--accent);
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            border: 1px solid var(--border);
+            padding: .15rem .45rem;
+            border-radius: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .post-title {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            line-height: 1.25;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Inconsolata', monospace;
+            font-size: .82rem;
+            color: var(--muted);
+            border-top: 1px dashed var(--border);
+            border-bottom: 1px dashed var(--border);
+            padding: .7rem 0;
+        }
+        .post-meta-sep { opacity: .4; }
+
+        /* ─── Post body (Medium-like typography) ────────────── */
+        .post-body {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #c8cae8;
+        }
+
+        .post-body p { margin-bottom: 1.5rem; }
+
+        .post-body h2 {
+            font-family: 'Inconsolata', monospace;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin: 2.5rem 0 .8rem;
+        }
+
+        .post-body h3 {
+            font-family: 'Lora', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text);
+            margin: 2rem 0 .6rem;
+        }
+
+        .post-body a {
+            color: var(--accent2);
+            text-decoration: underline;
+            text-decoration-color: rgba(167,139,250,.3);
+            transition: text-decoration-color .15s;
+        }
+        .post-body a:hover { text-decoration-color: var(--accent2); }
+
+        /* Inline code */
+        .post-body code {
+            font-family: 'Inconsolata', monospace;
+            font-size: .9em;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            padding: .1em .35em;
+            border-radius: 3px;
+            color: var(--accent2);
+        }
+
+        /* Code block — terminal style */
+        .post-body pre {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            padding: 1.2rem 1.5rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: 'Inconsolata', monospace;
+            font-size: .88rem;
+            line-height: 1.6;
+            color: var(--muted);
+        }
+        .post-body pre code { background: none; border: none; padding: 0; color: inherit; }
+
+        /* Blockquote */
+        .post-body blockquote {
+            border-left: 3px solid var(--accent);
+            margin: 1.8rem 0;
+            padding: .8rem 1.5rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        /* Callout box */
+        .post-body .callout {
+            background: rgba(124,58,237,.07);
+            border: 1px solid rgba(124,58,237,.25);
+            border-radius: 4px;
+            padding: 1rem 1.2rem;
+            font-family: 'Inconsolata', monospace;
+            font-size: .88rem;
+            color: var(--text);
+            font-style: normal;
+            margin: 1.8rem 0;
+        }
+        .post-body .callout::before {
+            content: '// ';
+            color: var(--accent);
+        }
+
+        /* Image */
+        .post-body img {
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+        }
+        .post-body figcaption {
+            text-align: center;
+            font-size: .8rem;
+            color: var(--muted);
+            font-family: 'Inconsolata', monospace;
+            margin-top: -.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Horizontal rule */
+        .post-body hr {
+            border: none;
+            border-top: 1px dashed var(--border);
+            margin: 2.5rem 0;
+        }
+
+        /* ─── Post footer ───────────────────────────────────── */
+        .post-footer {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+            font-family: 'Inconsolata', monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pf-back { color: var(--muted); text-decoration: none; font-size: .85rem; }
+        .pf-back:hover { color: var(--accent2); }
+        .pf-date { color: var(--muted); font-size: .8rem; }
+
+        /* Back link at top */
+        .back { display: inline-block; font-family: 'Inconsolata', monospace; color: var(--muted); text-decoration: none; font-size: .85rem; margin-bottom: 2rem; }
+        .back:hover { color: var(--accent2); }
+
+        @media (max-width: 640px) {
+            .post-title { font-size: 1.6rem; }
+            .post-body { font-size: .98rem; }
+        }
+    </style>
+</head>
+<body>
+<div id="progress"></div>
+
+<header class="topbar">
+    <div class="topbar-left">
+        <span class="topbar-logo">umar@portfolio</span>
+        <span class="topbar-sep">:</span>
+        <span class="topbar-path">~/blog/post-slug</span><!-- update this -->
+        <span class="cursor">_</span>
+    </div>
+    <nav class="topbar-nav">
+        <a href="../blog.html">← blog</a>
+        <a href="../index.html">portfolio</a>
+    </nav>
+</header>
+
+<div class="post-wrap">
+    <a href="../blog.html" class="back">← all posts</a>
+
+    <!-- ─── Header ─── -->
+    <header class="post-header">
+        <span class="post-tag">dev</span><!-- category tag -->
+
+        <h1 class="post-title">
+            Post Title Goes Here — Make It Interesting
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-date">14 Dec 2025</span>
+            <span class="post-meta-sep">·</span>
+            <span class="post-meta-reading">6 min read</span>
+            <span class="post-meta-sep">·</span>
+            <span>Umar Sharif</span>
+        </div>
+    </header>
+
+    <!-- ─── Body ─────────────────────────────────────────────
+         Write your post here. Everything inside .post-body
+         gets Lora body text + all the styles above.
+    ──────────────────────────────────────────────────────── -->
+    <article class="post-body">
+
+        <p>
+            Start with something that earns the click. A question, a claim,
+            a problem you ran into. Don't ease in — just begin.
+        </p>
+
+        <h2>A section heading</h2>
+
+        <p>
+            Section headings use Inconsolata in all-caps so they feel like
+            terminal output labels. Use them to break up long posts, not as
+            decoration for every paragraph.
+        </p>
+
+        <p>
+            Inline <code>code</code> looks like this. It keeps the monospace
+            feel even inside the serif body text.
+        </p>
+
+        <pre><code># A code block
+def hello():
+    print("this is a code block")
+    # it has a purple left border
+    # and monospace text throughout</code></pre>
+
+        <p>
+            Use blockquotes sparingly — for actual quotes or key takeaways
+            you want to stand out.
+        </p>
+
+        <blockquote>
+            "The tools you use shape the way you think." — someone, probably.
+        </blockquote>
+
+        <p class="callout">
+            This is a callout box. Good for notes, warnings, or things you
+            want the reader to notice without breaking the flow.
+        </p>
+
+        <h2>Another section</h2>
+
+        <p>
+            Keep writing. The line-height and max-width are tuned to sit
+            around 65–70 characters per line, which is the comfortable
+            reading range. Don't change the max-width.
+        </p>
+
+        <hr>
+
+        <p>
+            An <code>hr</code> is a good way to signal a topic shift
+            without a heading. Use it when the tone or direction changes.
+        </p>
+
+        <h3>A smaller subheading</h3>
+
+        <p>
+            h3 uses Lora serif so it blends with body text but still
+            creates visual hierarchy. Use it for subsections within a
+            section — don't go deeper than h3.
+        </p>
+
+        <p>
+            That's the template. Delete everything inside <code>.post-body</code>
+            and start writing.
+        </p>
+
+    </article>
+
+    <!-- ─── Footer ─── -->
+    <footer class="post-footer">
+        <a href="../blog.html" class="pf-back">← back to blog</a>
+        <span class="pf-date">Published 14 Dec 2025</span>
+    </footer>
+</div>
+
+<script>
+    // Reading progress bar
+    const bar = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+        const total = document.body.scrollHeight - window.innerHeight;
+        bar.style.width = (window.scrollY / total * 100) + '%';
+    });
+
+    // Cursor blink
+    const cursor = document.querySelector('.cursor');
+    setInterval(() => {
+        cursor.style.visibility = cursor.style.visibility === 'hidden' ? 'visible' : 'hidden';
+    }, 500);
+</script>
+</body>
+</html>

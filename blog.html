@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* blog-specific overrides, single scroll page */
+        body {
+            height: auto;
+            display: block;
+            overflow: auto;
+        }
+        .blog-wrap {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 5rem;
+        }
+        .blog-header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+        }
+        .blog-header h1 {
+            font-size: 1.8rem;
+            color: var(--accent2);
+            margin-bottom: .3rem;
+        }
+        .blog-header p { color: var(--muted); font-size: .9rem; }
+
+        /* year group */
+        .year-group { margin-bottom: 2.5rem; }
+        .year-label {
+            font-size: .75rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: .6rem;
+        }
+
+        /* post row */
+        .post-row {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: .5rem 1.2rem;
+            align-items: baseline;
+            padding: .65rem 0;
+            border-bottom: 1px dashed var(--border);
+            text-decoration: none;
+            color: var(--text);
+            transition: color .15s;
+        }
+        .post-row:hover { color: var(--accent2); }
+        .post-date { color: var(--muted); font-size: .82rem; }
+        .post-title { font-size: .95rem; }
+        .post-tag {
+            font-size: .72rem;
+            color: var(--accent);
+            border: 1px solid var(--border);
+            padding: .1rem .4rem;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+        .post-excerpt {
+            grid-column: 2 / 4;
+            color: var(--muted);
+            font-size: .82rem;
+            line-height: 1.5;
+            margin-top: -.2rem;
+        }
+
+        /* back link */
+        .back { display: inline-block; color: var(--muted); text-decoration: none; font-size: .85rem; margin-bottom: 2rem; }
+        .back:hover { color: var(--accent2); }
+
+        /* RSS hint */
+        .rss-hint { color: var(--muted); font-size: .8rem; margin-top: 3rem; }
+    </style>
+</head>
+<body>
+<header class="topbar">
+    <div class="topbar-left">
+        <span class="topbar-logo">umar@portfolio</span>
+        <span class="topbar-sep">:</span>
+        <span class="topbar-path">~/blog</span>
+        <span class="cursor">_</span>
+    </div>
+    <nav class="topbar-nav">
+        <a href="index.html">← portfolio</a>
+        <a href="https://github.com/vmargb" target="_blank">github/</a>
+    </nav>
+</header>
+
+<div class="blog-wrap">
+    <a href="index.html" class="back">← back to portfolio</a>
+    <div class="blog-header">
+        <h1>blog/</h1>
+        <p>Writing about things I find interesting. Sometimes dev, sometimes not.</p>
+    </div>
+
+    <!--
+        adding blogs is just:
+        1. export org-mode writings in blog/
+        2. Add .post-row <a> below with the correct date, title, tag, and excerpt
+    -->
+
+    <!-- ─── 2025 ─────────────────────────────────────────── -->
+    <div class="year-group">
+        <div class="year-label">2026</div>
+
+        <div class="year-label">2025</div>
+
+        <a href="blog/org-mode-1.html" class="post-row">
+            <span class="post-date">Dec 14</span>
+            <span class="post-title">Why I use Org-mode & Org-roam over Obsidian</span>
+            <span class="post-tag">tools</span>
+            <span class="post-excerpt">A note on why I went back to Emacs and never looked back, even with all the friction.</span>
+        </a>
+
+        <a href="blog/spaced-repetition-1.html" class="post-row">
+            <span class="post-date">Oct 08</span>
+            <span class="post-title">Building a Better Anki: Enhancing Flashcards for Multi-Step Active Recall</span>
+            <span class="post-tag">misc</span>
+            <span class="post-excerpt">What I've learned from years of Anki and why I'm building something different.</span>
+        </a>
+
+        <a href="blog/nixos-1.html" class="post-row">
+            <span class="post-date">Aug 19</span>
+            <span class="post-title">NixOS: three months in</span>
+            <span class="post-tag">linux</span>
+            <span class="post-excerpt">Everything I wish someone had told me before I wiped Windows.</span>
+        </a>
+    </div>
+
+    <!-- ─── 2024 ─────────────────────────────────────────── -->
+    <div class="year-group">
+        <div class="year-label">2024</div>
+
+        <a href="blog/mcts-vs-minimax.html" class="post-row">
+            <span class="post-date">Nov 30</span>
+            <span class="post-title">MCTS vs Minimax when to explore, when to exploit</span>
+            <span class="post-tag">ai</span>
+            <span class="post-excerpt">Notes from building a chess AI: why pure Minimax is boring and why MCTS alone isn't enough.</span>
+        </a>
+    </div>
+
+    <p class="rss-hint">// more posts coming, this blog is new</p>
+</div>
+
+<script>
+    const cursor = document.querySelector('.cursor');
+    setInterval(() => {
+        cursor.style.visibility = cursor.style.visibility === 'hidden' ? 'visible' : 'hidden';
+    }, 500);
+</script>
+</body>
+</html>

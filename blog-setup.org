@@ -1,0 +1,12 @@
+#+OPTIONS: toc:nil num:nil html-style:nil author:nil timestamp:nil title:nil
+#+HTML_DOCTYPE: html5
+
+#+HTML_HEAD: <link rel="icon" type="image/png" href="/images/favicon.png">
+#+HTML_HEAD: <link rel="preconnect" href="https://fonts.googleapis.com">
+#+HTML_HEAD: <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+#+HTML_HEAD: <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+#+HTML_HEAD: <link rel="stylesheet" href="../blog.css">
+
+#+HTML_PREAMBLE: <div id="progress"></div><header class="topbar"><div class="topbar-left"><span class="topbar-logo">umar@portfolio</span><span class="topbar-sep">:</span><span class="topbar-path">~/blog/%t</span><span class="cursor">_</span></div><nav class="topbar-nav"><a href="../blog.html">← blog</a><a href="../index.html">portfolio</a></nav></header>
+
+#+HTML_POSTAMBLE: <script>const b=document.getElementById('progress');window.addEventListener('scroll',()=>{const t=document.body.scrollHeight-window.innerHeight;b.style.width=(window.scrollY/t*100)+'%%';});const c=document.querySelector('.cursor');setInterval(()=>{c.style.visibility=c.style.visibility==='hidden'?'visible':'hidden';},500);</script>

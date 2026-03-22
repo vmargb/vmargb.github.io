@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My thoughts on building a Better Anki</title>
+<meta name="generator" content="Org Mode" />
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog.css">
+</head>
+<body>
+<div id="content" class="content">
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">ai</span>
+  <h1 class="post-title">Building a Better Anki: Enhancing Flashcards for Multi-Step Active Recall</h1>
+  <div class="post-meta">
+    <span>08 Oct 2025</span>
+    <span class="post-meta-sep">·</span>
+    <span>8 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+
+<p>
+Flashcards persistently remain essential for all forms of learning and disciplines. Anki's spaced-repetition excels for simple tasks like remembering facts, definitions, vocabulary etc&#x2026; However it clearly reveals its limitation with complex tasks like coding, problem-solving or studying grammar(over vocabulary) which demand more sophisticated approaches. The obvious answer here would be to transition to traditional note-taking for anything that goes beyond brute-memorisation, but what if there's a better way? This post outlines my vision for a next-generation flashcard system which prioritises multi-step active recall and adaptive learning.
+</p>
+<div id="outline-container-org45270ef" class="outline-2">
+<h2 id="org45270ef">The Problem with Linear Flashcards</h2>
+<div class="outline-text-2" id="text-org45270ef">
+<p>
+Most flashcards assume knowledge is binary, you either know it or you don’t. But learning is often more of a <i>progressive</i> process.
+</p>
+
+<p>
+You might grasp a concept in plain English but struggle to implement it in code.
+</p>
+
+<p>
+You might remember a formula but fail to derive it step-by-step.
+</p>
+
+<p>
+You might recognise a grammatical rule but forget how to arrive there
+</p>
+
+<p>
+A better system would:
+</p>
+
+<p>
+Break complex topics into sequential recall steps.
+Adjust review frequency per step (not per card).
+Allow branching paths, different routes to the same answer.
+</p>
+
+<p>
+Instead of a single "answer," each flashcard has multiple checkpoints, each reinforcing understanding.
+</p>
+</div>
+</div>
+<div id="outline-container-org88d4441" class="outline-2">
+<h2 id="org88d4441">Multi-Step Active Recall</h2>
+<div class="outline-text-2" id="text-org88d4441">
+<p>
+Traditional flashcards present linear front/back interactions, but more complicated concepts are not as simple as that, sometimes understanding a concept requires passing through multiple <i>bridges</i> or middle-men that help you arrive at the conclusion. For example, lets say we're solving a coding problem:
+</p>
+
+<ol class="org-ol">
+<li><b>Front</b>: Question text</li>
+<li><b>First Recall</b>: Solution in plain-english</li>
+<li><b>Second Recall</b>: Code implementation</li>
+</ol>
+
+<p>
+<b>or:</b>
+</p>
+<ol class="org-ol">
+<li><b>Front</b>: Question text</li>
+<li><b>First Recall</b>: Solution in plain-english</li>
+<li><b>Second Recall</b>: Step-by-step solution (still in english)</li>
+<li><b>Third Recall</b>: Code implementation</li>
+</ol>
+</div>
+<div id="outline-container-org42a648e" class="outline-3">
+<h3 id="org42a648e">Example</h3>
+<div class="outline-text-3" id="text-org42a648e">
+<blockquote>
+<p>
+<b>Front</b>
+How would you reverse a linked list?
+</p>
+
+
+<p>
+<b>First Recall (Plain English Explanation)</b>
+Start from the head, and iteratively reverse the pointers of each node until reaching the end.
+</p>
+
+
+<p>
+<b>Second Recall (Step-by-Step Explanation)</b>
+</p>
+<ol class="org-ol">
+<li>Initialise three pointers: previous, current, next.</li>
+<li>Iterate through the list:
+<ul class="org-ul">
+<li>Store the next node.</li>
+<li>Reverse the current node's pointer to point to the previous node.</li>
+<li>Move the previous and current pointers forward.</li>
+</ul></li>
+<li>Return the new head (previous pointer).</li>
+</ol>
+
+
+<p>
+<b>Third Recall (Code Implementation)</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-python">def reverselinkedlist(head):
+    prev, curr = None, head
+    while curr:
+        nextnode = curr.next
+        curr.next = prev
+        prev = curr
+        curr = nextnode
+    return prev
+</pre>
+</div>
+</blockquote>
+
+<p>
+And each layer towards the solution has its own confidence prompt. Perhaps it is more difficult to arrive at the code straight away, but an explanation in plain english creates a <i>eureka</i> moment for you. This allows you to solidify each layer and systematically arrive at the solution slowly. Which allows you to focus on one cognitive task at a time without overloading your working memory.
+</p>
+
+<p>
+The system should evaluate each recall layer independently. A user might:
+</p>
+<ul class="org-ul">
+<li>Find the conceptual explanation straightforward (easy rating)</li>
+<li>Struggle with edge cases in implementation (hard rating)</li>
+<li>Require more frequent review for the coding step while spacing out the conceptual review</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb2639ec" class="outline-2">
+<h2 id="orgb2639ec">Branching Paths for Adaptive Learning</h2>
+<div class="outline-text-2" id="text-orgb2639ec">
+<p>
+Some topics require different approaches. Instead of rigid steps, we could instead allow optional alternate pathways:
+</p>
+
+<blockquote>
+<p>
+## Grammar: Past Perfect Tense  
+</p>
+<ul class="org-ul">
+<li><b><b>Front:</b></b> When do you use past perfect?</li>
+<li><b><b>Path A (Rule-Based):</b></b>  
+<ul class="org-ul">
+<li>Answer: "For actions completed before another past action."</li>
+</ul></li>
+<li><b><b>Path B (Example-Based):</b></b>  
+<ul class="org-ul">
+<li>Answer: "E.g., 'She had left before I arrived.'"</li>
+</ul></li>
+</ul>
+</blockquote>
+
+<p>
+This approach would make flashcards completely different from how Anki usually works because Anki treats each card as a fixed question–answer pair, with one “right” response. In contrast, a multi-path system introduces more flexibility. Where instead of memorising isolated facts, you could have multiple angles within a single card, this prevents review sessions from becoming repetitive-drills.
+</p>
+
+
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 08 Oct 2025</span>
+</footer>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

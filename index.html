@@ -3,261 +3,357 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>umar@portfolio:~$</title>
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <div class="logo">umar@portfolio:~$</div>
-            <div class="nav-links">
-                <a href="#about">about_me</a>
-                <a href="#projects">my_projects</a>
-                <a href="#notes">cs_notes</a>
-                <a href="#contact">contact</a>
-            </div>
-        </div>
+
+<header class="topbar">
+    <div class="topbar-left">
+        <span class="topbar-logo">umar@portfolio</span>
+        <span class="topbar-sep">:</span>
+        <span class="topbar-path" id="topbar-path">~/about</span>
+        <span class="cursor">_</span>
+    </div>
+    <nav class="topbar-nav">
+        <a href="blog.html">blog/</a>
+        <a href="https://github.com/vmargb" target="_blank">github/</a>
     </nav>
+</header>
 
-    <section class="hero" id="about">
-        <h1>Umar Sharif<span class="cursor">_</span></h1>
-        <p>CS grad & developer | AI, Web & Android enthusiast</p>
-        
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="terminal-buttons">
-                    <div class="terminal-button close"></div>
-                    <div class="terminal-button minimize"></div>
-                    <div class="terminal-button maximize"></div>
-                </div>
-                <div class="terminal-title">about_me.sh</div>
+<!-- main -->
+<div class="fm-layout">
+
+    <!-- file tree -->
+    <aside class="fm-sidebar">
+        <div class="sidebar-header">~/portfolio</div>
+        <ul class="tree">
+            <li class="tree-item active" data-target="about" data-path="~/about_me.txt">
+                <span class="ti">▸</span> about_me.txt
+            </li>
+            <li class="tree-sep">──────────────</li>
+            <li class="tree-dir">projects/</li>
+            <li class="tree-item indent" data-target="proj-parts-of-speech"    data-path="~/projects/parts-of-speech">
+                <span class="ti">▸</span> parts-of-speech
+            </li>
+            <li class="tree-item indent" data-target="proj-arrow"    data-path="~/projects/arrow.el">
+                <span class="ti">▸</span> arrow.el
+            </li>
+            <li class="tree-item indent" data-target="proj-myoso"    data-path="~/projects/myoso">
+                <span class="ti">▸</span> myoso
+            </li>
+            <li class="tree-item indent" data-target="proj-funcy"    data-path="~/projects/funcy.nvim">
+                <span class="ti">▸</span> funcy.nvim
+            </li>
+            <li class="tree-item indent" data-target="proj-lookahead" data-path="~/projects/lookahead">
+                <span class="ti">▸</span> lookahead
+            </li>
+            <li class="tree-item indent" data-target="proj-evo"      data-path="~/projects/evo-loop">
+                <span class="ti">▸</span> evo-loop
+            </li>
+            <li class="tree-item indent" data-target="proj-chess"    data-path="~/projects/chess-ai">
+                <span class="ti">▸</span> chess-ai
+            </li>
+            <li class="tree-item indent" data-target="proj-path"     data-path="~/projects/pathfinder">
+                <span class="ti">▸</span> pathfinder
+            </li>
+            <li class="tree-sep">──────────────</li>
+            <li class="tree-dir">old_cs_notes/</li>
+            <li class="tree-item indent" data-target="note-algo"     data-path="~/notes/algorithms.md">
+                <span class="ti">▸</span> algorithms.md
+            </li>
+            <li class="tree-item indent" data-target="note-crypto"   data-path="~/notes/cryptography.md">
+                <span class="ti">▸</span> cryptography.md
+            </li>
+            <li class="tree-item indent" data-target="note-ai"       data-path="~/notes/intro_ai.md">
+                <span class="ti">▸</span> intro_ai.md
+            </li>
+            <li class="tree-item indent" data-target="note-linux"    data-path="~/notes/linux_nixos.md">
+                <span class="ti">▸</span> linux_nixos.md
+            </li>
+            <li class="tree-sep">──────────────</li>
+            <li class="tree-item" data-target="contact" data-path="~/contact.txt">
+                <span class="ti">▸</span> contact.txt
+            </li>
+        </ul>
+    </aside>
+
+    <!-- content panels -->
+    <main class="fm-content">
+
+        <!-- about -->
+        <div class="panel active" id="panel-about">
+            <div class="panel-file-header">
+                <span class="fh-name">about_me.txt</span>
+                <span class="fh-meta">plain text · 312 bytes</span>
             </div>
-            <div class="terminal-body">
-                <div class="terminal-line">
-                    <span class="prompt">umar@portfolio:~$</span>
-                    <span class="command"> cat about_me.txt</span>
+            <div class="panel-body">
+                <h1 class="big-name">Umar Sharif</h1>
+                <p class="tagline">CS grad & developer — AI, Web & Android</p>
+                <div class="about-grid">
+                    <div class="about-block">
+                        <span class="ab-label">hobbies</span>
+                        <span class="ab-val">Language learning, Reading, Calisthenics</span>
+                    </div>
+                    <div class="about-block">
+                        <span class="ab-label">horror picks</span>
+                        <span class="ab-val">Hereditary &amp; Midnight Mass</span>
+                    </div>
+                    <div class="about-block">
+                        <span class="ab-label">favourite books</span>
+                        <span class="ab-val">Mistborn &amp; Ready Player One</span>
+                    </div>
+                    <div class="about-block">
+                        <span class="ab-label">favourite langs</span>
+                        <span class="ab-val">Haskell, Rust, Golang</span>
+                    </div>
+                    <div class="about-block">
+                        <span class="ab-label">daily tools</span>
+                        <span class="ab-val">Emacs, Org-mode, NixOS</span>
+                    </div>
+                    <div class="about-block">
+                        <span class="ab-label">status</span>
+                        <span class="ab-val status-open">open to opportunities</span>
+                    </div>
                 </div>
-                <div class="output">
-                    <p>> Hobbies: Language learning, Reading, Calisthenics</p>
-                    <p>> Favorite horror: Hereditary & Midnight Mass</p>
-                    <p>> Favorite book: Mistborn & Ready player one</p>
-                    <p>> Tools I love: Emacs, Org-roam, Nix</p>
-                </div>
-                <div class="terminal-line">
-                    <span class="prompt">umar@portfolio:~$</span>
-                    <span class="command"> <span class="cursor">_</span></span>
+                <div class="hint-row">
+                    <span class="hint">↑↓ navigate</span>
+                    <span class="hint">Enter open</span>
+                    <span class="hint">q quit (kidding)</span>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section id="projects" class="notes-section">
-        <h2 class="section-title">my_projects/</h2>
-        
-        <div class="file-tree">
-            <div class="tree-item">
-                <div class="tree-node">
-                    <span class="tree-icon">├─</span>
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon"></div>
-                            <h3 class="project-title">Myoso (coming soon!)</h3>
-                        </div>
-                        <p class="project-description">An anki-like flashcard app for learning languages but with extra feeatures</p>
-                        <a href="https://github.com/vmargb/myoso" class="project-link" target="_blank">github</a>
-                    </div>
-                </div>
+        <!-- project panels -->
+        <div class="panel" id="panel-proj-parts-of-speech">
+            <div class="panel-file-header">
+                <span class="fh-name">parts-of-speech/</span>
+                <span class="fh-meta">project · voiceovers</span>
             </div>
-
-            <div class="tree-item">
-                <div class="tree-node">
-                    <span class="tree-icon">├─</span>
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon"></div>
-                            <h3 class="project-title">funcy.nvim (WIP)</h3>
-                        </div>
-                        <p class="project-description">Neovim plugin that uses LSP to create function & class declarations using Regex.</p>
-                        <a href="https://github.com/vmargb/funcy.nvim" class="project-link" target="_blank">github</a>
-                    </div>
-                </div>
+            <div class="panel-body panel-project">
+                <h2>parts-of-speech</h2>
+                <p>A non-linear voice-over recording app written in Rust that lets you record your audio with an improved recording-booth workflow compared to traditional recording software.</p>
+                <a class="proj-link" href="https://github.com/vmargb/parts-of-speech" target="_blank">→ open on github</a>
             </div>
+        </div>
 
-            <div class="tree-item">
-                <div class="tree-node">
-                    <span class="tree-icon">├─</span>
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon"></div>
-                            <h3 class="project-title">Lookahead</h3>
-                        </div>
-                        <p class="project-description">A Firefox extension that automates web navigation and adds a "file-picker" for your links</p>
-                        <a href="https://github.com/vmargb/lookahead" class="project-link" target="_blank">github</a>
-                    </div>
-                </div>
+        <div class="panel" id="panel-proj-arrow">
+            <div class="panel-file-header">
+                <span class="fh-name">arrow.el/</span>
+                <span class="fh-meta">project · emacs</span>
             </div>
-
-            <div class="tree-item">
-                <div class="tree-node">
-                    <span class="tree-icon">├─</span>
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon"></div>
-                            <h3 class="project-title">Evo-Loop Simulator</h3>
-                        </div>
-                        <p class="project-description">Self-reproducing cellular automata based on Langton loops.</p>
-                        <a href="https://github.com/physicsKnight/Artificial-Life" class="project-link" target="_blank">github</a>
-                    </div>
-                </div>
+            <div class="panel-body panel-project">
+                <h2>arrow.el</h2>
+                <p>An Emacs package implementation of arrow.nvim, designed to provide per-project and per-buffer bookmarks as well as org-mode integration that is fully isolated and persistent in each session.</p>
+                <a class="proj-link" href="https://github.com/vmargb/arrow.el" target="_blank">→ open on github</a>
             </div>
+        </div>
 
-            <div class="tree-item">
-                <div class="tree-node">
-                    <span class="tree-icon">├─</span>
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon"></div>
-                            <h3 class="project-title">Chess AI</h3>
-                        </div>
-                        <p class="project-description">Monte-Carlo Tree Search with Minimax AI for playing chess.</p>
-                        <a href="https://github.com/physicsKnight/MCTS-Minimax" class="project-link" target="_blank">github</a>
-                    </div>
-                </div>
+        <div class="panel" id="panel-proj-myoso">
+            <div class="panel-file-header">
+                <span class="fh-name">myoso/</span>
+                <span class="fh-meta">project · coming soon</span>
             </div>
+            <div class="panel-body panel-project">
+                <h2>Myoso</h2>
+                <p>An Anki-like flashcard app with an extra multi-step layered spaced-repetition strategy. Built to scratch my own itch learning languages.</p>
+                <a class="proj-link" href="https://github.com/vmargb/myoso" target="_blank">→ open on github</a>
+            </div>
+        </div>
 
-            <div class="tree-item">
-                <div class="tree-node">
-                    <span class="tree-icon">├─</span>
-                    <div class="project-card">
-                        <div class="project-header">
-                            <div class="project-icon"></div>
-                            <h3 class="project-title">Pathfinding Visualiser</h3>
-                        </div>
-                        <p class="project-description">Interactive tool for visualising DFS, BFS, UCS, and A* algorithms.</p>
-                        <a href="https://github.com/physicsKnight/Pathfinder" class="project-link" target="_blank">github</a>
+        <div class="panel" id="panel-proj-funcy">
+            <div class="panel-file-header">
+                <span class="fh-name">funcy.nvim/</span>
+                <span class="fh-meta">project · WIP</span>
+            </div>
+            <div class="panel-body panel-project">
+                <h2>funcy.nvim</h2>
+                <p>A Neovim plugin that uses LSP to create function and class declarations via Regex. Similar to the same feature in Jetbrains IDEs.</p>
+                <a class="proj-link" href="https://github.com/vmargb/funcy.nvim" target="_blank">→ open on github</a>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-proj-lookahead">
+            <div class="panel-file-header">
+                <span class="fh-name">lookahead/</span>
+                <span class="fh-meta">project · Firefox extension</span>
+            </div>
+            <div class="panel-body panel-project">
+                <h2>Lookahead</h2>
+                <p>A Firefox extension that automates web navigation and adds a keyboard-driven "file-picker" for links on any page.</p>
+                <a class="proj-link" href="https://github.com/vmargb/lookahead" target="_blank">→ open on github</a>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-proj-evo">
+            <div class="panel-file-header">
+                <span class="fh-name">evo-loop/</span>
+                <span class="fh-meta">project · simulation</span>
+            </div>
+            <div class="panel-body panel-project">
+                <h2>Evo-Loop Simulator</h2>
+                <p>Self-reproducing & self-replicating cellular automata based on the famous Langton loops. This is one of those projects that feels alive when you run it.</p>
+                <a class="proj-link" href="https://github.com/physicsKnight/Artificial-Life" target="_blank">→ open on github</a>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-proj-chess">
+            <div class="panel-file-header">
+                <span class="fh-name">chess-ai/</span>
+                <span class="fh-meta">project · AI</span>
+            </div>
+            <div class="panel-body panel-project">
+                <h2>Chess AI</h2>
+                <p>Monte-Carlo Tree Search combined with Minimax for a chess-playing agent. This project is more of an experiment of testing between exploration and exploitation.</p>
+                <a class="proj-link" href="https://github.com/physicsKnight/MCTS-Minimax" target="_blank">→ open on github</a>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-proj-path">
+            <div class="panel-file-header">
+                <span class="fh-name">pathfinder/</span>
+                <span class="fh-meta">project · visualiser</span>
+            </div>
+            <div class="panel-body panel-project">
+                <h2>Pathfinding Visualiser</h2>
+                <p>Interactive tool for visualising DFS, BFS, UCS, and A* on a live grid. This is an old project for building intuition around graph traversal.</p>
+                <a class="proj-link" href="https://github.com/physicsKnight/Pathfinder" target="_blank">→ open on github</a>
+            </div>
+        </div>
+
+        <!-- cs notes -->
+        <div class="panel" id="panel-note-algo">
+            <div class="panel-file-header">
+                <span class="fh-name">algorithms.md</span>
+                <span class="fh-meta">old notes · read-only</span>
+            </div>
+            <div class="panel-body panel-note">
+                <h2>Algorithms</h2>
+                <p>Sorting, searching, asymptotic notation, dynamic programming, graph theory.</p>
+                <a class="proj-link" href="notes/algorithms.html">→ open notes</a>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-note-crypto">
+            <div class="panel-file-header">
+                <span class="fh-name">cryptography.md</span>
+                <span class="fh-meta">old notes · read-only</span>
+            </div>
+            <div class="panel-body panel-note">
+                <h2>Cryptography</h2>
+                <p>RSA, ECC, hashing, number theory, Diffie-Hellman.</p>
+                <a class="proj-link" href="notes/cryptography.html">→ open notes</a>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-note-ai">
+            <div class="panel-file-header">
+                <span class="fh-name">intro_ai.md</span>
+                <span class="fh-meta">old notes · read-only</span>
+            </div>
+            <div class="panel-body panel-note">
+                <h2>Intro AI</h2>
+                <p>Search algorithms, Minimax, MCTS, knowledge representation, optimisations.</p>
+                <a class="proj-link" href="notes/introai.html">→ open notes</a>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-note-linux">
+            <div class="panel-file-header">
+                <span class="fh-name">linux_nixos.md</span>
+                <span class="fh-meta">old notes · external</span>
+            </div>
+            <div class="panel-body panel-note">
+                <h2>Linux / NixOS</h2>
+                <p>Complete guide and setup notes on Linux and NixOS. Hosted on Notion.</p>
+                <a class="proj-link" href="https://www.notion.so/Installation-part-1-2401ea842a24801397f9f70795379bc2" target="_blank">→ open on notion</a>
+            </div>
+        </div>
+
+        <!-- contact -->
+        <div class="panel" id="panel-contact">
+            <div class="panel-file-header">
+                <span class="fh-name">contact.txt</span>
+                <span class="fh-meta">plain text · 128 bytes</span>
+            </div>
+            <div class="panel-body">
+                <div class="about-grid">
+                    <div class="about-block">
+                        <span class="ab-label">email</span>
+                        <span class="ab-val">umarsharif812 AT gmail DOT com</span>
+                    </div>
+                    <div class="about-block">
+                        <span class="ab-label">youtube</span>
+                        <span class="ab-val"><a href="https://www.youtube.com/@formulaint" target="_blank" style="color:var(--accent);">@formulaint</a></span>
+                    </div>
+                    <div class="about-block">
+                        <span class="ab-label">github</span>
+                        <span class="ab-val"><a href="https://github.com/vmargb" target="_blank" style="color:var(--accent);">vmargb</a></span>
+                    </div>
+                    <div class="about-block">
+                        <span class="ab-label">response</span>
+                        <span class="ab-val">usually within a few days</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section id="notes" class="notes-section">
-        <h2 class="section-title">old_cs_notes/</h2>
-        
-        <div class="file-tree">
-            <div class="tree-item">
-                <div class="tree-node">
-                    <span class="tree-icon">├─</span>
-                    <a href="notes/algorithms.html" class="note-card">
-                        <div class="note-header">
-                            <span class="note-icon"></span>
-                            <h3 class="note-title">algorithms.md</h3>
-                        </div>
-                        <p class="note-description">Sorting, searching, asymptotic notation, dynamic programming, graph theory.</p>
-                    </a>
-                </div>
-            </div>
+    </main>
+</div>
 
-            <div class="tree-item">
-                <div class="tree-node">
-                    <span class="tree-icon">├─</span>
-                    <a href="notes/cryptography.html" class="note-card">
-                        <div class="note-header">
-                            <span class="note-icon"></span>
-                            <h3 class="note-title">cryptography.md</h3>
-                        </div>
-                        <p class="note-description">RSA, ECC, hashing, number theory, diffie hellman.</p>
-                    </a>
-                </div>
-            </div>
+<!-- status bar -->
+<footer class="statusbar">
+    <span id="sb-count">13 items</span>
+    <span class="sb-sep">·</span>
+    <span id="sb-selected">about_me.txt</span>
+    <span class="sb-sep">·</span>
+    <a href="blog.html" class="sb-link">blog →</a>
+</footer>
 
-            <div class="tree-item">
-                <div class="tree-node">
-                    <span class="tree-icon">├─</span>
-                    <a href="notes/introai.html" class="note-card">
-                        <div class="note-header">
-                            <span class="note-icon"></span>
-                            <h3 class="note-title">intro_ai.md</h3>
-                        </div>
-                        <p class="note-description">Search algorithms, Minimax, MCTS, knowledge representation, optimisations.</p>
-                    </a>
-                </div>
-            </div>
+<script>
+    const items = document.querySelectorAll('.tree-item');
+    const panels = document.querySelectorAll('.panel');
+    const topbarPath = document.getElementById('topbar-path');
+    const sbSelected = document.getElementById('sb-selected');
 
-            <div class="tree-item">
-                <div class="tree-node">
-                    <span class="tree-icon">├─</span>
-                    <a href="https://www.notion.so/Installation-part-1-2401ea842a24801397f9f70795379bc2?source=copy_link" target="_blank" class="note-card">
-                        <div class="note-header">
-                            <span class="note-icon"></span>
-                            <h3 class="note-title">linux_nixos.md</h3>
-                        </div>
-                        <p class="note-description">Complete guide and setup notes on Linux and NixOS.</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    function activate(item) {
+        items.forEach(i => i.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        item.classList.add('active');
+        const target = item.dataset.target;
+        const panel = document.getElementById('panel-' + target);
+        if (panel) panel.classList.add('active');
+        topbarPath.textContent = item.dataset.path;
+        sbSelected.textContent = item.querySelector('span + *') 
+            ? item.textContent.trim().replace('▸', '').trim()
+            : item.dataset.path.split('/').pop();
+    }
 
-    <section id="contact" class="notes-section">
-        <h2 class="section-title">contact/</h2>
-        
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="terminal-buttons">
-                    <div class="terminal-button close"></div>
-                    <div class="terminal-button minimize"></div>
-                    <div class="terminal-button maximize"></div>
-                </div>
-                <div class="terminal-title">contact.sh</div>
-            </div>
-            <div class="terminal-body">
-                <div class="terminal-line">
-                    <span class="prompt">umar@portfolio:~$</span>
-                    <span class="command"> cat contact.txt</span>
-                </div>
-                <div class="output">
-                    <p>> Email: umarsharif812 AT gmail DOT com</p>
-                    <p>> YouTube: <a href="https://www.youtube.com/@formulaint" style="color: var(--accent);">@formulaint</a></p>
-                    <p>> Response time: Usually within a few days</p>
-                </div>
-                <div class="terminal-line">
-                    <span class="prompt">umar@portfolio:~$</span>
-                    <span class="command"> <span class="cursor">_</span></span>
-                </div>
-            </div>
-        </div>
-    </section>
+    items.forEach(item => {
+        item.addEventListener('click', () => activate(item));
+    });
 
-    <footer>
-        <div class="footer-links">
-            <a href="#about">About Me</a>
-            <a href="https://github.com/vmargb">GitHub</a>
-            <a href="https://www.youtube.com/@formulaint">YouTube</a>
-        </div>
-        <p>© 2025 Umar Sharif. All rights reserved.</p>
-    </footer>
+    // keyboard nav
+    let currentIndex = 0;
+    const navItems = Array.from(items);
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowDown' || e.key === 'j') {
+            e.preventDefault();
+            currentIndex = Math.min(currentIndex + 1, navItems.length - 1);
+            activate(navItems[currentIndex]);
+        } else if (e.key === 'ArrowUp' || e.key === 'k') {
+            e.preventDefault();
+            currentIndex = Math.max(currentIndex - 1, 0);
+            activate(navItems[currentIndex]);
+        }
+    });
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() { // typewriter effect
-            const cursor = document.querySelector('.cursor');
-            if (cursor) {
-                setInterval(() => {
-                    cursor.style.visibility = (cursor.style.visibility === 'hidden' ? 'visible' : 'hidden');
-                }, 500);
-            }
-            
-            const textElements = document.querySelectorAll('h1, h2, h3, .project-title'); // glow effect on hover
-            textElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    el.style.textShadow = '0 0 10px rgba(124, 58, 237, 0.3)';
-                });
-                el.addEventListener('mouseleave', () => {
-                    el.style.textShadow = '0 0 5px rgba(124, 58, 237, 0.3)';
-                });
-            });
-        });
-    </script>
+    // cursor blink
+    const cursor = document.querySelector('.cursor');
+    setInterval(() => {
+        cursor.style.visibility = cursor.style.visibility === 'hidden' ? 'visible' : 'hidden';
+    }, 500);
+</script>
 </body>
 </html>
