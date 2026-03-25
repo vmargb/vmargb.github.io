@@ -1,330 +1,437 @@
 @font-face {
-    font-family: 'Inconsolata';
-    src: url('/fonts/Inconsolata.woff') format('woff');
-    font-weight: normal;
+  font-family: "Inconsolata";
+  src: url("/fonts/Inconsolata.woff") format("woff");
+  font-weight: normal;
 }
 @font-face {
-    font-family: 'Inconsolata';
-    src: url('/fonts/Inconsolata-Bold.woff') format('woff');
-    font-weight: bold;
+  font-family: "Inconsolata";
+  src: url("/fonts/Inconsolata-Bold.woff") format("woff");
+  font-weight: bold;
 }
-
 /* ─── Variables ────────────────────────────────────────────── */
 :root {
-    --bg:      #0c0c0f;
-    --bg2:     #111116;
-    --bg3:     #17171e;
-    --border:  #252530;
-    --text:    #d8d9f0;
-    --muted:   #6b6d88;
-    --accent:  #7c3aed;
-    --accent2: #a78bfa;
-    --green:   #4ade80;
+  --bg: #faf8f5;
+  --bg2: #f2efe9;
+  --bg3: #e8e4dc;
+  --border: #d4cfc4;
+  --text: #2d2a26;
+  --muted: #6b6358;
+  --accent: #d97706;
+  --accent2: #b45309;
+  --green: #059669;
 }
-
 /* ─── Reset ─────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    font-family: 'Inconsolata', monospace;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 15px;
-    overflow-x: hidden;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
+body {
+  font-family: "Inconsolata", monospace;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  overflow-x: hidden;
+}
 /* ─── CRT scanline ──────────────────────────────────────────── */
 body::after {
-    content: '';
-    position: fixed; inset: 0;
-    background: repeating-linear-gradient(0deg,
-        rgba(0,0,0,0.10) 0px, rgba(0,0,0,0.10) 1px,
-        transparent 1px, transparent 3px);
-    pointer-events: none;
-    z-index: 999;
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03) 0px,
+    rgba(0, 0, 0, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 999;
 }
-
 /* ─── Topbar ─────────────────────────────────────────────────── */
 .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1.2rem;
-    height: 40px;
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.2rem;
+  height: 40px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
-.topbar-left { display: flex; align-items: center; gap: 0; }
-.topbar-logo  { color: var(--accent); font-weight: bold; font-family: 'Inconsolata', monospace; }
-.topbar-sep   { color: var(--muted); margin: 0 1px; }
-.topbar-path  { color: var(--accent2); font-family: 'Inconsolata', monospace; }
-.cursor { color: var(--accent); animation: blink 1s step-end infinite; }
-.topbar-nav { display: flex; gap: 1.5rem; }
-.topbar-nav a { color: var(--muted); text-decoration: none; font-family: 'Inconsolata', monospace; font-size: .88rem; transition: color .15s; }
-.topbar-nav a:hover { color: var(--accent2); }
-
-@keyframes blink { 50% { opacity: 0; } }
-
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.topbar-logo {
+  color: var(--accent);
+  font-weight: bold;
+  font-family: "Inconsolata", monospace;
+}
+.topbar-sep {
+  color: var(--muted);
+  margin: 0 1px;
+}
+.topbar-path {
+  color: var(--accent2);
+  font-family: "Inconsolata", monospace;
+}
+.cursor {
+  color: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+.topbar-nav {
+  display: flex;
+  gap: 1.5rem;
+}
+.topbar-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-family: "Inconsolata", monospace;
+  font-size: 0.88rem;
+  transition: color 0.15s;
+}
+.topbar-nav a:hover {
+  color: var(--accent2);
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
 /* ─── Reading progress bar ───────────────────────────────────── */
 #progress {
-    position: fixed;
-    top: 0; left: 0;
-    height: 2px;
-    background: var(--accent);
-    width: 0%;
-    z-index: 1000;
-    transition: width .1s linear;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.1s linear;
 }
-
 /* ─── Shared page wrapper ────────────────────────────────────── */
 .page-wrap {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem 6rem;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
 }
-
 /* ─── Back link ──────────────────────────────────────────────── */
 .back {
-    display: inline-block;
-    color: var(--muted);
-    text-decoration: none;
-    font-size: .85rem;
-    margin-bottom: 2rem;
-    transition: color .15s;
+  display: inline-block;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-bottom: 2rem;
+  transition: color 0.15s;
 }
-.back:hover { color: var(--accent2); }
-
+.back:hover {
+  color: var(--accent2);
+}
 /* ═══════════════════════════════════════════════════════════════
-   BLOG INDEX
-   ═══════════════════════════════════════════════════════════════ */
-.blog-header { margin-bottom: 3rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
-.blog-header h1 { font-size: 1.8rem; color: var(--accent2); margin-bottom: .3rem; }
-.blog-header p { color: var(--muted); font-size: .9rem; }
-
-.year-group { margin-bottom: 2.5rem; }
-.year-label { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: .6rem; }
-
+BLOG INDEX
+═══════════════════════════════════════════════════════════════ */
+.blog-header {
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.5rem;
+}
+.blog-header h1 {
+  font-size: 1.8rem;
+  color: var(--accent2);
+  margin-bottom: 0.3rem;
+}
+.blog-header p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.year-group {
+  margin-bottom: 2.5rem;
+}
+.year-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
 .post-row {
-    display: grid;
-    grid-template-columns: 80px 1fr auto;
-    gap: .4rem 1.2rem;
-    align-items: baseline;
-    padding: .65rem 0;
-    border-bottom: 1px dashed var(--border);
-    text-decoration: none;
-    color: var(--text);
-    transition: color .15s;
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 0.4rem 1.2rem;
+  align-items: baseline;
+  padding: 0.65rem 0;
+  border-bottom: 1px dashed var(--border);
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.15s;
 }
-.post-row:hover { color: var(--accent2); }
-.post-date { color: var(--muted); font-size: .82rem; }
-.post-title { font-size: .95rem; }
-.post-tag { font-size: .72rem; color: var(--accent); border: 1px solid var(--border); padding: .1rem .4rem; border-radius: 3px; white-space: nowrap; }
-.post-excerpt { grid-column: 2 / 4; color: var(--muted); font-size: .82rem; line-height: 1.5; margin-top: -.1rem; }
-
-.index-footer { color: var(--muted); font-size: .8rem; margin-top: 3rem; }
-
+.post-row:hover {
+  color: var(--accent2);
+}
+.post-date {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.post-title {
+  font-size: 0.95rem;
+}
+.post-tag {
+  font-size: 0.72rem;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.post-excerpt {
+  grid-column: 2 / 4;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin-top: -0.1rem;
+}
+.index-footer {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-top: 3rem;
+}
 /* ═══════════════════════════════════════════════════════════════
-   BLOG POST — applies to both hand-written and Org-exported posts
-   ═══════════════════════════════════════════════════════════════ */
-
+BLOG POST — applies to both hand-written and Org-exported posts
+═══════════════════════════════════════════════════════════════ */
 /* Post header (hand-written posts use these classes) */
-.post-header { margin-bottom: 2.5rem; }
-
-.post-label {
-    display: inline-block;
-    font-size: .75rem;
-    color: var(--accent);
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    border: 1px solid var(--border);
-    padding: .15rem .45rem;
-    border-radius: 3px;
-    margin-bottom: 1rem;
+.post-header {
+  margin-bottom: 2.5rem;
 }
-
+.post-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+}
 /* Org exports the document title as <h1 class="title"> */
 /* Hand-written posts use <h1 class="post-title"> */
 h1.title,
 h1.post-title {
-    font-family: 'Lora', Georgia, serif;
-    font-size: 2.2rem;
-    font-weight: 600;
-    line-height: 1.25;
-    color: var(--text);
-    margin-bottom: 1rem;
+  font-family: "Lora", Georgia, serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--text);
+  margin-bottom: 1rem;
 }
-
 .post-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: .4rem 1rem;
-    font-size: .82rem;
-    color: var(--muted);
-    border-top: 1px dashed var(--border);
-    border-bottom: 1px dashed var(--border);
-    padding: .7rem 0;
-    margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  border-top: 1px dashed var(--border);
+  border-bottom: 1px dashed var(--border);
+  padding: 0.7rem 0;
+  margin-bottom: 2rem;
 }
-.post-meta-sep { opacity: .35; }
-
+.post-meta-sep {
+  opacity: 0.35;
+}
 /* ─── Body typography ────────────────────────────────────────── */
-
 /* The content area — Org wraps in #content, hand-written in .post-body */
 #content,
 .post-body {
-    font-family: 'Lora', Georgia, serif;
-    font-size: 1.05rem;
-    line-height: 1.85;
-    color: #c8cae8;
+  font-family: "Lora", Georgia, serif;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: #3d3a36;
 }
-
 /* Org puts the title inside #content, pull it out of body flow */
-#content h1.title { font-family: 'Lora', Georgia, serif; }
-
+#content h1.title {
+  font-family: "Lora", Georgia, serif;
+}
 #content p,
-.post-body p { margin-bottom: 1.5rem; }
-
+.post-body p {
+  margin-bottom: 1.5rem;
+}
 /* Org h2 = ## headings = section titles */
 #content h2,
 .post-body h2 {
-    font-family: 'Inconsolata', monospace;
-    font-size: 1.05rem;
-    font-weight: bold;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin: 2.5rem 0 .8rem;
+  font-family: "Inconsolata", monospace;
+  font-size: 1.05rem;
+  font-weight: bold;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin: 2.5rem 0 0.8rem;
 }
-
 /* Org h3 = ### headings = subheadings */
 #content h3,
 .post-body h3 {
-    font-family: 'Lora', serif;
-    font-size: 1.12rem;
-    font-weight: 600;
-    color: var(--text);
-    margin: 2rem 0 .6rem;
+  font-family: "Lora", serif;
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 2rem 0 0.6rem;
 }
-
 #content a,
 .post-body a {
-    color: var(--accent2);
-    text-decoration: underline;
-    text-decoration-color: rgba(167,139,250,.3);
-    transition: text-decoration-color .15s;
+  color: var(--accent2);
+  text-decoration: underline;
+  text-decoration-color: rgba(180, 83, 9, 0.3);
+  transition: text-decoration-color 0.15s;
 }
 #content a:hover,
-.post-body a:hover { text-decoration-color: var(--accent2); }
-
+.post-body a:hover {
+  text-decoration-color: var(--accent2);
+}
 /* Inline code */
 #content code,
 .post-body code {
-    font-family: 'Inconsolata', monospace;
-    font-size: .88em;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    padding: .1em .35em;
-    border-radius: 3px;
-    color: var(--accent2);
+  font-family: "Inconsolata", monospace;
+  font-size: 0.88em;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  color: var(--accent2);
 }
-
-/* Code blocks — Org wraps in <div class="org-src-container"><pre class="src"> */
+/* Code blocks — Org wraps in <pre> */
 #content pre,
 .post-body pre {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    border-radius: 4px;
-    padding: 1.2rem 1.5rem;
-    overflow-x: auto;
-    margin: 1.5rem 0;
-    font-family: 'Inconsolata', monospace;
-    font-size: .88rem;
-    line-height: 1.6;
-    color: var(--muted);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.2rem 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-family: "Inconsolata", monospace;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--muted);
 }
 #content pre code,
-.post-body pre code { background: none; border: none; padding: 0; color: inherit; font-size: 1em; }
-
-/* Org src container */
-.org-src-container { margin: 1.5rem 0; }
-.org-src-container pre.src {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    border-radius: 4px;
-    padding: 1.2rem 1.5rem;
-    overflow-x: auto;
-    font-family: 'Inconsolata', monospace;
-    font-size: .88rem;
-    line-height: 1.6;
-    color: var(--muted);
-    margin: 0;
+.post-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: 1em;
 }
-
+/* Org src container */
+.org-src-container {
+  margin: 1.5rem 0;
+}
+.org-src-container pre.src {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.2rem 1.5rem;
+  overflow-x: auto;
+  font-family: "Inconsolata", monospace;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
 /* Blockquote */
 #content blockquote,
 .post-body blockquote {
-    border-left: 3px solid var(--accent);
-    margin: 1.8rem 0;
-    padding: .8rem 1.5rem;
-    color: var(--muted);
-    font-style: italic;
+  border-left: 3px solid var(--accent);
+  margin: 1.8rem 0;
+  padding: 0.8rem 1.5rem;
+  color: var(--muted);
+  font-style: italic;
 }
-
 /* Callout — use #+BEGIN_QUOTE with a leading // in Org, or .callout class */
 .callout,
 #content .callout {
-    background: rgba(124,58,237,.07);
-    border: 1px solid rgba(124,58,237,.25);
-    border-radius: 4px;
-    padding: 1rem 1.2rem;
-    font-family: 'Inconsolata', monospace;
-    font-size: .88rem;
-    color: var(--text);
-    font-style: normal;
-    margin: 1.8rem 0;
+  background: rgba(217, 119, 6, 0.08);
+  border: 1px solid rgba(217, 119, 6, 0.25);
+  border-radius: 4px;
+  padding: 1rem 1.2rem;
+  font-family: "Inconsolata", monospace;
+  font-size: 0.88rem;
+  color: var(--text);
+  font-style: normal;
+  margin: 1.8rem 0;
 }
 .callout::before,
-#content .callout::before { content: '// '; color: var(--accent); }
-
+#content .callout::before {
+  content: "// ";
+  color: var(--accent);
+}
 /* HR */
 #content hr,
-.post-body hr { border: none; border-top: 1px dashed var(--border); margin: 2.5rem 0; }
-
+.post-body hr {
+  border: none;
+  border-top: 1px dashed var(--border);
+  margin: 2.5rem 0;
+}
 /* Org outline wrappers — strip any default margin/padding */
-.outline-2, .outline-3, .outline-4 { margin: 0; }
-
+.outline-2,
+.outline-3,
+.outline-4 {
+  margin: 0;
+}
 /* Hide Org postamble (we supply our own footer) */
-#postamble { display: none; }
-
+#postamble {
+  display: none;
+}
 /* ─── Post footer ─────────────────────────────────────────────── */
 .post-footer {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: .85rem;
-    color: var(--muted);
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
-.post-footer a { color: var(--muted); text-decoration: none; transition: color .15s; }
-.post-footer a:hover { color: var(--accent2); }
-
+.post-footer a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.post-footer a:hover {
+  color: var(--accent2);
+}
 /* ─── Scrollbars ──────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg2); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
 /* ─── Mobile ──────────────────────────────────────────────────── */
 @media (max-width: 640px) {
-    h1.title, h1.post-title { font-size: 1.6rem; }
-    #content, .post-body { font-size: .98rem; }
-    .post-row { grid-template-columns: 70px 1fr; }
-    .post-tag { display: none; }
+  h1.title,
+  h1.post-title {
+    font-size: 1.6rem;
+  }
+  #content,
+  .post-body {
+    font-size: 0.98rem;
+  }
+  .post-row {
+    grid-template-columns: 70px 1fr;
+  }
+  .post-tag {
+    display: none;
+  }
 }
