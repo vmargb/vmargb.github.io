@@ -36,7 +36,13 @@ This learning system is anecdotal, but it does align with evidence-based meta-le
 
 - *Contextual learning* - use real practical examples & use-cases as *context* for each concept [6]
 
+
 * Self-Corrective learning
+** Core Philosophy
+1. *Memory First*: Write your model *before* consulting notes (after a delay). Wrong is okay.
+2. *Iterate*: Each concept goes through versions (v1, v2, v3...) until mastery.
+3. *Schedule*: Reviews happen at specific intervals (1 day → 3 days → 1 week → 1 month).
+
 ** Basic Idea
 The essence of this method is:
 1. *Your Model*: For each concept, write down your own personal version of the concept. Don't try to sound perfect or formal, just write it down in the most *'frictionless'* way possible(exactly as it appears in your mind) /even/ if it is *wrong*. Treat it as a brain dump.
@@ -62,12 +68,40 @@ Dedicate a chapter(or a file) to each concept with these subsections:
 
     - *Writing Inbox:* This is where you collect incomplete thoughts. A checklist of any question that arises, things that still feel /fuzzy/, no matter how silly the question is. Then research/find answers to insert into your model (from memory)
 
-    - *Feynman Attempt:* This technique allows you to expose gaps in your explanation by finding what you failed to explain, note the exact sentence/step where you failed, and if any *gaps* arose in your explanation, write down what this gap was so you can correct it later. If you simply just forgot what to say, your model is not /dumbified/ or simple enough, make it even more personal and understandable until its completely easy to recall. Remember to not be formal at all.
+    - *Feynman Log:* This technique allows you to expose gaps in your explanation by finding what you failed to explain, note the exact sentence/step where you failed, and if any *gaps* arose in your explanation, write down what this gap was so you can correct it later. If you simply just forgot what to say, your model is not /dumbified/ or simple enough, make it even more personal and understandable until its completely easy to recall. Remember to not be formal at all.
 
 
 ** Hidden knowledge
       It's impossible to fit everything that there is to say about about a concept into one page. An unwritten rule is that authors purposefully embed extra lessons into the *exercises* that is left for you to discover on your own. These extra lessons which I'm going to call *"hidden knowledge"* give you the complete picture, which is stuff that you're usually tested on. The problem is, we never keep track of or write this down as we discover them. It's your job to make a list of each of these discoveries and insert them into your model.
 
+      
+* The Review Cycle (spaced repetition)
+After creating v1 of any model, schedule your iterations:
+- *v2*: 1 day later (tomorrow)
+- *v3*: 3 days later
+- *v4*: 1 week later
+- *v5*: 1 month later
+- *v6*: 3 months later etc..
+
+* Mastery Check (stop here)
+Stop iterating only when you can check all three:
+- [ ] Explain the concept cold without notes in under 2 minutes
+- [ ] Solve a novel hard problem using this concept (not just a familiar template)
+- [ ] Teach it to someone else without "ums," backtracking, or anxiety
+
+* Daily Workflow
+1. For new concepts from lectures:
+   - Dump in your notebook/scratchpad as usual
+   - Wait until end of day (when partially forgotten)
+   - Create v1 in your system *from memory*
+   - Set first review for tomorrow
+2. Check Index for today's "Next Review" dates
+3. For each concept due:
+   - Attempt to explain it from memory (Feynman)
+   - Note where you got stuck in *Writing Inbox*
+   - Research the gaps in *Reading Inbox* (or what needs to be simplified)
+   - Apply your changes to the model 
+   - Update to the next version (*My Model vX*) and update *Next Review* date
 
 * Conclusion
 That is it. This is what I've formulated as the ultimate note-taking technique which I wish I had known much earlier. Now one common problem is, what do you do with your already existing notes taken in between lectures, seminars or in the classroom? I would treat these notes simply as your /scratchpad/. You take them exactly as you've already been doing. Once you've given yourself enough time to *forget* these notes(preferrably at the end of the day), that is the perfect time to create or add to your *Model* from memory and follow the steps above.
