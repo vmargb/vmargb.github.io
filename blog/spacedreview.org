@@ -1,0 +1,73 @@
+#+SETUPFILE: ../blog-setup.org
+#+TITLE: leitner.el and why active recall isn't everything
+
+# ----Post metadata---- (boilerplate)
+# .post-meta bar underneath title
+#+BEGIN_EXPORT html
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">ai</span>
+  <h1 class="post-title">Reclaiming re-reading and the Leitner box system</h1>
+  <div class="post-meta">
+    <span>03 Jul 2026</span>
+    <span class="post-meta-sep">·</span>
+    <span>5 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+#+END_EXPORT
+
+# ----normal Org mode----
+# Export: C-c C-e h o
+
+* [[https://github.com/vmargb/leitner.el][leitner.el]] for reviewing your org-mode notes
+** Where it all began
+From my other posts, you can see I have a particular interest with squeezing every drop of value out of spaced repetition for tackling long problems beyond ordinary flashcards. Flashcards are traditionally built for atomic information or 1:1 facts that minimize mental load. [[https://vmargb.github.io/blog/spaced-repetition-1.html][My previous post]] goes further into optimizing this approach, which is a new way to handle long chains of reasoning without overloading each individual card with too much mental effort, which is a real road block when you're reviewing a deck of thousands of cards daily.
+
+** The problem
+We usually apply a spacing effect to atomic definitions, or concepts compact enough for a single card, and now even to large problems. But what about your actual *notes*?
+
+I often write a lot of notes, hundreds of them accumulating in an Obsidian vault or an org directory, usually buried away, never to be opened again. To be completely honest, I'm not a devoted practitioner of the Zettelkasten method. I prefer long, linear notes that capture everything I want to say about a subject, that's just how my brain prefers it, splitting them only when it feels truly necessary. Now, expecting anyone to /actively recall/ a thousand-word note from memory is unrealistic. Yet I *do* want to reread them. I want to refresh my memory on what I've written, and demanding 90% retrieval accuracy for that is pointless.
+
+The studies are unambiguous in this case, and there is no room for argument: re-reading is inferior to the *testing effect*, which is objectively more efficient in virtually all types of recall. But I've found the rare exception that breaks this rule. Re-reading *is* an effective strategy when two conditions hold: the notes are in your own words, and they're long enough to make active recall genuinely impractical. And that's the whole reason behind why I built =leitner.el=.
+
+** =leitner.el= and reclaiming re-reading as a lost art
+The Leitner box system is one of the oldest spaced-repetition methods for fighting against the *forgetting curve*. It's so old that most people disregard it as obsolete next to modern algorithms like FSRS and the newer SM-2 variants which are not open source. Having implemented both myself (a post for another day), I still chose Leitner. Leitner does indeed become inefficient at massive scale, but for smaller quantity long-form notes, it actually works beautifully. More importantly, an optimal spacing interval matters *far less* when you aren't applying a testing effect at all, in fact it's irrelevant for re-reading.
+
+So =leitner.el= repurposes this old system for a use case it was never designed for, but which I found it fits surprisingly well: resurfacing your old notes so they don't rot away in your filesystem, buried away for years. Moreover, most people never look at their notes again. They sit in folders, untouched, for years. It isn't even a question of whether re-reading with Leitner outperforms active recall with a better algorithm, it's that most people take one extreme or the other, and their notes are *never* resurfaced at all. Any system that gets you to read them again is better than none.
+
+This creates a clean separation of concerns. Use active recall and FSRS for material that demands retrieval. Use Leitner + re-reading(not recalling) for material you simply want to refresh your mind on.
+
+-----
+
+** Modifications to standard Leitner
+The classic Leitner system is a ladder of boxes with fixed review intervals. =leitner.el= adds to this foundation with a couple features designed specifically for the re-reading workflow.
+
+*** SM-2 hybrid mode
+Standard Leitner uses rigid box intervals. I added an optional SM-2 hybrid variant that attaches an ease factor from sm-2 to each file. When enabled, the interval scales /adaptively/ based on your ratings. Confident readings stretch the spacing, while unfamiliarity tightens it. To prevent *runaway* intervals in higher boxes, where the box number itself already signals mastery, unlike traditional sm-2, the ease factor is *tapered* out as items climb the ladder. You can enable this globally or per-group.
+
+*** Prompts and front cards
+Before revealing a note, =leitner.el= shows a "front card" with just the filename, group, and box. You can attach a custom prompt to any file with a =#+LEITNER_PROMPT:= keyword, or let it fall back to the =#+TITLE:=. This gives you the option to recall—explain the concept from memory before you reveal the note. While this isn't the purpose of a reading tool, the option is always there for those that want it. You could potentially use this as a traditional flashcard app if you really wanted to.
+
+*** Group organization
+Notes are organized into groups, each with its own dashboard showing due counts, box distributions. You can review one group at a time or across all groups, and a session caps prevent being overloaded with hundreds of notes on a single day.
+
+*** Graduated browser
+Files that reach the final box graduate from active review. However, leitner allows some flexibility if you update a note, forget details, or simply want to revisit them again. The graduated browser lists every retired file, letting you send anything back to Box 1 with a single keystroke.
+
+
+*** The pausing feature (best for last)
+This is the feature I'm most proud of, and the one that makes =leitner.el= genuinely repurposed for this particular use-case.
+
+The problem with reviewing a one or two thousand word org file is that you won't always finish it in one sitting. Life interrupts or you get lazy(I know more about that than anyone). The problem is, if you only read half the file, you've neither mastered it nor failed it, there's nothing to rate yet. So you can simply /pause/ the file to complete tomorrow or whenever you're next free. The files box and ease factor are left completely untouched. Use this together with Emacs's =save-place-mode=, and your cursor drops back onto the exact line where you stopped reading. 
+
+# ----Post footer---- (boilerplate)
+#+BEGIN_EXPORT html
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 03 Jul 2026</span>
+</footer>
+</div>
+#+END_EXPORT
