@@ -26,50 +26,50 @@
     <span>vmargb</span>
   </div>
 </header>
-<div id="outline-container-orgb75b84e" class="outline-2">
-<h2 id="orgb75b84e">Why I Left Obsidian for Emacs Org-roam (And Why You Probably Shouldn't)</h2>
-<div class="outline-text-2" id="text-orgb75b84e">
+<div id="outline-container-org4dd56c9" class="outline-2">
+<h2 id="org4dd56c9">Why I Left Obsidian for Emacs Org-roam (And Why You Probably Shouldn't)</h2>
+<div class="outline-text-2" id="text-org4dd56c9">
 <p>
-Every few months someone rediscovers Obsidian and posts about it on Hacker News or YouTube, and the cycle begins again. I was one of those people once. I spent a weekend migrating all my notes(from google keep) into a vault, installed all the essential plugins, and felt genuinely productive for about three weeks or so.
+Every few months someone rediscovers Obsidian and posts about it somewhere, and the cycle begins again. That was me once. I spent a weekend migrating all my notes(from google keep) into a vault, installed all the essential plugins, and felt genuinely productive for about three weeks or so&#x2026;
 </p>
 
 <p>
-This isn't an "Obsidian is bad" post. Obsidian is genuinely good, if not one of the best pieces of software that has graced us. But after using Emacs and Org-mode seriously for the past year, there is just simply no going back(annoyingly)
+I'll preface by saying, this isn't an "Obsidian is bad" post. Obsidian is genuinely good, if not one of the best pieces of software that has graced us. But after using Emacs and Org-mode seriously for the past year, there is just no going back(annoyingly)
 </p>
 
 <p>
-The problem isn't the features. It's that Markdown is fundamentally inadequate for what I actually want to do with my notes, and Obsidian inherits every limitation of that format. Org-mode however is a completely different category of tool that happens to also do notes.
+The problem isn't the features. It's that fundamentally all we are doing is <b>editing text</b>, and when you enter that market, you've already lost. The job of text editing has already matured and been perfected since the editor wars. An electron app in the 21st century is simply never going to beat Emacs(or even vim)
 </p>
 </div>
-<div id="outline-container-orgb87434c" class="outline-3">
-<h3 id="orgb87434c">What Obsidian gets right</h3>
-<div class="outline-text-3" id="text-orgb87434c">
+<div id="outline-container-org96cf317" class="outline-3">
+<h3 id="org96cf317">What Obsidian gets right</h3>
+<div class="outline-text-3" id="text-org96cf317">
 <p>
-The onboarding is essentially frictionless. You open it, point it at a folder, and you have a note-taking app. The graph view is attractive and the plugin ecosystem is the best out there, and the defaults are sensible. If you're a normal person who wants to immediately take notes in a frictionless way, you might as well stop reading here, Obsidian is the right answer.
+One thing I'll say is, the onboarding is essentially frictionless. You point it at a folder, and you have a note-taking app right off the bat. The graph view is beautiful and the plugin ecosystem is already exhaustive, not to mention defaults are sensible with zero configuration. If you're a normal person who wants to immediately take notes in a frictionless way, you might as well stop reading here, Obsidian is the right answer.
 </p>
 </div>
 </div>
-<div id="outline-container-org39b0b59" class="outline-3">
-<h3 id="org39b0b59">Where it started to fall apart for me</h3>
-<div class="outline-text-3" id="text-org39b0b59">
+<div id="outline-container-org069746d" class="outline-3">
+<h3 id="org069746d">Where it started to fall apart for me</h3>
+<div class="outline-text-3" id="text-org069746d">
 <p>
 The problem wasn't any single feature. It was the accumulated weight of the Electron app sitting between me and a text file. Every time I wanted to do something slightly non-standard, run a script against my notes, grep across them, pipe them into something else, harpoon across my frequently used notes. I was constantly reminded that this was a tool designed for non-developers.
 </p>
 
 <p>
-My notes are just files on disk. The idea that I should have to open a specific application to interact with them started to feel absurd. With Org files, every tool I already know works: <code>grep</code>, <code>sed</code>, <code>find</code>, <code>git diff</code>, anything. They're plain text.
+My notes are just files on disk. The idea that I should have to open a specific application to interact with them started to feel counter-intuitive. With Org files, every tool I already know works: <code>grep</code>, <code>sed</code>, <code>find</code>, <code>git diff</code>, anything. They're plain text. Not to mention, my existing workflow for editing text outside of notetaking is consistent, it's one unified workflow that operates the same everwhere, regardless of whether I'm writing code or I'm writing this blog.
 </p>
 
 <blockquote>
 <p>
-The test I now apply to any tool: if the company shut down tomorrow, or the app stopped working, would I lose anything I can't recover? With Obsidian vaults on disk, the answer is no. But the habits and workflows built around the GUI are a different kind of lock-in.
+The test I now apply to any tool: if the company shut down tomorrow, or the app stopped working, would I lose anything I can't recover? With Obsidian vaults on disk, the answer is no. But the habits and workflows built around the GUI, yes. That's a different kind of lock-in.
 </p>
 </blockquote>
 </div>
 </div>
-<div id="outline-container-orgd420fdb" class="outline-3">
-<h3 id="orgd420fdb">Why Org-mode</h3>
-<div class="outline-text-3" id="text-orgd420fdb">
+<div id="outline-container-orga0329a2" class="outline-3">
+<h3 id="orga0329a2">Why Org-mode</h3>
+<div class="outline-text-3" id="text-orga0329a2">
 <p>
 I write documentation in Markdown. I write READMEs in Markdown. It's perfect for those things.
 </p>
@@ -154,9 +154,9 @@ The other thing: Markdown has <i>no semantic structure</i> beyond headings, list
 </p>
 </div>
 </div>
-<div id="outline-container-org07e3b57" class="outline-3">
-<h3 id="org07e3b57">What Org-roam actually is</h3>
-<div class="outline-text-3" id="text-org07e3b57">
+<div id="outline-container-org4fba44f" class="outline-3">
+<h3 id="org4fba44f">What Org-roam actually is</h3>
+<div class="outline-text-3" id="text-org4fba44f">
 <p>
 Org-roam is a package for Emacs that implements a Zettelkasten-style note graph on top of Org mode. It gives you bidirectional links and a node database (SQLite under the hood) for a daily journal workflow. But still all operating on ordinary <code>.org</code> files.
 </p>
@@ -191,9 +191,9 @@ If you're curious about this without committing to full Emacs, Denote is a simpl
 </blockquote>
 </div>
 </div>
-<div id="outline-container-org5bf3278" class="outline-3">
-<h3 id="org5bf3278">The things I can't do in Obsidian</h3>
-<div class="outline-text-3" id="text-org5bf3278">
+<div id="outline-container-orgc21c7e6" class="outline-3">
+<h3 id="orgc21c7e6">The things I can't do in Obsidian</h3>
+<div class="outline-text-3" id="text-orgc21c7e6">
 <p>
 Now everything I described above just demonstrates that both applications <i>can</i> do the same thing. The difference is that Emacs as an application is far superior to Obsidian for my actual workflow, because Emacs is an environment and Obsidian is a silo.
 </p>
@@ -219,9 +219,9 @@ This is why I can't go back. It's not about the notes. It's about the workflow. 
 </p>
 </div>
 </div>
-<div id="outline-container-org6e333d1" class="outline-3">
-<h3 id="org6e333d1">The honest tradeoffs (and why I still chose this)</h3>
-<div class="outline-text-3" id="text-org6e333d1">
+<div id="outline-container-orgf92af90" class="outline-3">
+<h3 id="orgf92af90">The honest tradeoffs (and why I still chose this)</h3>
+<div class="outline-text-3" id="text-orgf92af90">
 <p>
 The Emacs learning curve is real and I won't pretend otherwise. I've been using it for a year and I'm still learning new things. The configuration is Lisp, which is either delightful or horrifying depending on your prior coding experience(if any). The worst is that there is no sophisticated cross-platform mobile solution worth using. Syncing requires you to sort it out yourself(syncthing, dropbox, git etc.)
 </p>

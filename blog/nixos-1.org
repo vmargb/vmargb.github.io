@@ -22,21 +22,22 @@
 # ----normal Org mode----
 # Export: C-c C-e h o
 
+* A first encounter with NixOS
 A couple months ago, I put NixOS on my main machine. I want to write down what that's actually been like, not the honeymoon version you see on youtube or read in blog posts from people who just finished setting it up, but where I am after weeks of fighting with it for real work.
 
-tldr: it was rougher than what was advertised, the mental model takes real time to build, and there are things that are still genuinely annoying. But the thing it promises which is a declarative and reproducible system that you can actually understand and rebuild from scratch actually delivers.
+/tldr:/ it was rougher than what was advertised, the mental model takes real time to get your head around, and there are things that are still genuinely annoying. But the thing it promises, which is a declarative and reproducible system that you can actually understand and rebuild from scratch is worth the pain for the long-term benefits.
 
 ** What Nix even is
 
 If you haven't heard of it, NixOS is a Linux distribution built around the Nix package manager. The core idea is that your entire system configuration, packages, services, users, dotfiles, everything lives in a collection of =.nix= files(or a single file if you want) that you can commit using version control like Git. Nix being a functional and declarative programming language means whatever you declare, will always reproduce the exact same system, every time.
 
-The opposite of this is how most Linux systems work, you install packages imperatively in the terminal over time, modify config files by hand and eventually end up with a system where the current state exists only as a history of commands you may or may not remember entering. The equivalent would be if someone asked for your neovim configuration, and you could only tell them all the settings you "remember" changing/installing.
+The opposite of this is how most Linux systems work, you install packages imperatively in the terminal over time, modify config files by hand and eventually end up with a system where the current state exists only as a history of commands that and you may or may not remember entering. The equivalent would be if someone asked for your =neovim= configuration, and you could only give a brief list of all your configuration to someone and just hope for the best that they can reproduce it on their end, there is *no* guarantee.
 
-** Month one: I regret everything
+** Month one: not getting better
 
-The first month was genuinely painful. Every minute was wanting to return back to Windows or MacOS.
+The first month was genuinely painful. I mean getting the installation to work smoothly was one thing, but having to fight with your configuration afterwards is another.
 
-You can't just =apt install= or =brew install= something. You can't just download a binary and run it. You can't just follow a tutorial that says "put this in =/usr/local/bin=." Everything must be declared and configured in a =.nix=. Everything. The friction is exhausting before it becomes useful.
+You can't just =apt install= or =brew install= something. You can't just download a binary and run it. You can't just follow a tutorial that says "put this in =/usr/local/bin=." Everything must be declared and configured in a =.nix=. The friction is exhausting.
 
 When things work, you don't know why. When things break, you don't know why either. You're just... trusting the system which feels like an ominous black-box. Which is the opposite of how most people use Linux. I want to know what's happening. I want to see the files. I want to understand the state of my machine.
 
@@ -119,7 +120,7 @@ On previous setups, I had a =setup.md= file listing things I'd installed, which 
 
 Some proprietary software is a pain. Anything that ships its own bundled libraries and expects to find them at standard paths will fail in creative ways. =steam-run= exists for this, and the nixpkgs Steam package works fine, but if you need to run some random closed-source binary you found somewhere, good luck.
 
-The error messages from Nix can be genuinely impenetrable. When something goes wrong in a derivation, you sometimes get a stack trace that requires knowing the internals of the Nix evaluator to parse. This gets better as you learn more but it's not fun at all.
+The error messages from Nix are sometimes just impenetrable. When something goes wrong in a derivation, you sometimes get a stack trace that requires knowing the internals of the Nix evaluator to parse. This gets better as you learn more but it's not fun at all.
 
 Build times. If something isn't cached in the Nix binary cache, it builds from source. Most things are cached. Some things aren't.
 

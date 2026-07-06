@@ -86,7 +86,7 @@ def reverselinkedlist(head):
 #+END_SRC
 #+END_QUOTE
 
-And each layer towards the solution has its own confidence prompt. Perhaps it is more difficult to arrive at the code straight away, but an explanation in plain english creates a /eureka/ moment for you. This allows you to solidify each layer and systematically arrive at the solution slowly. Which allows you to focus on one cognitive task at a time without overloading your working memory.
+And each layer towards the solution has its own confidence prompt. Perhaps it is more difficult to arrive at the code straight away, but an explanation in plain english creates that /eureka/ moment for you. This allows you to solidify each layer and systematically arrive at the solution slowly. Which allows you to focus on one cognitive task at a time without overloading your working memory.
 
 The system should evaluate each recall layer independently. A user might:
     - Find the conceptual explanation straightforward (easy rating)

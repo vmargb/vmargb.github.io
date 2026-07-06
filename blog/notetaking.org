@@ -1,5 +1,5 @@
 #+SETUPFILE: ../blog-setup.org
-#+TITLE: The self-corrective approach to notetaking
+#+TITLE: The iterative approach to notetaking
 
 # ----Post metadata---- (boilerplate)
 # .post-meta bar underneath title
@@ -22,27 +22,27 @@
 # ----normal Org mode----
 # Export: C-c C-e h o
 
-* Evidence
+* Meta-learning Principles
 This learning system is anecdotal, but it does align with evidence-based meta-learning principles such as:
-- *Constructivism* - knowledge is constructed by you. Instead of simply absoring information or copying/rewriting, the explanation only comes from your memory [1]
+- *Constructivism* - knowledge is constructed by you. Instead of simply absoring information or copying/rewriting, the explanation only comes from your memory
 
-- *Errorful generation* - generating your own explanation that is initially *wrong/incomplete* actually produces stronger memory once it is corrected. Correcting yourself is better for deeper understanding than getting it right the first time [2]
+- *Errorful generation* - generating your own explanation that is initially *wrong/incomplete* actually produces stronger memory once it is corrected. Correcting yourself is better for deeper understanding than getting it right the first time
 
-- *Successive elaboration* - successively self-correcting your explanation over multiple passes leads to deeper 'encoding' of the concept by creating richer memory traces [3]
+- *Successive elaboration* - successively self-correcting your explanation over multiple passes leads to deeper 'encoding' of the concept by creating richer memory traces
 
-- *Desirable difficulties* - Instead of copying, make the model *personal* & “dumbified”, which more realistically resembles your current understanding with the concept [4]
+- *Desirable difficulties* - Instead of copying, make the model *personal* & “dumbified”, which more realistically resembles your current understanding with the concept
 
-- *The Feynman technique* - *teach* your current explanation(even if its wrong) without your notes, which improves active recall and exposes gaps in your explanation [5]
+- *The Feynman technique* - *teach* your current explanation(even if its wrong) without your notes, which improves active recall and exposes gaps in your explanation
 
-- *Contextual learning* - use real practical examples & use-cases as *context* for each concept [6]
+- *Contextual learning* - use real practical examples & use-cases as *context* for each concept
 
-* Self-Corrective learning
+* Iterative note-taking
 ** Basic Idea
-Most note-taking fails because it is too passive. You can reread something and feel familiar with it without ever discovering what you actually do /not/ understand. The real test is not whether the information looks clear on the page, but whether you can reconstruct the same idea from memory.
+Most note-taking fails because it is too passive. You can reread something and feel familiar with it without ever discovering what you actually do /not/ understand. The real test in taking notes is not whether the information looks clear on the page, but whether you can reconstruct the same idea from memory and find its weaknesses.
 
 That is the central idea of the Self-Corrective Method: treat *failure* in explanation as *useful* data.
 
-Instead of trying to write perfect notes upfront, you first build a rough personal model of the concept from memory(a brain dump). Then you try to explain it without looking. The places where you get stuck, hesitate, or fail completely are not mistakes to hide. They are *signals* showing exactly where the model is incomplete. Those failure points tell you what needs to be *clarified*, *researched*, or *simplified*.
+Instead of trying to write perfect notes upfront, you first build a rough personal model of the concept from memory(a brain dump). Then you try to explain it without looking. The places where you get stuck, or fail completely are not mistakes to hide. You should instead see them as *signals* showing exactly where the model falls apart. Those failure points tell you what needs to be *clarified*, *researched*, or *simplified* in your own words.
 
 So the old process of “review the material until it feels familiar.” now becomes:
 

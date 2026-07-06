@@ -21,7 +21,7 @@
   <div class="post-meta">
     <span>08 Oct 2025</span>
     <span class="post-meta-sep">·</span>
-    <span>5 min read</span>
+    <span>8 min read</span>
     <span class="post-meta-sep">·</span>
     <span>vmargb</span>
   </div>
@@ -30,9 +30,9 @@
 <p>
 Flashcards persistently remain essential for all forms of learning and disciplines. Anki's spaced-repetition excels for simple tasks like remembering facts, definitions, vocabulary etc&#x2026; However it clearly reveals its limitation with complex tasks like coding, problem-solving or studying grammar(over vocabulary) which demand more sophisticated approaches. The obvious answer here would be to transition to traditional note-taking for anything that goes beyond brute-memorisation, but what if there's a better way? This post outlines my vision for a next-generation flashcard system which prioritises multi-step active recall and adaptive learning.
 </p>
-<div id="outline-container-org45270ef" class="outline-2">
-<h2 id="org45270ef">The Problem with Linear Flashcards</h2>
-<div class="outline-text-2" id="text-org45270ef">
+<div id="outline-container-org82bc846" class="outline-2">
+<h2 id="org82bc846">The Problem with Linear Flashcards</h2>
+<div class="outline-text-2" id="text-org82bc846">
 <p>
 Most flashcards assume knowledge is binary, you either know it or you don’t. But learning is often more of a <i>progressive</i> process.
 </p>
@@ -64,9 +64,9 @@ Instead of a single "answer," each flashcard has multiple checkpoints, each rein
 </p>
 </div>
 </div>
-<div id="outline-container-org88d4441" class="outline-2">
-<h2 id="org88d4441">Multi-Step Active Recall</h2>
-<div class="outline-text-2" id="text-org88d4441">
+<div id="outline-container-orgf425705" class="outline-2">
+<h2 id="orgf425705">Multi-Step Active Recall</h2>
+<div class="outline-text-2" id="text-orgf425705">
 <p>
 Traditional flashcards present linear front/back interactions, but more complicated concepts are not as simple as that, sometimes understanding a concept requires passing through multiple <i>bridges</i> or middle-men that help you arrive at the conclusion. For example, lets say we're solving a coding problem:
 </p>
@@ -87,9 +87,9 @@ Traditional flashcards present linear front/back interactions, but more complica
 <li><b>Third Recall</b>: Code implementation</li>
 </ol>
 </div>
-<div id="outline-container-org42a648e" class="outline-3">
-<h3 id="org42a648e">Example</h3>
-<div class="outline-text-3" id="text-org42a648e">
+<div id="outline-container-org4ee64d0" class="outline-3">
+<h3 id="org4ee64d0">Example</h3>
+<div class="outline-text-3" id="text-org4ee64d0">
 <blockquote>
 <p>
 <b>Front</b>
@@ -135,7 +135,7 @@ Start from the head, and iteratively reverse the pointers of each node until rea
 </blockquote>
 
 <p>
-And each layer towards the solution has its own confidence prompt. Perhaps it is more difficult to arrive at the code straight away, but an explanation in plain english creates a <i>eureka</i> moment for you. This allows you to solidify each layer and systematically arrive at the solution slowly. Which allows you to focus on one cognitive task at a time without overloading your working memory.
+And each layer towards the solution has its own confidence prompt. Perhaps it is more difficult to arrive at the code straight away, but an explanation in plain english creates that <i>eureka</i> moment for you. This allows you to solidify each layer and systematically arrive at the solution slowly. Which allows you to focus on one cognitive task at a time without overloading your working memory.
 </p>
 
 <p>
@@ -149,9 +149,9 @@ The system should evaluate each recall layer independently. A user might:
 </div>
 </div>
 </div>
-<div id="outline-container-orgb2639ec" class="outline-2">
-<h2 id="orgb2639ec">Branching Paths for Adaptive Learning</h2>
-<div class="outline-text-2" id="text-orgb2639ec">
+<div id="outline-container-orgf28b385" class="outline-2">
+<h2 id="orgf28b385">Branching Paths for Adaptive Learning</h2>
+<div class="outline-text-2" id="text-orgf28b385">
 <p>
 Some topics require different approaches. Instead of rigid steps, we could instead allow optional alternate pathways:
 </p>
