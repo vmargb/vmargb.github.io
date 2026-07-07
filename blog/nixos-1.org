@@ -53,7 +53,7 @@ Because =/usr/bin/python3= doesn't exist. Turns out everything is in =/nix/store
 The fastest way through month one: keep search.nixos.org/options and search.nixos.org/packages open in separate tabs. Close them at your own risk. They answer 90% of questions. The other 10% require reading source code(or asking an llm)
 #+END_QUOTE
 
-** Flakes (nix in latin means snow btw)
+** Flakes
 
 The next few weeks in I switched from the traditional =configuration.nix= setup to flakes. Flakes are technically still "experimental" but in practice everyone in the community uses them. The difference is that flakes give you a locked =flake.lock= file, similar to how every package manager that handles dependencies work. This is an exact pinned version of every input, including nixpkgs itself. Your system is now fully reproducible not just structurally but in terms of exact package versions.
 

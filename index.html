@@ -24,7 +24,6 @@
 
 <!-- main -->
 <div class="fm-layout">
-
     <!-- file tree -->
     <aside class="fm-sidebar">
         <div class="sidebar-header">~/portfolio</div>
@@ -40,8 +39,14 @@
             <li class="tree-item indent" data-target="proj-arrow"    data-path="~/projects/arrow.el">
                 <span class="ti">▸</span> arrow.el
             </li>
+            <li class="tree-item indent" data-target="proj-project-x"    data-path="~/projects/project-x">
+                <span class="ti">▸</span> project-x
+            </li>
             <li class="tree-item indent" data-target="proj-myoso"    data-path="~/projects/myoso">
                 <span class="ti">▸</span> myoso
+            </li>
+            <li class="tree-item indent" data-target="proj-leitner.el"    data-path="~/projects/leitner.el">
+                <span class="ti">▸</span> leitner.el
             </li>
             <li class="tree-item indent" data-target="proj-funcy"    data-path="~/projects/funcy.nvim">
                 <span class="ti">▸</span> funcy.nvim
@@ -90,11 +95,19 @@
             </div>
             <div class="panel-body">
                 <h1 class="big-name">Umar Sharif</h1>
-                <p class="tagline">CS grad & developer — AI, Web & Android</p>
+                <p class="tagline">CS & AI grad, Web dev, Emacs package author</p>
                 <div class="about-grid">
                     <div class="about-block">
                         <span class="ab-label">hobbies</span>
-                        <span class="ab-val">Language learning, Reading, Calisthenics</span>
+                        <span class="ab-val">Writing, Language-learning, Calisthenics</span>
+                    </div>
+                    <div class="about-block">
+                        <span class="ab-label">favourite langs</span>
+                        <span class="ab-val">Elisp, Rust, Go</span>
+                    </div>
+                    <div class="about-block">
+                        <span class="ab-label">daily tools</span>
+                        <span class="ab-val">Emacs, Org-mode, NixOS</span>
                     </div>
                     <div class="about-block">
                         <span class="ab-label">horror picks</span>
@@ -102,15 +115,7 @@
                     </div>
                     <div class="about-block">
                         <span class="ab-label">favourite books</span>
-                        <span class="ab-val">Mistborn &amp; Ready Player One</span>
-                    </div>
-                    <div class="about-block">
-                        <span class="ab-label">favourite langs</span>
-                        <span class="ab-val">Haskell, Rust, Golang</span>
-                    </div>
-                    <div class="about-block">
-                        <span class="ab-label">daily tools</span>
-                        <span class="ab-val">Emacs, Org-mode, NixOS</span>
+                        <span class="ab-val">Ready Player One &amp; Mistborn</span>
                     </div>
                     <div class="about-block">
                         <span class="ab-label">status</span>
@@ -133,7 +138,7 @@
             </div>
             <div class="panel-body panel-project">
                 <h2>parts-of-speech</h2>
-                <p>A non-linear voice-over recording app written in Rust that lets you record your audio with an improved recording-booth workflow compared to traditional recording software.</p>
+                <p>A non-linear voice recording app written in Rust that lets you record your audio in manageable segments. Designed to emulate a recording-booth workflow(aka talkback) compared to traditional recording software.</p>
                 <a class="proj-link" href="https://github.com/vmargb/parts-of-speech" target="_blank">→ open on github</a>
             </div>
         </div>
@@ -145,20 +150,46 @@
             </div>
             <div class="panel-body panel-project">
                 <h2>arrow.el</h2>
-                <p>An Emacs package implementation of arrow.nvim, designed to provide per-project and per-buffer bookmarks as well as org-mode integration that is fully isolated and persistent in each session.</p>
+                <p>An Emacs package implementation of arrow.nvim, designed to provide global, per-project and buffer-local bookmarks that you can seamlessly navigate between. Each bookmark uses a flat prefix-tree which lets you dynamically control the keystroke for each mark. Also includes an org-mode integration that is isolated to each project.</p>
                 <a class="proj-link" href="https://github.com/vmargb/arrow.el" target="_blank">→ open on github</a>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-proj-project-x">
+            <div class="panel-file-header">
+                <span class="fh-name">project-x/</span>
+                <span class="fh-meta">project · emacs</span>
+            </div>
+            <div class="panel-body panel-project">
+                <h2>project-x</h2>
+                <p>An emacs package that extends the built-in project.el package on Emacs. Project-x adds session persistence and restoration to your projects by saving window and buffer state to memory. Additionally it provides context isolation by extending tab-bar-mode.</p>
+                <a class="proj-link" href="https://github.com/vmargb/project-x" target="_blank">→ open on github</a>
             </div>
         </div>
 
         <div class="panel" id="panel-proj-myoso">
             <div class="panel-file-header">
                 <span class="fh-name">myoso/</span>
-                <span class="fh-meta">project · coming soon</span>
+                <span class="fh-meta">project · TUI</span>
             </div>
             <div class="panel-body panel-project">
                 <h2>Myoso</h2>
-                <p>An Anki-like flashcard app with an extra multi-step layered spaced-repetition strategy. Built to scratch my own itch learning languages.</p>
+                <p>An Anki-like flashcard app with a new multi-step spaced-repetition strategy built on top of FSRS. This was designed to scratch my own itch with fitting long chain of thought inside of a flashcard.</p>
                 <a class="proj-link" href="https://github.com/vmargb/myoso" target="_blank">→ open on github</a>
+                <a class="proj-link" href="./blog/spaced-repetition-1.html">→ blog post</a>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-proj-leitner.el">
+            <div class="panel-file-header">
+                <span class="fh-name">leitner.el/</span>
+                <span class="fh-meta">project · emacs</span>
+            </div>
+            <div class="panel-body panel-project">
+                <h2>leitner.el</h2>
+                <p>An emacs package to resurface your org-mode notes for re-reading & reviewing using the Leitner box system and the sm-2 algorithm. Designed to prevent your long-form notes from being buried away for too long.</p>
+                <a class="proj-link" href="https://github.com/vmargb/leitner.el" target="_blank">→ open on github</a>
+                <a class="proj-link" href="./blog/spacedreview.html">→ blog post</a>
             </div>
         </div>
 
@@ -169,7 +200,7 @@
             </div>
             <div class="panel-body panel-project">
                 <h2>funcy.nvim</h2>
-                <p>A Neovim plugin that uses LSP to create function and class declarations via Regex. Similar to the same feature in Jetbrains IDEs.</p>
+                <p>A Neovim plugin that leverages LSP and pre-defined regex snippets to create function and class declarations from function calls in code. Inspired by the same feature in Jetbrains IDEs.</p>
                 <a class="proj-link" href="https://github.com/vmargb/funcy.nvim" target="_blank">→ open on github</a>
             </div>
         </div>
@@ -181,7 +212,7 @@
             </div>
             <div class="panel-body panel-project">
                 <h2>Lookahead</h2>
-                <p>A Firefox extension that automates web navigation and adds a keyboard-driven "file-picker" for links on any page.</p>
+                <p>A Firefox extension that automates web navigation and adds a keyboard-driven "file-picker" for quick-switching between your links. This prevents constant back-and-forths when trying to find the right website.</p>
                 <a class="proj-link" href="https://github.com/vmargb/lookahead" target="_blank">→ open on github</a>
             </div>
         </div>
@@ -193,7 +224,7 @@
             </div>
             <div class="panel-body panel-project">
                 <h2>Evo-Loop Simulator</h2>
-                <p>Self-reproducing & self-replicating cellular automata based on the famous Langton loops. This is one of those projects that feels alive when you run it.</p>
+                <p>Self-reproducing & self-replicating cellular automata based on the famous Langton loops. This is an implementation of Christopher Langton and Sayama's ideas on artificial life.</p>
                 <a class="proj-link" href="https://github.com/physicsKnight/Artificial-Life" target="_blank">→ open on github</a>
             </div>
         </div>
@@ -205,8 +236,9 @@
             </div>
             <div class="panel-body panel-project">
                 <h2>Chess AI</h2>
-                <p>Monte-Carlo Tree Search combined with Minimax for a chess-playing agent. This project is more of an experiment of testing between exploration and exploitation.</p>
+                <p>A hybrid of Monte-Carlo Tree Search with Minimax for a chess-playing agent. This project is more of an experiment of testing between exploration and exploitation.</p>
                 <a class="proj-link" href="https://github.com/physicsKnight/MCTS-Minimax" target="_blank">→ open on github</a>
+                <a class="proj-link" href="./blog/mcts-vs-minimax.html">→ blog post</a>
             </div>
         </div>
 
