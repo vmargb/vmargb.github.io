@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The final piece of the spaced-repetition puzzle</title>
+<meta name="generator" content="Org Mode" />
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog.css">
+<style>
+p { margin-top: 0; margin-bottom: 1em; }
+ul, ol { margin-bottom: 1em; }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">app</span>
+  <h1 class="post-title">Myoso, the final piece of the spaced-repetition puzzle.</h1>
+  <div class="post-meta">
+    <span>08 Jul 2026</span>
+    <span class="post-meta-sep">·</span>
+    <span>10 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+<div id="outline-container-org6b642b1" class="outline-2">
+<h2 id="org6b642b1"><a href="https://github.com/vmargb/myoso">Myoso</a>, what spaced-repetition has been missing all along</h2>
+<div class="outline-text-2" id="text-org6b642b1">
+<p>
+I have written two blog posts about spaced-repetition:
+</p>
+<ul class="org-ul">
+<li><a href="./spaced-repetition-1.html">Building a better anki</a></li>
+<li><a href="./spacedreview.html">leitner.el</a></li>
+</ul>
+
+<p>
+As you can see it's a particular interest of mine. When I first read about the <b>testing effect</b> (active recall) and the <b>spacing effect</b> (spaced-repetition), my first reaction was <i>"why don't we just do this for everything?"</i>. Meaning, that every activity that you take part in towards understanding a subject, including the problems you solve, should fall under both of these umbrellas. This is certainly not what we're normally taught to do. Definitions, concepts, vocabulary, sure, turn it into a flashcard. What about a hard problem that takes a whole page to solve? 
+</p>
+</div>
+<div id="outline-container-org59e30c0" class="outline-3">
+<h3 id="org59e30c0">Where it all started</h3>
+<div class="outline-text-3" id="text-org59e30c0">
+<p>
+For simple definitions and concepts, flashcards with active recall are perfect. But solving a problem? 100 problems, 1000 problems? It is not usual to have a system of spaced repetition with active recall in this case for some odd reason. Now there are <i>attempts</i> out there. I've seen many, the problem is they all fall for the same trap. An ordinary question prompt which suddenly leads into a <b>heavy</b> back-card with the entire solution squished into one place, or even a picture of the solution solved by hand.
+</p>
+
+<p>
+This does not work. More specifically, it does not <b>scale</b>.
+</p>
+
+<p>
+Simply because you are forcing too much mental load into one card. The purpose of flashcards is that they are atomic, and recall should be quick. If you go beyond a certain mental weight and you have a deck of 1000 problems to complete, you will never reliably reach high recall accuracy. It's very easy to blame the person, and claim they aren't working hard enough. But the reality is that this system <b>does not scale</b> efficiently, even more-so when the student isn't even using flashcards for their problem-solving at all.
+</p>
+</div>
+</div>
+<div id="outline-container-org5985dc0" class="outline-3">
+<h3 id="org5985dc0">flashcards-plus</h3>
+<div class="outline-text-3" id="text-org5985dc0">
+<p>
+I looked endlessly looking for some sort of system that has this all figured out. Endless wikipedia entries, blogs, papers. Nobody is really discussing this at all. I did come across a paper under the psychology of learning &amp; teaching, <b>flashcards-plus</b>. This is a study which demonstrates that you can improve retention by formatting flashcards into individual <b>steps</b>. If there is a concept you want to memorise, rather than writing its definition in a flashcard, the user instead splits it apart into three components:
+</p>
+
+<ol class="org-ol">
+<li>textbook definition</li>
+<li>you're own words</li>
+<li>real-world example or analogy</li>
+</ol>
+
+<p>
+Doing this reliably increases recall accuracy very well. It makes sense why it worked, adding extra information in relation to the data you want to retrieve builds strong <b>memory traces</b>. This is <i>loosely</i> related to the idea of <b>contextual retrieval</b> in AI systems where adding additional related context next to the thing you want to remember, improves the accuracy of remembering that thing, on top of understanding it better <i>in context</i>. It's also why <b>language-learners</b> have found out that, putting vocabulary next to a real-world sentence in a flashcard, not only helps you understand the word better in context, but even improves recall accuracy of the world alone.
+</p>
+
+<p>
+But here's the problem again, as soon as you start adding too much information to the back of a flashcard, you are now increasing its <i>weight</i>. Now if you read my older <a href="./spacedreview.html">post</a>, you'll know that this extra <i>weight</i> doesn't really matter when you are simply just <i>re-reading</i> your notes, however it becomes problematic when you are practising active-recall or the testing effect.
+</p>
+</div>
+</div>
+<div id="outline-container-orgea4c1bb" class="outline-3">
+<h3 id="orgea4c1bb">Multi-step flashcards</h3>
+<div class="outline-text-3" id="text-orgea4c1bb">
+<p>
+That's where I came up with the idea to extend ordinary flashcards, by instead <i>dividing</i> the mental weight of a heavy back-card into multiple individual steps. Your back-card is now <code>n</code> number of steps that build a long chain towards the solution, each step is individually rated as its own isolated card. So solving a hard problem can be either 2, 3 or even 10 steps if you wanted it to be.
+</p>
+
+<p>
+The algorithm doesn't matter, you could use sm-2, leitner, ebisu. <code>Myoso</code> uses FSRS. However, the algorithm would need to be modified for for this multi-step approach to work. The user has to <i>"unlock"</i> each step as they go along, rating a step well means unlocking the next step. Scheduling the problem would involve taking into account the rating of <b>each individual step</b> towards the solution, and breaking an earlier step should require <b>rebuilding the steps</b> again. With all of these things into place, what you have is a system where you can encapsulate a problem of <i>any</i> size into a single flashcard without mentally exhausting the user during review.
+</p>
+
+<hr>
+</div>
+</div>
+<div id="outline-container-org264f1e3" class="outline-3">
+<h3 id="org264f1e3">How the scheduling actually works (FSRS)</h3>
+<div class="outline-text-3" id="text-org264f1e3">
+<p>
+The core piece is uninteresting on its own, each step is scheduled with <a href="https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm">FSRS</a>, the same algorithm behind current-day Anki. Every step basically tracks its own individual <i>stability</i> (how many days until you're 90% likely to still recall it) and <i>difficulty</i>. So if you rate a step well, its stability obviously grows, so it comes back <i>later</i>. Rate it poorly and stability shrinks, so it comes back <i>sooner</i>. This part is essentially what every SRS implementation looks like behind the scenes, even older systems like Leitner and sm-2 are loosely doing the same thing, but not at the same level of sophistication.
+</p>
+
+<p>
+The interesting part of <code>Myoso</code> is what happens <i>around</i> that per-step scheduling.
+</p>
+</div>
+<div id="outline-container-orgaf20be4" class="outline-4">
+<h4 id="orgaf20be4">Pulling in the chain</h4>
+<div class="outline-text-4" id="text-orgaf20be4">
+<p>
+When a multi-step card comes up for review, <code>myoso</code> does not just grab whichever step is due in isolation. It walks the chain from the <b>beginning</b>, meaning you have to rebuild the chain successfully + the due step. If step 3 is due but 1 and 2 aren't, you still review 1 and 2 first, in order, before you get to 3. Now earlier versions of Myoso didn't used to do this. Howver, it became obvious that jumping straight to step 3 without re-establishing 1 and 2 defeats the reason behind breaking problem into steps in the first place.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd704272" class="outline-4">
+<h4 id="orgd704272">Re-exposure without inflating the schedule</h4>
+<div class="outline-text-4" id="text-orgd704272">
+<p>
+Another subtlety is that, if steps 1 and 2 aren't actually <i>due</i> yet, why are you <b>rating</b> them again? Reviewing something before it's due would normally push its schedule outward, in fact this would inflate the cards schedule by a lot. Which isn't something you want happening just because a problem has been resurfaced in the same review session. So myoso tracks these as a <i>chain re-exposure</i>. Meaning the rating still gets logged for your stats, but the FSRS state(stability, difficulty) and due date is left completely untouched. As far as the scheduler is concerned, that step wasn't reviewed at all(or it is tapered out). Only the step that was genuinely due gets to move its own schedule.
+</p>
+</div>
+</div>
+<div id="outline-container-org22f9b6c" class="outline-4">
+<h4 id="org22f9b6c">Breaking a step</h4>
+<div class="outline-text-4" id="text-org22f9b6c">
+<p>
+The other direction matters just as much. If you rate an early step <i>Again</i> or <i>Hard</i>, that's a sign the chain isn't solid, so every step after it gets immediately <i>"de-unlocked"</i> and marked due again. Now in your next session you have to rebuild the whole thing from that point forward. This is the same idea I mentioned earlier, breaking an earlier step should require rebuilding the steps that depend on it, and it's really the one rule that makes chained flashcards behave naturally, rather than turning into a set of steps that quietly drift out of sync with each other.
+</p>
+
+<p>
+Put all of this together, and this is what actually lets you drop a full derivation, a math or coding problem, whatever, into a deck, without it collapsing into yet another "one giant unreviewable card".
+</p>
+
+
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 08 Jul 2026</span>
+</footer>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

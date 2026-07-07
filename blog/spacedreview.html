@@ -10,6 +10,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../blog.css">
+<style>
+p { margin-top: 0; margin-bottom: 1em; }
+ul, ol { margin-bottom: 1em; }
+</style>
 </head>
 <body>
 <div id="content" class="content">
@@ -19,28 +23,28 @@
   <span class="post-label">ai</span>
   <h1 class="post-title">Reclaiming re-reading and the Leitner box system</h1>
   <div class="post-meta">
-    <span>03 Jul 2026</span>
+    <span>03 Jun 2026</span>
     <span class="post-meta-sep">·</span>
     <span>5 min read</span>
     <span class="post-meta-sep">·</span>
     <span>vmargb</span>
   </div>
 </header>
-<div id="outline-container-org8598ace" class="outline-2">
-<h2 id="org8598ace"><a href="https://github.com/vmargb/leitner.el">leitner.el</a> for reviewing your org-mode notes</h2>
-<div class="outline-text-2" id="text-org8598ace">
+<div id="outline-container-org229a5c6" class="outline-2">
+<h2 id="org229a5c6"><a href="https://github.com/vmargb/leitner.el">leitner.el</a> for reviewing your org-mode notes</h2>
+<div class="outline-text-2" id="text-org229a5c6">
 </div>
-<div id="outline-container-orge60476e" class="outline-3">
-<h3 id="orge60476e">Where it all began</h3>
-<div class="outline-text-3" id="text-orge60476e">
+<div id="outline-container-orgc598040" class="outline-3">
+<h3 id="orgc598040">Where it all began</h3>
+<div class="outline-text-3" id="text-orgc598040">
 <p>
 From my other posts, you can see I have a particular interest with squeezing every drop of value out of spaced repetition for tackling long problems beyond ordinary flashcards. Flashcards are traditionally built for atomic information or 1:1 facts that minimize mental load. <a href="https://vmargb.github.io/blog/spaced-repetition-1.html">My previous post</a> goes further into optimizing this approach, which is a new way to handle long chains of reasoning without overloading each individual card with too much mental effort, which is a real road block when you're reviewing a deck of thousands of cards daily.
 </p>
 </div>
 </div>
-<div id="outline-container-orgd4cb2cb" class="outline-3">
-<h3 id="orgd4cb2cb">The problem</h3>
-<div class="outline-text-3" id="text-orgd4cb2cb">
+<div id="outline-container-org47135b8" class="outline-3">
+<h3 id="org47135b8">The problem</h3>
+<div class="outline-text-3" id="text-org47135b8">
 <p>
 We usually apply a spacing effect to atomic definitions, or concepts compact enough for a single card, and now even to large problems. But what about your actual <b>notes</b>?
 </p>
@@ -54,9 +58,9 @@ The studies are unambiguous in this case, and there is no room for argument: re-
 </p>
 </div>
 </div>
-<div id="outline-container-org9131237" class="outline-3">
-<h3 id="org9131237"><code>leitner.el</code> and reclaiming re-reading as a lost art</h3>
-<div class="outline-text-3" id="text-org9131237">
+<div id="outline-container-orgbdbf46a" class="outline-3">
+<h3 id="orgbdbf46a"><code>leitner.el</code> and reclaiming re-reading as a lost art</h3>
+<div class="outline-text-3" id="text-orgbdbf46a">
 <p>
 The Leitner box system is one of the oldest spaced-repetition methods for fighting against the <b>forgetting curve</b>. It's so old that most people disregard it as obsolete next to modern algorithms like FSRS and the newer SM-2 variants which are not open source. Having implemented both myself (a post for another day), I still chose Leitner. Leitner does indeed become inefficient at massive scale, but for smaller quantity long-form notes, it actually works beautifully. More importantly, an optimal spacing interval matters <b>far less</b> when you aren't applying a testing effect at all, in fact it's irrelevant for re-reading.
 </p>
@@ -72,48 +76,48 @@ This creates a clean separation of concerns. Use active recall and FSRS for mate
 <hr>
 </div>
 </div>
-<div id="outline-container-org5a20c19" class="outline-3">
-<h3 id="org5a20c19">Modifications to standard Leitner</h3>
-<div class="outline-text-3" id="text-org5a20c19">
+<div id="outline-container-orgc381fc9" class="outline-3">
+<h3 id="orgc381fc9">Modifications to standard Leitner</h3>
+<div class="outline-text-3" id="text-orgc381fc9">
 <p>
 The classic Leitner system is a ladder of boxes with fixed review intervals. <code>leitner.el</code> adds to this foundation with a couple features designed specifically for the re-reading workflow.
 </p>
 </div>
-<div id="outline-container-orgccab294" class="outline-4">
-<h4 id="orgccab294">SM-2 hybrid mode</h4>
-<div class="outline-text-4" id="text-orgccab294">
+<div id="outline-container-org2c23467" class="outline-4">
+<h4 id="org2c23467">SM-2 hybrid mode</h4>
+<div class="outline-text-4" id="text-org2c23467">
 <p>
 Standard Leitner uses rigid box intervals. I added an optional SM-2 hybrid variant that attaches an ease factor from sm-2 to each file. When enabled, the interval scales <i>adaptively</i> based on your ratings. Confident readings stretch the spacing, while unfamiliarity tightens it. To prevent <b>runaway</b> intervals in higher boxes, where the box number itself already signals mastery, unlike traditional sm-2, the ease factor is <b>tapered</b> out as items climb the ladder. You can enable this globally or per-group.
 </p>
 </div>
 </div>
-<div id="outline-container-org52d1a43" class="outline-4">
-<h4 id="org52d1a43">Prompts and front cards</h4>
-<div class="outline-text-4" id="text-org52d1a43">
+<div id="outline-container-orgb08f966" class="outline-4">
+<h4 id="orgb08f966">Prompts and front cards</h4>
+<div class="outline-text-4" id="text-orgb08f966">
 <p>
 Before revealing a note, <code>leitner.el</code> shows a "front card" with just the filename, group, and box. You can attach a custom prompt to any file with a <code>#+LEITNER_PROMPT:</code> keyword, or let it fall back to the <code>#+TITLE:</code>. This gives you the option to recall—explain the concept from memory before you reveal the note. While this isn't the purpose of a reading tool, the option is always there for those that want it. You could potentially use this as a traditional flashcard app if you really wanted to.
 </p>
 </div>
 </div>
-<div id="outline-container-org34ca0b8" class="outline-4">
-<h4 id="org34ca0b8">Group organization</h4>
-<div class="outline-text-4" id="text-org34ca0b8">
+<div id="outline-container-orgc087166" class="outline-4">
+<h4 id="orgc087166">Group organization</h4>
+<div class="outline-text-4" id="text-orgc087166">
 <p>
 Notes are organized into groups, each with its own dashboard showing due counts, box distributions. You can review one group at a time or across all groups, and a session caps prevent being overloaded with hundreds of notes on a single day.
 </p>
 </div>
 </div>
-<div id="outline-container-org541bcea" class="outline-4">
-<h4 id="org541bcea">Graduated browser</h4>
-<div class="outline-text-4" id="text-org541bcea">
+<div id="outline-container-org8214d29" class="outline-4">
+<h4 id="org8214d29">Graduated browser</h4>
+<div class="outline-text-4" id="text-org8214d29">
 <p>
 Files that reach the final box graduate from active review. However, leitner allows some flexibility if you update a note, forget details, or simply want to revisit them again. The graduated browser lists every retired file, letting you send anything back to Box 1 with a single keystroke.
 </p>
 </div>
 </div>
-<div id="outline-container-orgd19fe17" class="outline-4">
-<h4 id="orgd19fe17">The pausing feature (best for last)</h4>
-<div class="outline-text-4" id="text-orgd19fe17">
+<div id="outline-container-org5e7a4aa" class="outline-4">
+<h4 id="org5e7a4aa">The pausing feature (best for last)</h4>
+<div class="outline-text-4" id="text-org5e7a4aa">
 <p>
 This is the feature I'm most proud of, and the one that makes <code>leitner.el</code> genuinely repurposed for this particular use-case.
 </p>
@@ -124,7 +128,7 @@ The problem with reviewing a one or two thousand word org file is that you won't
 
 <footer class="post-footer">
   <a href="../blog.html">← back to blog</a>
-  <span>Published 03 Jul 2026</span>
+  <span>Published 03 Jun 2026</span>
 </footer>
 </div>
 </div>

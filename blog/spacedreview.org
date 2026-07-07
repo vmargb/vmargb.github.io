@@ -10,7 +10,7 @@
   <span class="post-label">ai</span>
   <h1 class="post-title">Reclaiming re-reading and the Leitner box system</h1>
   <div class="post-meta">
-    <span>03 Jul 2026</span>
+    <span>03 Jun 2026</span>
     <span class="post-meta-sep">·</span>
     <span>5 min read</span>
     <span class="post-meta-sep">·</span>
@@ -67,7 +67,7 @@ The problem with reviewing a one or two thousand word org file is that you won't
 #+BEGIN_EXPORT html
 <footer class="post-footer">
   <a href="../blog.html">← back to blog</a>
-  <span>Published 03 Jul 2026</span>
+  <span>Published 03 Jun 2026</span>
 </footer>
 </div>
 #+END_EXPORT

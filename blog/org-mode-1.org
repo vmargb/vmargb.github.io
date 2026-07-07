@@ -41,7 +41,7 @@ The problem wasn't any single feature. It was the accumulated weight of the Elec
 My notes are just files on disk. The idea that I should have to open a specific application to interact with them started to feel counter-intuitive. With Org files, every tool I already know works: =grep=, =sed=, =find=, =git diff=, anything. They're plain text. Not to mention, my existing workflow for editing text outside of notetaking is consistent, it's one unified workflow that operates the same everwhere, regardless of whether I'm writing code or I'm writing this blog.
 
 #+BEGIN_QUOTE
-The test I now apply to any tool: if the company shut down tomorrow, or the app stopped working, would I lose anything I can't recover? With Obsidian vaults on disk, the answer is no. But the habits and workflows built around the GUI, yes. That's a different kind of lock-in.
+The test I now apply to any tool: if the company shut down tomorrow, or the app stopped working, would I lose anything I can't recover? With Obsidian vaults on disk, the answer is no. But the habits and workflows built around the GUI, yes.
 #+END_QUOTE
 
 ** Why Org-mode

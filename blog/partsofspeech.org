@@ -10,7 +10,7 @@
   <span class="post-label">ai</span>
   <h1 class="post-title">The missing part of existing Audio editors.</h1>
   <div class="post-meta">
-    <span>07 Jul 2026</span>
+    <span>05 Jul 2026</span>
     <span class="post-meta-sep">·</span>
     <span>6 min read</span>
     <span class="post-meta-sep">·</span>
@@ -59,7 +59,7 @@ Get the audio /right/ first, *then* apply your effects. No room for mistakes.
 #+BEGIN_EXPORT html
 <footer class="post-footer">
   <a href="../blog.html">← back to blog</a>
-  <span>Published 07 Jul 2026</span>
+  <span>Published 05 Jul 2026</span>
 </footer>
 </div>
 #+END_EXPORT

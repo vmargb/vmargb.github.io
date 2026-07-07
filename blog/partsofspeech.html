@@ -10,6 +10,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../blog.css">
+<style>
+p { margin-top: 0; margin-bottom: 1em; }
+ul, ol { margin-bottom: 1em; }
+</style>
 </head>
 <body>
 <div id="content" class="content">
@@ -19,23 +23,23 @@
   <span class="post-label">ai</span>
   <h1 class="post-title">The missing part of existing Audio editors.</h1>
   <div class="post-meta">
-    <span>07 Jul 2026</span>
+    <span>05 Jul 2026</span>
     <span class="post-meta-sep">·</span>
     <span>6 min read</span>
     <span class="post-meta-sep">·</span>
     <span>vmargb</span>
   </div>
 </header>
-<div id="outline-container-org2e81be5" class="outline-2">
-<h2 id="org2e81be5"><a href="https://github.com/vmargb/parts-of-speech">Parts of speech</a> and why the others were not good enough</h2>
-<div class="outline-text-2" id="text-org2e81be5">
+<div id="outline-container-orgcc97af7" class="outline-2">
+<h2 id="orgcc97af7"><a href="https://github.com/vmargb/parts-of-speech">Parts of speech</a> and why the others were not good enough</h2>
+<div class="outline-text-2" id="text-orgcc97af7">
 <p>
 This all began a long time ago when I ran a youtube channel making coding tutorials. It was nothing serious, just simple algorithms, setup &amp; installation videos, repeating labwork into a small video to help me with the exam. Given that I'm not the best speaker nor a conversationalist, the videos would usually operate loosely on a script with a bit of improv. Which for anyone who's done this before, knows that this opens room for a <b>lot</b> of error. Constantly redoing parts, repeating sentences, cutting out all the 'ums and ahhs', annoying breathing or other mouth sounds slipping through. I could make an endless list of all the things that went wrong.
 </p>
 </div>
-<div id="outline-container-org98aaf1d" class="outline-3">
-<h3 id="org98aaf1d">audacity and other audio editors</h3>
-<div class="outline-text-3" id="text-org98aaf1d">
+<div id="outline-container-org96cdb00" class="outline-3">
+<h3 id="org96cdb00">audacity and other audio editors</h3>
+<div class="outline-text-3" id="text-org96cdb00">
 <p>
 The problem isn't that these hiccups happen when recording voice-overs. It's that existing audio editors are unapologetic when you make mistakes. Try re-listening to an hour long recording and fixing a small 10 second segment that you didn't quite like. For the non sound engineer or audacity enthusiast, this becomes a real pain point. Now scale that problem times 100. You have all of these mistakes hovering all over your project timeline, things you didn't notice the first time around. Now we can either exhaustively go through each of these one by one and try our best to repair or impute them, or we can just start over from scratch(something I've done a lot). We could also check each recording is <i>ok</i> before moving onto the next, but this requires messing with the audio timeline constantly, which gets annoying with long-form narrations.
 </p>
@@ -45,9 +49,9 @@ Now for me, neither of these are acceptable solutions. I've tried hopping and fl
 </p>
 </div>
 </div>
-<div id="outline-container-orgaf3bf99" class="outline-3">
-<h3 id="orgaf3bf99">The Talkback workflow</h3>
-<div class="outline-text-3" id="text-orgaf3bf99">
+<div id="outline-container-org4138eac" class="outline-3">
+<h3 id="org4138eac">The Talkback workflow</h3>
+<div class="outline-text-3" id="text-org4138eac">
 <p>
 What I was really looking for this whole time was to emulate the environment of a studio recording booth, also known as, <code>talkback</code>. Where a musician in a recording booth works with a moderator that records individual segments or chunks one by one. Each segment is carefully recorded in isolation until its perfect. The moderator listens to the segment and gives real-time feedback to the singer telling them what to change, timing, more emphasis here, change your tone and pitch there etc,. Allowing segments to pass only when its perfected.
 </p>
@@ -57,9 +61,9 @@ You <i>can</i> emulate this workflow / loop using existing software, but it's no
 </p>
 </div>
 </div>
-<div id="outline-container-org2feec8b" class="outline-3">
-<h3 id="org2feec8b">Designing the Backend for Parts of speech</h3>
-<div class="outline-text-3" id="text-org2feec8b">
+<div id="outline-container-orgfafe36f" class="outline-3">
+<h3 id="orgfafe36f">Designing the Backend for Parts of speech</h3>
+<div class="outline-text-3" id="text-orgfafe36f">
 <p>
 Instead of fighting a traditional non-linear editor, I designed the backend of Parts of Speech to strictly enforce the talkback workflow as its core functionality. This no longer makes an open-ended continuous timeline the base, but the data model organizes audio into a <code>Project</code> containing a sequential array of manageable <code>Segments</code>. Each segment is just a self-contained wrapper around audio samples.  
 </p>
@@ -68,9 +72,9 @@ Instead of fighting a traditional non-linear editor, I designed the backend of P
 So now the talkback workflow is baked directly into the architecture through a finite state machine. The app only holds these finite modes: <code>Idle</code>, <code>Recording</code>, and <code>Reviewing</code>. Now, when you start recording, the incoming microphone data isn't written directly to the project timeline, it's captured in a temporary buffer, which acts as an uncommitted <code>Segment</code>.
 </p>
 </div>
-<div id="outline-container-org3a0ee79" class="outline-4">
-<h4 id="org3a0ee79">The actual workflow</h4>
-<div class="outline-text-4" id="text-org3a0ee79">
+<div id="outline-container-org4230421" class="outline-4">
+<h4 id="org4230421">The actual workflow</h4>
+<div class="outline-text-4" id="text-org4230421">
 <p>
 The moment you stop recording, the state explicitly shifts into <code>Reviewing</code>. You are forced to evaluate the take before moving on, Approve or Reject. If you stumble over a word, you dispatch a <code>Reject</code> command, which simply clears the <code>current</code> buffer and returns you to <code>Idle</code>. If the take is perfect, the <code>Approve</code> command commits the <code>current</code> segment into the main timeline of the <code>Project</code>.  
 </p>
@@ -85,9 +89,9 @@ By strictly separating the audio data into isolated segments and tightly control
 </div>
 </div>
 </div>
-<div id="outline-container-org6f3a7c1" class="outline-3">
-<h3 id="org6f3a7c1">Couldn't this just be a plugin?</h3>
-<div class="outline-text-3" id="text-org6f3a7c1">
+<div id="outline-container-orgc474d26" class="outline-3">
+<h3 id="orgc474d26">Couldn't this just be a plugin?</h3>
+<div class="outline-text-3" id="text-orgc474d26">
 <p>
 This could in theory just be a package you add on top of Audacity or kdenlive. The existing non-linear functions are already present within their architecure, and you <i>could</i> emulate the same state machine loop on top of these editors. However I find that there is an obvious and clear separation of concerns. There is a large difference between getting the audio <i>right</i> and making the audio <i>sound good</i>. Having both of things in the same place can actually get quite messy. Imagine applying your noise reduction, eq, compressor, limiter and then realizing you want to do a take again, ten or twenty takes again?
 </p>
@@ -103,7 +107,7 @@ Get the audio <i>right</i> first, <b>then</b> apply your effects. No room for mi
 
 <footer class="post-footer">
   <a href="../blog.html">← back to blog</a>
-  <span>Published 07 Jul 2026</span>
+  <span>Published 05 Jul 2026</span>
 </footer>
 </div>
 </div>

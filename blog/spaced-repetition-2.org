@@ -1,0 +1,82 @@
+#+SETUPFILE: ../blog-setup.org
+#+TITLE: The final piece of the spaced-repetition puzzle
+
+# ----Post metadata---- (boilerplate)
+# .post-meta bar underneath title
+#+BEGIN_EXPORT html
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">app</span>
+  <h1 class="post-title">Myoso, the final piece of the spaced-repetition puzzle.</h1>
+  <div class="post-meta">
+    <span>08 Jul 2026</span>
+    <span class="post-meta-sep">·</span>
+    <span>10 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+#+END_EXPORT
+
+# ----normal Org mode----
+# Export: C-c C-e h o
+
+* [[https://github.com/vmargb/myoso][Myoso]], what spaced-repetition has been missing all along
+I have written two blog posts about spaced-repetition:
+- [[./spaced-repetition-1.html][Building a better anki]]
+- [[./spacedreview.html][leitner.el]]
+
+As you can see it's a particular interest of mine. When I first read about the *testing effect* (active recall) and the *spacing effect* (spaced-repetition), my first reaction was /"why don't we just do this for everything?"/. Meaning, that every activity that you take part in towards understanding a subject, including the problems you solve, should fall under both of these umbrellas. This is certainly not what we're normally taught to do. Definitions, concepts, vocabulary, sure, turn it into a flashcard. What about a hard problem that takes a whole page to solve? 
+
+** Where it all started
+For simple definitions and concepts, flashcards with active recall are perfect. But solving a problem? 100 problems, 1000 problems? It is not usual to have a system of spaced repetition with active recall in this case for some odd reason. Now there are /attempts/ out there. I've seen many, the problem is they all fall for the same trap. An ordinary question prompt which suddenly leads into a *heavy* back-card with the entire solution squished into one place, or even a picture of the solution solved by hand.
+
+This does not work. More specifically, it does not *scale*.
+
+Simply because you are forcing too much mental load into one card. The purpose of flashcards is that they are atomic, and recall should be quick. If you go beyond a certain mental weight and you have a deck of 1000 problems to complete, you will never reliably reach high recall accuracy. It's very easy to blame the person, and claim they aren't working hard enough. But the reality is that this system *does not scale* efficiently, even more-so when the student isn't even using flashcards for their problem-solving at all.
+
+** flashcards-plus
+I looked endlessly looking for some sort of system that has this all figured out. Endless wikipedia entries, blogs, papers. Nobody is really discussing this at all. I did come across a paper under the psychology of learning & teaching, *flashcards-plus*. This is a study which demonstrates that you can improve retention by formatting flashcards into individual *steps*. If there is a concept you want to memorise, rather than writing its definition in a flashcard, the user instead splits it apart into three components:
+
+1) textbook definition
+2) you're own words
+3) real-world example or analogy
+
+Doing this reliably increases recall accuracy very well. It makes sense why it worked, adding extra information in relation to the data you want to retrieve builds strong *memory traces*. This is /loosely/ related to the idea of *contextual retrieval* in AI systems where adding additional related context next to the thing you want to remember, improves the accuracy of remembering that thing, on top of understanding it better /in context/. It's also why *language-learners* have found out that, putting vocabulary next to a real-world sentence in a flashcard, not only helps you understand the word better in context, but even improves recall accuracy of the world alone.
+
+But here's the problem again, as soon as you start adding too much information to the back of a flashcard, you are now increasing its /weight/. Now if you read my older [[./spacedreview.html][post]], you'll know that this extra /weight/ doesn't really matter when you are simply just /re-reading/ your notes, however it becomes problematic when you are practising active-recall or the testing effect.
+
+** Multi-step flashcards
+That's where I came up with the idea to extend ordinary flashcards, by instead /dividing/ the mental weight of a heavy back-card into multiple individual steps. Your back-card is now =n= number of steps that build a long chain towards the solution, each step is individually rated as its own isolated card. So solving a hard problem can be either 2, 3 or even 10 steps if you wanted it to be.
+
+The algorithm doesn't matter, you could use sm-2, leitner, ebisu. =Myoso= uses FSRS. However, the algorithm would need to be modified for for this multi-step approach to work. The user has to /"unlock"/ each step as they go along, rating a step well means unlocking the next step. Scheduling the problem would involve taking into account the rating of *each individual step* towards the solution, and breaking an earlier step should require *rebuilding the steps* again. With all of these things into place, what you have is a system where you can encapsulate a problem of /any/ size into a single flashcard without mentally exhausting the user during review.
+
+-----
+
+** How the scheduling actually works (FSRS)
+The core piece is uninteresting on its own, each step is scheduled with [[https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm][FSRS]], the same algorithm behind current-day Anki. Every step basically tracks its own individual /stability/ (how many days until you're 90% likely to still recall it) and /difficulty/. So if you rate a step well, its stability obviously grows, so it comes back /later/. Rate it poorly and stability shrinks, so it comes back /sooner/. This part is essentially what every SRS implementation looks like behind the scenes, even older systems like Leitner and sm-2 are loosely doing the same thing, but not at the same level of sophistication.
+
+The interesting part of =Myoso= is what happens /around/ that per-step scheduling.
+
+*** Pulling in the chain
+When a multi-step card comes up for review, =myoso= does not just grab whichever step is due in isolation. It walks the chain from the *beginning*, meaning you have to rebuild the chain successfully + the due step. If step 3 is due but 1 and 2 aren't, you still review 1 and 2 first, in order, before you get to 3. Now earlier versions of Myoso didn't used to do this. Howver, it became obvious that jumping straight to step 3 without re-establishing 1 and 2 defeats the reason behind breaking problem into steps in the first place.
+
+*** Re-exposure without inflating the schedule
+Another subtlety is that, if steps 1 and 2 aren't actually /due/ yet, why are you *rating* them again? Reviewing something before it's due would normally push its schedule outward, in fact this would inflate the cards schedule by a lot. Which isn't something you want happening just because a problem has been resurfaced in the same review session. So myoso tracks these as a /chain re-exposure/. Meaning the rating still gets logged for your stats, but the FSRS state(stability, difficulty) and due date is left completely untouched. As far as the scheduler is concerned, that step wasn't reviewed at all(or it is tapered out). Only the step that was genuinely due gets to move its own schedule.
+
+*** Breaking a step
+The other direction matters just as much. If you rate an early step /Again/ or /Hard/, that's a sign the chain isn't solid, so every step after it gets immediately /"de-unlocked"/ and marked due again. Now in your next session you have to rebuild the whole thing from that point forward. This is the same idea I mentioned earlier, breaking an earlier step should require rebuilding the steps that depend on it, and it's really the one rule that makes chained flashcards behave naturally, rather than turning into a set of steps that quietly drift out of sync with each other.
+
+Put all of this together, and this is what actually lets you drop a full derivation, a math or coding problem, whatever, into a deck, without it collapsing into yet another "one giant unreviewable card".
+
+
+# ----Post footer---- (boilerplate)
+#+BEGIN_EXPORT html
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 08 Jul 2026</span>
+</footer>
+</div>
+#+END_EXPORT
+
