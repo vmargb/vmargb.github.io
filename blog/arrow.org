@@ -1,0 +1,103 @@
+#+SETUPFILE: ../blog-setup.org
+#+TITLE: Creating a unified bookmark system in Emacs
+
+# ----Post metadata---- (boilerplate)
+# .post-meta bar underneath title
+#+BEGIN_EXPORT html
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">app</span>
+  <h1 class="post-title">Creating a unified bookmark system in Emacs</h1>
+  <div class="post-meta">
+    <span>11 Jul 2026</span>
+    <span class="post-meta-sep">·</span>
+    <span>6 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+#+END_EXPORT
+
+# ----normal Org mode----
+# Export: C-c C-e h o
+
+* [[https://github.com/vmargb/arrow.el][arrow.el]], from =neovim= to =emacs=
+My first introduction to using any kind of bookmark or quick /buffer switching/ utility was the Primeagens [[https://github.com/ThePrimeagen/harpoon/tree/harpoon2][harpoon]] plugin for neovim. The philosophy behind it is that, most of the time you are only hopping between two or three buffers in a project at any time. Even when the project is very large and modularised, it's often the case that you're not really using all of those files at once. And so you really only need a small list of your *current rotation* of buffers. Often moving buffers into that rotation or moving buffers out of it based on demand. This often works by using your *numkeys* as that rotation. I would usually do something like:
+
++ root entry as =1=
++ most frequent file as =2=
++ second most frequent as =3=
++ package / dependencies =9=
++ config file in =8=, =7= etc...
+
+Now what I didn't realize back then was that I was using *mnemonics*, which are essentially zero-effort mental associations that help you remember things easily. I created these rules for myself because I knew I would never have to /look up/ what each number does, it's already instant. Then I realized you could also extend this to use =chars= as well. My config is always in =c=, readme in =r=, ui in =u= etc,. A plugin that does this even better than harpoon in my opinion was =arrow.nvim=. In fact it would do something different, which is that the plugin handles the keypress for a new mark automatically. I realize now that it actually behaves more the way =avy= auto-assigns keys to a mark for you without having to think about it. In addition, =arrow.nvim= introduced =buffer-local= marks that let you hop around /checkpoints/ inside of a file, which was incredibly useful for larger buffers. Before then I would just use =/search= to find my way around which was /ok/ but not perfect.
+
+Now in the =Emacs= world, all of these ideas /kind of/ exist, and so you'll get all the same responses, making you question whether this is all /worth it/: /"Emacs already has bookmarks & registers"/, just use =M-x project-find-file=, use =bm.el=, use =consult=, =vim= / =evil-mode= marks etc etc... All of this is true.
+
+But once again, none of these solutions would quite scratch that itch I had. I wanted a seamless and uniform =arrow.nvim= experience across all my bookmarks in Emacs.
+
+** The three layers of bookmarks
+There are essentially three types of bookmarks that I use daily in my workflow:
+
++ *Global:* config files, todo lists, system files etc.
++ *Project:* buffers that are only local to the project root.
++ *Buffer:* bookmarks that point to line-numbers inside a buffer.
+
+Each layer is isolated to its own context with the exception of global marks which are available everywhere.
+
+This is important because =vim= marks and =Emacs registers= suffer from the same problem which is that yanks / deletes or other actions end up polluting the register list, mixing up your rotation with unwanted entries. Not to mention, the marks not actually being contextually isolated. Buffer marks are not buffer-local and project marks are not project-local. This /context slipping/ is the reasoning behind so many third party solutions.
+
+*** A simple prefix-tree for keypresses, reinventing =which-key=
+When designing the key system for =arrow.el=, I wanted something that felt as instantaneous as =Avy=, despite the obvious availability of =which-key=. I settled on implementing a *flat prefix-tree* directly inside =arrow-core= that allows bookmark keys to be of *arbitrary length* while strictly enforcing a prefix-free rule like =which-key= does.
+
+The rule is this: if a key =m= is taken, =arrow= blocks you from creating a bookmark with the key =ma=. Likewise, if =ma= already exists, creating a bookmark with =m= is blocked so that there is zero confusion at all on the users part.
+
+This strict approach solves the classic modal ambiguity problem. Because keys should not overlap as prefixes. This way, the popup always knows your exact intent. When you type an exact match, it jumps *instantly* without requiring a final =RET= confirmation, which I found to be annoying in other solutions. If you have multi-character keys (like =ma= and =mo=), the popup dynamically narrows down and updates its candidtates in real-time, waiting for the final distinct character. 
+
+** The fourth layer: =org-mode=
+While Global, Project, and Buffer bookmarks handle physical codebase navigation sufficiently, I realized there was a missing dimension: *project-level notes*.
+
+I'm not sure about you, but I *always* write notes about my project and my project files. These are todo lists, per-function detailed explanations, mapping of the data flow between functions and files and just overall explaining anything I want in my own words.
+
+Now you /can/ just do this by writing comments, but what if the comments are many paragraphs long? what if you want the writing to be overly informal for your own understanding? Not to mention, what if you are working on somebody elses project/repo and don't want to litter their files with heaps of comments? Most important of all, I want my notes to have proper formatting with headers, lists, bold, italic etc,.
+
+This is why comments are extremely limiting. And also why external /outside of the repo/ notes are important.
+
+Now you can just stash all these notes and todo lists in a centralised folder somewhere, but even this isn't good enough for me. I want *per-buffer* and *per-project* notes that are contextually isolated from eachother, which I can access with a *single keypress*, no searching whatsoever.
+
+Lastly, When you are returning to a complex codebase after months(even possibly years) away, knowledge about the codebase can completely vanish. This has happened to me many times. You need to remember how & why the files are coupled the way they are, as well as documenting any details about the codebase that you know would throw you off a year from now.
+
+Now you /could/ just say to use standard project documentation like any other team does. The problem is, it *sucks*:
+
++ it's too formal
++ it's boring to read
++ it's not personal to you and your hiccups
++ it's not modularised the same way =arrow-org= is
+
+This is why the fourth layer was introduced.
+
+The Org layer dynamically hooks your current project context into external, private Org-mode files (stored safely outside your project repo via =arrow-org-directory=). It operates on two distinct scopes:
+1. *Project Notes:* A single source-of-truth Org file for the entire project root.
+2. *File Notes:* Dedicated Org files mapping 1:1 with specific source buffers.
+
+Now you can either jump straight to these notes directly from a file or project, or =arrow= can generate a list of all of your org notes with an /avy-like/ auto-generated keypress to jump to a particular one.
+
+#+BEGIN_QUOTE
+*Why not just use =org-capture=?*
+The typical =org-capture= flow scatters quick snippets into a giant global inbox that inevitably goes to die. =Arrow= fixes this relationship, making your project documentation a *first-class* citizen *directly reachable* from the code itself.
+#+END_QUOTE
+
+When you call =arrow-org-open-project= or =arrow-org-open-file=, Arrow leaves breadcrumbs as it opens the file. It remembers the exact source file and line number you jumped from. When you are done editing your notes and toggle back, it drops you right back into the code right where you left off, restoring your cursor position exactly.
+
+Putting all of this together, I now have the final solution to handling my bookmarks and all of my jumping activities, all in one place. Each layer using the same key system, the same commands and the same user interface.
+
+# ----Post footer---- (boilerplate)
+#+BEGIN_EXPORT html
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 11 Jul 2026</span>
+</footer>
+</div>
+#+END_EXPORT
+

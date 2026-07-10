@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Creating a unified bookmark system in Emacs</title>
+<meta name="generator" content="Org Mode" />
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog.css">
+<style>
+p { margin-top: 0; margin-bottom: 1em; }
+ul, ol { margin-bottom: 1em; }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">app</span>
+  <h1 class="post-title">Creating a unified bookmark system in Emacs</h1>
+  <div class="post-meta">
+    <span>12 Jul 2026</span>
+    <span class="post-meta-sep">·</span>
+    <span>6 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+<div id="outline-container-orga0e94d2" class="outline-2">
+<h2 id="orga0e94d2"><a href="https://github.com/vmargb/arrow.el">arrow.el</a>, from <code>neovim</code> to <code>emacs</code></h2>
+<div class="outline-text-2" id="text-orga0e94d2">
+<p>
+My first introduction to using any kind of bookmark or quick <i>buffer switching</i> utility was the Primeagens <a href="https://github.com/ThePrimeagen/harpoon/tree/harpoon2">harpoon</a> plugin for neovim. The philosophy behind it is that, most of the time you are only hopping between two or three buffers in a project at any time. Even when the project is very large and modularised, it's often the case that you're not really using all of those files at once. And so you really only need a small list of your <b>current rotation</b> of buffers. Often moving buffers into that rotation or moving buffers out of it based on demand. This often works by using your <b>numkeys</b> as that rotation. I would usually do something like:
+</p>
+
+<ul class="org-ul">
+<li>root entry as <code>1</code></li>
+<li>most frequent file as <code>2</code></li>
+<li>second most frequent as <code>3</code></li>
+<li>package / dependencies <code>9</code></li>
+<li>config file in <code>8</code>, <code>7</code> etc&#x2026;</li>
+</ul>
+
+<p>
+Now what I didn't realize back then was that I was using <b>mnemonics</b>, which are essentially zero-effort mental associations that help you remember things easily. I created these rules for myself because I knew I would never have to <i>look up</i> what each number does, it's already instant. Then I realized you could also extend this to use <code>chars</code> as well. My config is always in <code>c</code>, readme in <code>r</code>, ui in <code>u</code> etc,. A plugin that does this even better than harpoon in my opinion was <code>arrow.nvim</code>. In fact it would do something different, which is that the plugin handles the keypress for a new mark automatically. I realize now that it actually behaves more the way <code>avy</code> auto-assigns keys to a mark for you without having to think about it. In addition, <code>arrow.nvim</code> introduced <code>buffer-local</code> marks that let you hop around <i>checkpoints</i> inside of a file, which was incredibly useful for larger buffers. Before then I would just use <code>/search</code> to find my way around which was <i>ok</i> but not perfect.
+</p>
+
+<p>
+Now in the <code>Emacs</code> world, all of these ideas <i>kind of</i> exist, and so you'll get all the same responses, making you question whether this is all <i>worth it</i>: <i>"Emacs already has bookmarks &amp; registers"</i>, just use <code>M-x project-find-file</code>, use <code>bm.el</code>, use <code>consult</code>, <code>vim</code> / <code>evil-mode</code> marks etc etc&#x2026; All of this is true.
+</p>
+
+<p>
+But once again, none of these solutions would quite scratch that itch I had. I wanted a seamless and uniform <code>arrow.nvim</code> experience across all my bookmarks in Emacs.
+</p>
+</div>
+<div id="outline-container-org4a8b071" class="outline-3">
+<h3 id="org4a8b071">The three layers of bookmarks</h3>
+<div class="outline-text-3" id="text-org4a8b071">
+<p>
+There are essentially three types of bookmarks that I use daily in my workflow:
+</p>
+
+<ul class="org-ul">
+<li><b>Global:</b> config files, todo lists, system files etc.</li>
+<li><b>Project:</b> buffers that are only local to the project root.</li>
+<li><b>Buffer:</b> bookmarks that point to line-numbers inside a buffer.</li>
+</ul>
+
+<p>
+Each layer is isolated to its own context with the exception of global marks which are available everywhere.
+</p>
+
+<p>
+This is important because <code>vim</code> marks and <code>Emacs registers</code> suffer from the same problem which is that yanks / deletes or other actions end up polluting the register list, mixing up your rotation with unwanted entries. Not to mention, the marks not actually being contextually isolated. Buffer marks are not buffer-local and project marks are not project-local. This <i>context slipping</i> is the reasoning behind so many third party solutions.
+</p>
+</div>
+<div id="outline-container-org4df7c47" class="outline-4">
+<h4 id="org4df7c47">A simple prefix-tree for keypresses, reinventing <code>which-key</code></h4>
+<div class="outline-text-4" id="text-org4df7c47">
+<p>
+When designing the key system for <code>arrow.el</code>, I wanted something that felt as instantaneous as <code>Avy</code>, despite the obvious availability of <code>which-key</code>. I settled on implementing a <b>flat prefix-tree</b> directly inside <code>arrow-core</code> that allows bookmark keys to be of <b>arbitrary length</b> while strictly enforcing a prefix-free rule like <code>which-key</code> does.
+</p>
+
+<p>
+The rule is this: if a key <code>m</code> is taken, <code>arrow</code> blocks you from creating a bookmark with the key <code>ma</code>. Likewise, if <code>ma</code> already exists, creating a bookmark with <code>m</code> is blocked so that there is zero confusion at all on the users part.
+</p>
+
+<p>
+This strict approach solves the classic modal ambiguity problem. Because keys should not overlap as prefixes. This way, the popup always knows your exact intent. When you type an exact match, it jumps <b>instantly</b> without requiring a final <code>RET</code> confirmation, which I found to be annoying in other solutions. If you have multi-character keys (like <code>ma</code> and <code>mo</code>), the popup dynamically narrows down and updates its candidtates in real-time, waiting for the final distinct character. 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org2cb1fad" class="outline-3">
+<h3 id="org2cb1fad">The fourth layer: <code>org-mode</code></h3>
+<div class="outline-text-3" id="text-org2cb1fad">
+<p>
+While Global, Project, and Buffer bookmarks handle physical codebase navigation sufficiently, I realized there was a missing dimension: <b>project-level notes</b>.
+</p>
+
+<p>
+I'm not sure about you, but I <b>always</b> write notes about my project and my project files. These are todo lists, per-function detailed explanations, mapping of the data flow between functions and files and just overall explaining anything I want in my own words.
+</p>
+
+<p>
+Now you <i>can</i> just do this by writing comments, but what if the comments are many paragraphs long? what if you want the writing to be overly informal for your own understanding? Not to mention, what if you are working on somebody elses project/repo and don't want to litter their files with heaps of comments? Most important of all, I want my notes to have proper formatting with headers, lists, bold, italic etc,.
+</p>
+
+<p>
+This is why comments are extremely limiting. And also why external <i>outside of the repo</i> notes are important.
+</p>
+
+<p>
+Now you can just stash all these notes and todo lists in a centralised folder somewhere, but even this isn't good enough for me. I want <b>per-buffer</b> and <b>per-project</b> notes that are contextually isolated from eachother, which I can access with a <b>single keypress</b>, no searching whatsoever.
+</p>
+
+<p>
+Lastly, When you are returning to a complex codebase after months(even possibly years) away, knowledge about the codebase can completely vanish. This has happened to me many times. You need to remember how &amp; why the files are coupled the way they are, as well as documenting any details about the codebase that you know would throw you off a year from now.
+</p>
+
+<p>
+Now you <i>could</i> just say to use standard project documentation like any other team does. The problem is, it <b>sucks</b>:
+</p>
+
+<ul class="org-ul">
+<li>it's too formal</li>
+<li>it's boring to read</li>
+<li>it's not personal to you and your hiccups</li>
+<li>it's not modularised the same way <code>arrow-org</code> is</li>
+</ul>
+
+<p>
+This is why the fourth layer was introduced.
+</p>
+
+<p>
+The Org layer dynamically hooks your current project context into external, private Org-mode files (stored safely outside your project repo via <code>arrow-org-directory</code>). It operates on two distinct scopes:
+</p>
+<ol class="org-ol">
+<li><b>Project Notes:</b> A single source-of-truth Org file for the entire project root.</li>
+<li><b>File Notes:</b> Dedicated Org files mapping 1:1 with specific source buffers.</li>
+</ol>
+
+<p>
+Now you can either jump straight to these notes directly from a file or project, or <code>arrow</code> can generate a list of all of your org notes with an <i>avy-like</i> auto-generated keypress to jump to a particular one.
+</p>
+
+<blockquote>
+<p>
+<b>Why not just use <code>org-capture</code>?</b>
+The typical <code>org-capture</code> flow scatters quick snippets into a giant global inbox that inevitably goes to die. <code>Arrow</code> fixes this relationship, making your project documentation a <b>first-class</b> citizen <b>directly reachable</b> from the code itself.
+</p>
+</blockquote>
+
+<p>
+When you call <code>arrow-org-open-project</code> or <code>arrow-org-open-file</code>, Arrow leaves breadcrumbs as it opens the file. It remembers the exact source file and line number you jumped from. When you are done editing your notes and toggle back, it drops you right back into the code right where you left off, restoring your cursor position exactly.
+</p>
+
+<p>
+Putting all of this together, I now have the final solution to handling my bookmarks and all of my jumping activities, all in one place. Each layer using the same key system, the same commands and the same user interface.
+</p>
+
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 12 Jul 2026</span>
+</footer>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -7,7 +7,7 @@
 <div class="page-wrap">
 <a href="../blog.html" class="back">← all posts</a>
 <header class="post-header">
-  <span class="post-label">ai</span>
+  <span class="post-label">app</span>
   <h1 class="post-title">The missing part of existing Audio editors.</h1>
   <div class="post-meta">
     <span>05 Jul 2026</span>
@@ -24,6 +24,8 @@
 
 * [[https://github.com/vmargb/parts-of-speech][Parts of speech]] and why the others were not good enough
 This all began a long time ago when I ran a youtube channel making coding tutorials. It was nothing serious, just simple algorithms, setup & installation videos, repeating labwork into a small video to help me with the exam. Given that I'm not the best speaker nor a conversationalist, the videos would usually operate loosely on a script with a bit of improv. Which for anyone who's done this before, knows that this opens room for a *lot* of error. Constantly redoing parts, repeating sentences, cutting out all the 'ums and ahhs', annoying breathing or other mouth sounds slipping through. I could make an endless list of all the things that went wrong.
+
+-----
 
 ** audacity and other audio editors
 The problem isn't that these hiccups happen when recording voice-overs. It's that existing audio editors are unapologetic when you make mistakes. Try re-listening to an hour long recording and fixing a small 10 second segment that you didn't quite like. For the non sound engineer or audacity enthusiast, this becomes a real pain point. Now scale that problem times 100. You have all of these mistakes hovering all over your project timeline, things you didn't notice the first time around. Now we can either exhaustively go through each of these one by one and try our best to repair or impute them, or we can just start over from scratch(something I've done a lot). We could also check each recording is /ok/ before moving onto the next, but this requires messing with the audio timeline constantly, which gets annoying with long-form narrations.
