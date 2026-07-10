@@ -8,7 +8,7 @@
   src: url("/fonts/Inconsolata-Bold.woff") format("woff");
   font-weight: bold;
 }
-/* ─── Variables ────────────────────────────────────────────── */
+/*  Variables  */
 :root {
   --bg: #faf8f5;
   --bg2: #f2efe9;
@@ -20,7 +20,7 @@
   --accent2: #b45309;
   --green: #059669;
 }
-/* ─── Reset ─────────────────────────────────────────────────── */
+/*  Reset  */
 *,
 *::before,
 *::after {
@@ -35,7 +35,7 @@ body {
   font-size: 15px;
   overflow-x: hidden;
 }
-/* ─── CRT scanline ──────────────────────────────────────────── */
+/*  CRT scanline  */
 body::after {
   content: "";
   position: fixed;
@@ -50,7 +50,7 @@ body::after {
   pointer-events: none;
   z-index: 999;
 }
-/* ─── Topbar ─────────────────────────────────────────────────── */
+/*  Topbar  */
 .topbar {
   display: flex;
   align-items: center;
@@ -104,7 +104,7 @@ body::after {
     opacity: 0;
   }
 }
-/* ─── Reading progress bar ───────────────────────────────────── */
+/*  Reading progress bar  */
 #progress {
   position: fixed;
   top: 0;
@@ -115,13 +115,13 @@ body::after {
   z-index: 1000;
   transition: width 0.1s linear;
 }
-/* ─── Shared page wrapper ────────────────────────────────────── */
+/*  Shared page wrapper  */
 .page-wrap {
   max-width: 700px;
   margin: 0 auto;
   padding: 3rem 1.5rem 6rem;
 }
-/* ─── Back link ──────────────────────────────────────────────── */
+/*  Back link  */
 .back {
   display: inline-block;
   color: var(--muted);
@@ -203,7 +203,6 @@ BLOG INDEX
 }
 /* ═══════════════════════════════════════════════════════════════
 BLOG POST — applies to both hand-written and Org-exported posts
-═══════════════════════════════════════════════════════════════ */
 /* Post header (hand-written posts use these classes) */
 .post-header {
   margin-bottom: 2.5rem;
@@ -245,8 +244,8 @@ h1.post-title {
 .post-meta-sep {
   opacity: 0.35;
 }
-/* ─── Body typography ────────────────────────────────────────── */
-/* The content area — Org wraps in #content, hand-written in .post-body */
+/*  Body typography  */
+/* The content area, Org wraps in #content, hand-written in .post-body */
 #content,
 .post-body {
   font-family: "Lora", Georgia, serif;
@@ -304,7 +303,7 @@ h1.post-title {
   border-radius: 3px;
   color: var(--accent2);
 }
-/* Code blocks — Org wraps in <pre> */
+/* Code blocks, Org wraps in <pre> */
 #content pre,
 .post-body pre {
   background: var(--bg2);
@@ -353,7 +352,7 @@ h1.post-title {
   color: var(--muted);
   font-style: italic;
 }
-/* Callout — use #+BEGIN_QUOTE with a leading // in Org, or .callout class */
+/* Callout, use #+BEGIN_QUOTE with a leading // in Org, or .callout class */
 .callout,
 #content .callout {
   background: rgba(217, 119, 6, 0.08);
@@ -378,7 +377,7 @@ h1.post-title {
   border-top: 1px dashed var(--border);
   margin: 2.5rem 0;
 }
-/* Org outline wrappers — strip any default margin/padding */
+/* Org outline wrappers, strip any default margin/padding */
 .outline-2,
 .outline-3,
 .outline-4 {
@@ -388,7 +387,7 @@ h1.post-title {
 #postamble {
   display: none;
 }
-/* ─── Post footer ─────────────────────────────────────────────── */
+/*  Post footer  */
 .post-footer {
   margin-top: 3rem;
   padding-top: 1.5rem;
@@ -407,7 +406,7 @@ h1.post-title {
 .post-footer a:hover {
   color: var(--accent2);
 }
-/* ─── Scrollbars ──────────────────────────────────────────────── */
+/*  Scrollbars  */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -418,7 +417,7 @@ h1.post-title {
   background: var(--border);
   border-radius: 3px;
 }
-/* ─── Mobile ──────────────────────────────────────────────────── */
+/*  Mobile  */
 @media (max-width: 640px) {
   h1.title,
   h1.post-title {

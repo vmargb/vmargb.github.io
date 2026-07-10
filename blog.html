@@ -78,6 +78,23 @@
 
         /* RSS hint */
         .rss-hint { color: var(--muted); font-size: .8rem; margin-top: 3rem; }
+
+        /* Feed badge — visible RSS/Atom indicator in the blog header */
+        .feed-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            margin-top: .9rem;
+            font-size: .72rem;
+            color: var(--accent);
+            border: 1px solid var(--border);
+            padding: .15rem .5rem;
+            border-radius: 3px;
+            text-decoration: none;
+            transition: color .15s, border-color .15s;
+        }
+        .feed-badge:hover { color: var(--accent2); border-color: var(--accent2); }
+        .feed-badge svg { width: 12px; height: 12px; stroke: currentColor; }
     </style>
 </head>
 <body>
@@ -99,6 +116,14 @@
     <div class="blog-header">
         <h1>blog/</h1>
         <p>Writing about things I find interesting. Sometimes dev, sometimes not.</p>
+        <a href="atom.xml" class="feed-badge" title="Subscribe via Atom feed">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 11a9 9 0 0 1 9 9"></path>
+                <path d="M4 4a16 16 0 0 1 16 16"></path>
+                <circle cx="5" cy="19" r="1.5" fill="currentColor" stroke="none"></circle>
+            </svg>
+            atom feed
+        </a>
     </div>
 
     <!--
