@@ -31,9 +31,9 @@ ul, ol { margin-bottom: 1em; }
     <span>vmargb</span>
   </div>
 </header>
-<div id="outline-container-orgfd095ae" class="outline-2">
-<h2 id="orgfd095ae"><a href="https://github.com/vmargb/myoso">Myoso</a>, what spaced-repetition has been missing all along</h2>
-<div class="outline-text-2" id="text-orgfd095ae">
+<div id="outline-container-orge2a80ed" class="outline-2">
+<h2 id="orge2a80ed"><a href="https://github.com/vmargb/myoso">Myoso</a>, what spaced-repetition has been missing all along</h2>
+<div class="outline-text-2" id="text-orge2a80ed">
 <p>
 I have written two blog posts about spaced-repetition:
 </p>
@@ -48,9 +48,9 @@ As you can see it's a particular interest of mine. When I first read about the <
 
 <hr>
 </div>
-<div id="outline-container-org4524e6b" class="outline-3">
-<h3 id="org4524e6b">Where it all started</h3>
-<div class="outline-text-3" id="text-org4524e6b">
+<div id="outline-container-org9e85eac" class="outline-3">
+<h3 id="org9e85eac">Where it all started</h3>
+<div class="outline-text-3" id="text-org9e85eac">
 <p>
 For simple definitions and concepts, flashcards with active recall are perfect. But solving a problem? 100 problems, 1000 problems? It is not usual to have a system of spaced repetition with active recall in this case for some odd reason. Now there are <i>attempts</i> out there. I've seen many, the problem is they all fall for the same trap. An ordinary question prompt which suddenly leads into a <b>heavy</b> back-card with the entire solution squished into one place, or even a picture of the solution solved by hand.
 </p>
@@ -64,9 +64,9 @@ Simply because you are forcing too much mental work into one card. The purpose o
 </p>
 </div>
 </div>
-<div id="outline-container-orgad3ff56" class="outline-3">
-<h3 id="orgad3ff56">flashcards-plus</h3>
-<div class="outline-text-3" id="text-orgad3ff56">
+<div id="outline-container-org12aba59" class="outline-3">
+<h3 id="org12aba59">flashcards-plus</h3>
+<div class="outline-text-3" id="text-org12aba59">
 <p>
 I looked endlessly looking for some sort of system that has this all figured out. Endless wikipedia entries, blogs, papers. Nobody is really discussing this at all. I did come across a paper under the psychology of learning &amp; teaching, <b>flashcards-plus</b>. This is a study which demonstrates that you can improve retention by formatting flashcards into individual <b>steps</b>. If there is a concept you want to memorise, rather than writing its definition alone, the user instead splits it apart into three parts:
 </p>
@@ -100,9 +100,9 @@ Anything. In fact what <code>flashcards-plus</code> was missing is that these st
 </p>
 </div>
 </div>
-<div id="outline-container-org50b2344" class="outline-3">
-<h3 id="org50b2344">flashcards-plus-plus or <b>Chained flashcards</b></h3>
-<div class="outline-text-3" id="text-org50b2344">
+<div id="outline-container-org9b16794" class="outline-3">
+<h3 id="org9b16794">flashcards-plus-plus or <b>Chained flashcards</b></h3>
+<div class="outline-text-3" id="text-org9b16794">
 <p>
 That's where I came up with the idea to extend ordinary flashcards, by instead <i>dividing</i> the mental weight of a heavy back-card into multiple individual steps or <i>chains</i> that are linked together. Your back-card is now <code>n</code> number of steps that build a long chain towards the solution, each step is individually rated as its own isolated card. So solving a hard problem can be either 2, 3 or even 10 steps if you wanted it to be.
 </p>
@@ -114,9 +114,9 @@ The algorithm doesn't matter, you could use <code>sm-2</code>, <code>leitner</co
 <hr>
 </div>
 </div>
-<div id="outline-container-org051ce21" class="outline-3">
-<h3 id="org051ce21">How the scheduling actually works (FSRS)</h3>
-<div class="outline-text-3" id="text-org051ce21">
+<div id="outline-container-orgd0979bc" class="outline-3">
+<h3 id="orgd0979bc">A primer on how scheduling works (FSRS)</h3>
+<div class="outline-text-3" id="text-orgd0979bc">
 <p>
 The core piece is uninteresting on its own, each step is scheduled with <a href="https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm">FSRS</a>, the same algorithm behind current-day Anki. Every step basically tracks its own individual <i>stability</i> (how many days until you're 90% likely to still recall it) and <i>difficulty</i>. So if you rate a step well, its stability obviously grows, so it comes back <i>later</i>. Rate it poorly and stability shrinks, so it comes back <i>sooner</i>. This part is essentially what every SRS implementation looks like behind the scenes, even older systems like Leitner and sm-2 are loosely doing the same thing, but not at the same level of sophistication.
 </p>
@@ -125,25 +125,25 @@ The core piece is uninteresting on its own, each step is scheduled with <a href=
 The interesting part of <code>Myoso</code> is what happens <i>around</i> that per-step scheduling.
 </p>
 </div>
-<div id="outline-container-org872d91c" class="outline-4">
-<h4 id="org872d91c">Pulling in the chain</h4>
-<div class="outline-text-4" id="text-org872d91c">
+<div id="outline-container-org74e38aa" class="outline-4">
+<h4 id="org74e38aa">Pulling in the chain</h4>
+<div class="outline-text-4" id="text-org74e38aa">
 <p>
-When a multi-step card comes up for review, <code>myoso</code> does not just grab whichever step is due in isolation. It walks the chain from the <b>beginning</b>, meaning you have to rebuild the chain successfully + the due step. If step 3 is due but 1 and 2 aren't, you still review 1 and 2 first, in order, before you get to 3. Now earlier versions of Myoso didn't used to do this. Howver, it became obvious that jumping straight to step 3 without re-establishing 1 and 2 defeats the reason behind breaking problem into steps in the first place.
+When a multi-step card comes up for review, <code>myoso</code> does not just grab whichever step is due in isolation. It walks the chain from the <b>beginning</b>, meaning you have to rebuild the chain successfully + the due step. If step 3 is due but 1 and 2 aren't, you still review 1 and 2 first, in order, before you get to 3. Now earlier versions of Myoso didn't used to do this. However, it became obvious that jumping straight to step 3 without re-establishing 1 and 2 defeats the reason behind breaking problem into steps in the first place.
 </p>
 </div>
 </div>
-<div id="outline-container-orgffac7ac" class="outline-4">
-<h4 id="orgffac7ac">Re-exposure without inflating the schedule</h4>
-<div class="outline-text-4" id="text-orgffac7ac">
+<div id="outline-container-org44ed9ee" class="outline-4">
+<h4 id="org44ed9ee">Re-exposure without inflating the schedule</h4>
+<div class="outline-text-4" id="text-org44ed9ee">
 <p>
-Another subtlety is that, if steps 1 and 2 aren't actually <i>due</i> yet, why are you <b>rating</b> them again? Reviewing something before it's due would normally push its schedule outward, in fact this would inflate the cards schedule by a lot. Which isn't something you want happening just because a problem has been resurfaced in the same review session. So myoso tracks these as a <i>chain re-exposure</i>. Meaning the rating still gets logged for your stats, but the FSRS state(stability, difficulty) and due date is left completely untouched. As far as the scheduler is concerned, that step wasn't reviewed at all(or it is tapered out). Only the step that was genuinely due gets to move its own schedule.
+Another subtlety is that, if steps 1 and 2 aren't actually <i>due</i> yet, why are you <b>rating</b> them again? Reviewing something before it's due would normally push its schedule outward, in fact this would inflate the cards schedule by a lot. Which isn't something you want happening just because a problem has been resurfaced in the same review session. So myoso tracks this as a unique <i>state</i> which I call <b>chain re-exposure</b>. Meaning the rating still gets logged for your stats, but the FSRS state(stability, difficulty) and due date is left completely untouched. As far as the scheduler is concerned, that step wasn't reviewed at all(or it is tapered out). Only the step that was genuinely due gets to move its own schedule.
 </p>
 </div>
 </div>
-<div id="outline-container-org0039a61" class="outline-4">
-<h4 id="org0039a61">Breaking a step breaks the chain</h4>
-<div class="outline-text-4" id="text-org0039a61">
+<div id="outline-container-org0fcf8e0" class="outline-4">
+<h4 id="org0fcf8e0">Breaking a step breaks the chain</h4>
+<div class="outline-text-4" id="text-org0fcf8e0">
 <p>
 The other direction matters just as much. If you rate an early step <i>Again</i> or <i>Hard</i>, that's a sign the chain isn't solid, so every step after it gets immediately <i>"de-unlocked"</i> and marked due again. Now in your next session you have to rebuild the whole thing from that point forward. This is the same idea I mentioned earlier, breaking an earlier step should require rebuilding the steps that depend on it, and it's really the one rule that makes chained flashcards behave naturally, rather than turning into a set of steps that quietly drift out of sync with each other.
 </p>
