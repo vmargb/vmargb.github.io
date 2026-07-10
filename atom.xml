@@ -5,14 +5,14 @@
   <link href="https://vmargb.github.io/atom.xml" rel="self" />
   <link href="https://vmargb.github.io/blog.html" />
   <id>https://vmargb.github.io/</id>
-  <updated>2026-07-10T16:46:00Z</updated>
+  <updated>2026-07-10T18:12:01Z</updated>
   <author><name>vmargb</name></author>
   <entry>
     <title>arrow.el: Creating a unified bookmark system in Emacs.</title>
     <link href="https://vmargb.github.io/blog/arrow.html" />
     <id>urn:uuid:6dafee68-6504-57c4-851f-f5d33f0db1f4</id>
-    <published>2026-07-12T00:00:00Z</published>
-    <updated>2026-07-12T00:00:00Z</updated>
+    <published>2026-07-11T00:00:00Z</published>
+    <updated>2026-07-11T00:00:00Z</updated>
     <category term="Emacs" />
     <summary>Why I built arrow.el for emacs, a neovim plugin designed for mnemonic bookmarks.</summary>
   </entry>
@@ -44,7 +44,7 @@
     <summary>An Emacs org-mode solution for re-reading your buried org notes using spaced-repetition</summary>
   </entry>
   <entry>
-    <title>The iterative approach to writing good notes</title>
+    <title>The iterative approach to notetaking (a better way to study)</title>
     <link href="https://vmargb.github.io/blog/notetaking.html" />
     <id>urn:uuid:91330fd1-5f96-505e-96ff-de4c5bbb92df</id>
     <published>2026-01-02T00:00:00Z</published>
