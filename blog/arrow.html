@@ -22,18 +22,18 @@ ul, ol { margin-bottom: 1em; }
 <a href="../blog.html" class="back">← all posts</a>
 <header class="post-header">
   <span class="post-label">app</span>
-  <h1 class="post-title">{{{title}}}</h1>
+  <h1 class="post-title">Creating a unified bookmark system in Emacs</h1>
   <div class="post-meta">
-    <span>{{{date}}}</span>
+    <span>11 Jul 2026</span>
     <span class="post-meta-sep">·</span>
     <span>7 min read</span>
     <span class="post-meta-sep">·</span>
     <span>vmargb</span>
   </div>
 </header>
-<div id="outline-container-org87eeed8" class="outline-2">
-<h2 id="org87eeed8"><a href="https://github.com/vmargb/arrow.el">arrow.el</a>, from <code>neovim</code> to <code>emacs</code></h2>
-<div class="outline-text-2" id="text-org87eeed8">
+<div id="outline-container-org93feed8" class="outline-2">
+<h2 id="org93feed8"><a href="https://github.com/vmargb/arrow.el">arrow.el</a>, from <code>neovim</code> to <code>emacs</code></h2>
+<div class="outline-text-2" id="text-org93feed8">
 <p>
 My first introduction to using any kind of bookmark or quick <i>buffer switching</i> utility was the Primeagens <a href="https://github.com/ThePrimeagen/harpoon/tree/harpoon2">harpoon</a> plugin for neovim. The philosophy behind it is that, most of the time you are only hopping between two or three buffers in a project at any time. Even when the project is very large and modularised, it's often the case that you're not really using all of those files at once. And so you really only need a small list of your <b>current rotation</b> of buffers. Often moving buffers into that rotation or moving buffers out of it based on demand. This often works by using your <b>numkeys</b> as that rotation. I would usually do something like:
 </p>
@@ -58,9 +58,9 @@ Now in the <code>Emacs</code> world, all of these ideas <i>kind of</i> exist, an
 But once again, none of these solutions would quite scratch that itch I had. I wanted a seamless and uniform <code>arrow.nvim</code> experience across all my bookmarks in Emacs.
 </p>
 </div>
-<div id="outline-container-orgd55c7b8" class="outline-3">
-<h3 id="orgd55c7b8">The three layers of bookmarks</h3>
-<div class="outline-text-3" id="text-orgd55c7b8">
+<div id="outline-container-orgaf77e15" class="outline-3">
+<h3 id="orgaf77e15">The three layers of bookmarks</h3>
+<div class="outline-text-3" id="text-orgaf77e15">
 <p>
 There are essentially three types of bookmarks that I use daily in my workflow:
 </p>
@@ -79,9 +79,9 @@ Each layer is isolated to its own context with the exception of global marks whi
 This is important because <code>vim</code> marks and <code>Emacs registers</code> suffer from the same problem which is that yanks / deletes or other actions end up polluting the register list, mixing up your rotation with unwanted entries. Not to mention, the marks not actually being contextually isolated. Buffer marks are not buffer-local and project marks are not project-local. This <i>context slipping</i> is the reasoning behind so many third party solutions.
 </p>
 </div>
-<div id="outline-container-org15ced69" class="outline-4">
-<h4 id="org15ced69">A simple prefix-tree for keypresses, reinventing <code>which-key</code></h4>
-<div class="outline-text-4" id="text-org15ced69">
+<div id="outline-container-orga4a6e6d" class="outline-4">
+<h4 id="orga4a6e6d">A simple prefix-tree for keypresses, reinventing <code>which-key</code></h4>
+<div class="outline-text-4" id="text-orga4a6e6d">
 <p>
 When designing the key system for <code>arrow.el</code>, I wanted something that felt as instantaneous as <code>Avy</code>, despite the obvious availability of <code>which-key</code>. I settled on implementing a <b>flat prefix-tree</b> directly inside <code>arrow-core</code> that allows bookmark keys to be of <b>arbitrary length</b> while strictly enforcing a prefix-free rule like <code>which-key</code> does.
 </p>
@@ -96,9 +96,9 @@ This strict approach solves the classic modal ambiguity problem. Because keys sh
 </div>
 </div>
 </div>
-<div id="outline-container-orgfbd94dd" class="outline-3">
-<h3 id="orgfbd94dd">The fourth layer: <code>org-mode</code></h3>
-<div class="outline-text-3" id="text-orgfbd94dd">
+<div id="outline-container-org6897c46" class="outline-3">
+<h3 id="org6897c46">The fourth layer: <code>org-mode</code></h3>
+<div class="outline-text-3" id="text-org6897c46">
 <p>
 While Global, Project, and Buffer bookmarks handle physical codebase navigation sufficiently, I realized there was a missing dimension: <b>project-level notes</b>.
 </p>
@@ -167,7 +167,7 @@ Putting all of this together, I now have the final solution to handling my bookm
 
 <footer class="post-footer">
   <a href="../blog.html">← back to blog</a>
-  <span>Published {{{date}}}</span>
+  <span>Published 11 Jul 2026</span>
 </footer>
 </div>
 </div>

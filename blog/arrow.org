@@ -8,9 +8,9 @@
 <a href="../blog.html" class="back">← all posts</a>
 <header class="post-header">
   <span class="post-label">app</span>
-  <h1 class="post-title">{{{title}}}</h1>
+  <h1 class="post-title">Creating a unified bookmark system in Emacs</h1>
   <div class="post-meta">
-    <span>{{{date}}}</span>
+    <span>11 Jul 2026</span>
     <span class="post-meta-sep">·</span>
     <span>7 min read</span>
     <span class="post-meta-sep">·</span>
@@ -96,7 +96,7 @@ Putting all of this together, I now have the final solution to handling my bookm
 #+BEGIN_EXPORT html
 <footer class="post-footer">
   <a href="../blog.html">← back to blog</a>
-  <span>Published {{{date}}}</span>
+  <span>Published 11 Jul 2026</span>
 </footer>
 </div>
 #+END_EXPORT
