@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>vmargb@portfolio: ~/blog</title>
+  <subtitle>Writing about things I find interesting. Sometimes dev, sometimes not.</subtitle>
+  <link href="https://vmargb.github.io/atom.xml" rel="self" />
+  <link href="https://vmargb.github.io/blog.html" />
+  <id>https://vmargb.github.io/</id>
+  <updated>2026-07-10T15:05:56Z</updated>
+  <author><name>vmargb</name></author>
+  <entry>
+    <title>arrow.el: Creating a unified bookmark system in Emacs.</title>
+    <link href="https://vmargb.github.io/blog/arrow.html" />
+    <id>urn:uuid:6dafee68-6504-57c4-851f-f5d33f0db1f4</id>
+    <published>2026-07-12T00:00:00Z</published>
+    <updated>2026-07-12T00:00:00Z</updated>
+    <category term="Emacs" />
+    <summary>Why I built arrow.el for emacs, a neovim plugin designed for mnemonic bookmarks.</summary>
+  </entry>
+  <entry>
+    <title>The final piece of the spaced-repetition puzzle.</title>
+    <link href="https://vmargb.github.io/blog/spaced-repetition-2.html" />
+    <id>urn:uuid:1427a75d-a03f-5020-a11b-9531321c7e37</id>
+    <published>2026-07-08T00:00:00Z</published>
+    <updated>2026-07-08T00:00:00Z</updated>
+    <category term="App" />
+    <summary>Exploring how the spacing and testing effect can be extended to solving problems with long chain of thought.</summary>
+  </entry>
+  <entry>
+    <title>The missing part of existing Audio editors</title>
+    <link href="https://vmargb.github.io/blog/partsofspeech.html" />
+    <id>urn:uuid:260f1027-e0d7-5f2a-86d0-66ed8ba9c972</id>
+    <published>2026-07-05T00:00:00Z</published>
+    <updated>2026-07-05T00:00:00Z</updated>
+    <category term="App" />
+    <summary>Where audio editors like Audacity fail and why I built something better.</summary>
+  </entry>
+  <entry>
+    <title>Reclaiming re-reading and the Leitner box system for Emacs.</title>
+    <link href="https://vmargb.github.io/blog/spacedreview.html" />
+    <id>urn:uuid:e8825f06-b861-5e39-8c8c-ae6955b270b0</id>
+    <published>2026-06-03T00:00:00Z</published>
+    <updated>2026-06-03T00:00:00Z</updated>
+    <category term="Emacs" />
+    <summary>An Emacs org-mode solution for re-reading your buried org notes using spaced-repetition</summary>
+  </entry>
+  <entry>
+    <title>The iterative approach to notetaking (a better way to study)</title>
+    <link href="https://vmargb.github.io/blog/notetaking.html" />
+    <id>urn:uuid:91330fd1-5f96-505e-96ff-de4c5bbb92df</id>
+    <published>2026-01-02T00:00:00Z</published>
+    <updated>2026-01-02T00:00:00Z</updated>
+    <category term="tools" />
+    <summary>An alternate and competing method of writing good notes based on real meta-learning studies</summary>
+  </entry>
+  <entry>
+    <title>Why I use Org-mode &amp; Org-roam over Obsidian</title>
+    <link href="https://vmargb.github.io/blog/org-mode-1.html" />
+    <id>urn:uuid:b4c1ab1c-e318-55a0-9852-da0de0c1c612</id>
+    <published>2025-12-14T00:00:00Z</published>
+    <updated>2025-12-14T00:00:00Z</updated>
+    <category term="tools" />
+    <summary>A note on why I went back to Emacs and never looked back, even with all the friction.</summary>
+  </entry>
+  <entry>
+    <title>Building a Better Anki: Enhancing Flashcards for Multi-Step Active Recall</title>
+    <link href="https://vmargb.github.io/blog/spaced-repetition-1.html" />
+    <id>urn:uuid:50f7b4f9-71bd-5ba7-a439-f81cfe766715</id>
+    <published>2025-10-08T00:00:00Z</published>
+    <updated>2025-10-08T00:00:00Z</updated>
+    <category term="misc" />
+    <summary>What I&apos;ve learned from years of Anki and why I&apos;m building something different.</summary>
+  </entry>
+  <entry>
+    <title>NixOS: three months in</title>
+    <link href="https://vmargb.github.io/blog/nixos-1.html" />
+    <id>urn:uuid:dcb6e636-c385-5398-a2a1-c0a11b5e542c</id>
+    <published>2025-08-19T00:00:00Z</published>
+    <updated>2025-08-19T00:00:00Z</updated>
+    <category term="linux" />
+    <summary>Everything I wish someone had told me before I wiped Windows.</summary>
+  </entry>
+  <entry>
+    <title>MCTS vs Minimax when to explore, when to exploit</title>
+    <link href="https://vmargb.github.io/blog/mcts-vs-minimax.html" />
+    <id>urn:uuid:ca80aa35-fd0d-5e30-a942-f818abc12e51</id>
+    <published>2024-11-30T00:00:00Z</published>
+    <updated>2024-11-30T00:00:00Z</updated>
+    <category term="ai" />
+    <summary>Notes from building a chess AI: why pure Minimax is boring and why MCTS alone isn&apos;t enough.</summary>
+  </entry>
+</feed>

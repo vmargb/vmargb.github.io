@@ -8,6 +8,7 @@
 <link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="alternate" type="application/atom+xml" title="vmargb's blog" href="/atom.xml">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../blog.css">
 <style>
@@ -30,9 +31,9 @@ ul, ol { margin-bottom: 1em; }
     <span>vmargb</span>
   </div>
 </header>
-<div id="outline-container-org6cd57be" class="outline-2">
-<h2 id="org6cd57be">A first encounter with NixOS</h2>
-<div class="outline-text-2" id="text-org6cd57be">
+<div id="outline-container-org3eda8e5" class="outline-2">
+<h2 id="org3eda8e5">A first encounter with NixOS</h2>
+<div class="outline-text-2" id="text-org3eda8e5">
 <p>
 A couple months ago, I put NixOS on my main machine. I want to write down what that's actually been like, not the honeymoon version you see on youtube or read in blog posts from people who just finished setting it up, but where I am after weeks of fighting with it for real work.
 </p>
@@ -41,9 +42,9 @@ A couple months ago, I put NixOS on my main machine. I want to write down what t
 <i>tldr:</i> it was rougher than what was advertised, the mental model takes real time to get your head around, and there are things that are still genuinely annoying. But the thing it promises, which is a declarative and reproducible system that you can actually understand and rebuild from scratch is well worth the pain for the long-term benefits.
 </p>
 </div>
-<div id="outline-container-org0a624d1" class="outline-3">
-<h3 id="org0a624d1">What Nix even is</h3>
-<div class="outline-text-3" id="text-org0a624d1">
+<div id="outline-container-org0fefa70" class="outline-3">
+<h3 id="org0fefa70">What Nix even is</h3>
+<div class="outline-text-3" id="text-org0fefa70">
 <p>
 If you haven't heard of it, NixOS is a Linux distribution built around the Nix package manager and the Nix language. The core idea is that your entire system configuration, packages, services, users, dotfiles, everything lives in a collection of <code>.nix</code> files(or a single file if you want) that you can commit using version control like Git. Nix being a functional and declarative programming language means whatever you declare, will always reproduce the exact same system, every time.
 </p>
@@ -53,9 +54,9 @@ The opposite of this is how most Linux systems work, you install packages impera
 </p>
 </div>
 </div>
-<div id="outline-container-org54447a1" class="outline-3">
-<h3 id="org54447a1">Week two: not getting better</h3>
-<div class="outline-text-3" id="text-org54447a1">
+<div id="outline-container-org811118e" class="outline-3">
+<h3 id="org811118e">Week two: not getting better</h3>
+<div class="outline-text-3" id="text-org811118e">
 <p>
 The first few weeks are pretty painful. Getting the installation to work smoothly was one thing, but having to fight with your configuration afterwards is another.
 </p>
@@ -89,9 +90,9 @@ The fastest way through month one: keep search.nixos.org/options and search.nixo
 </blockquote>
 </div>
 </div>
-<div id="outline-container-orgaa8949a" class="outline-3">
-<h3 id="orgaa8949a">Flakes</h3>
-<div class="outline-text-3" id="text-orgaa8949a">
+<div id="outline-container-orga32255a" class="outline-3">
+<h3 id="orga32255a">Flakes</h3>
+<div class="outline-text-3" id="text-orga32255a">
 <p>
 The next few weeks in I switched from the traditional <code>configuration.nix</code> setup to flakes. Flakes are technically still "experimental" but in practice everyone in the community uses them. The difference is that flakes give you a locked <code>flake.lock</code> file, similar to how every package manager that handles dependencies work. This is an exact pinned version of every input, including nixpkgs itself. Your system is now fully reproducible not just structurally but in terms of exact package versions.
 </p>
@@ -131,21 +132,21 @@ The other half of this is Home Manager, which extends the same declarative appro
 </p>
 </div>
 </div>
-<div id="outline-container-org54a19e4" class="outline-3">
-<h3 id="org54a19e4">The things I actually like now</h3>
-<div class="outline-text-3" id="text-org54a19e4">
+<div id="outline-container-org4a5fc4e" class="outline-3">
+<h3 id="org4a5fc4e">The things I actually like now</h3>
+<div class="outline-text-3" id="text-org4a5fc4e">
 </div>
-<div id="outline-container-org82a6871" class="outline-4">
-<h4 id="org82a6871">Rollbacks</h4>
-<div class="outline-text-4" id="text-org82a6871">
+<div id="outline-container-org6b087c7" class="outline-4">
+<h4 id="org6b087c7">Rollbacks</h4>
+<div class="outline-text-4" id="text-org6b087c7">
 <p>
 If a system rebuild breaks something, you boot into the previous generation from the bootloader menu. This has saved me a couple times, once when one of the drivers broke, once when I made a bad change to my Niri config and couldn't get a desktop to load. Both times: reboot, select previous generation, rebuild. Now other distros can kind of achieve something similar to this, but none at the sophistication and guarantee of NixOS.
 </p>
 </div>
 </div>
-<div id="outline-container-orgdba066f" class="outline-4">
-<h4 id="orgdba066f">Development shells</h4>
-<div class="outline-text-4" id="text-orgdba066f">
+<div id="outline-container-org0833b15" class="outline-4">
+<h4 id="org0833b15">Development shells</h4>
+<div class="outline-text-4" id="text-org0833b15">
 <p>
 This is one of my favorites, <code>nix develop</code> and <code>nix-shell</code> let you drop into a shell with exactly the dependencies a project needs, without installing anything globally. You put a <code>shell.nix</code> in most of your project directories. Enter the directory, run <code>nix-shell</code>, and the right version of Python/Node/whatever is available. Leave the directory, it's gone, magic! No annoying virtualenvs in python, <code>nvm</code> or version conflicts to deal with anymore. In fact, this is the way it should always be done now that I think about it.
 </p>
@@ -166,18 +167,18 @@ pkgs.mkShell {
 </div>
 </div>
 </div>
-<div id="outline-container-org90ee875" class="outline-4">
-<h4 id="org90ee875">The config is the documentation</h4>
-<div class="outline-text-4" id="text-org90ee875">
+<div id="outline-container-orgd395715" class="outline-4">
+<h4 id="orgd395715">The config is the documentation</h4>
+<div class="outline-text-4" id="text-orgd395715">
 <p>
 On previous setups, I had a <code>md</code> file listing things I'd installed, which was perpetually out of date and constantly changing. Now the configuration files themselves <i>are</i> the documentation, they're always accurate because they're declarative and the system handles the rest for me.
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org9a86b2e" class="outline-3">
-<h3 id="org9a86b2e">The things that are still annoying</h3>
-<div class="outline-text-3" id="text-org9a86b2e">
+<div id="outline-container-orgac9bd8a" class="outline-3">
+<h3 id="orgac9bd8a">The things that are still annoying</h3>
+<div class="outline-text-3" id="text-orgac9bd8a">
 <p>
 Some proprietary software doesn't work. Anything that ships its own bundled libraries and expects to find them at standard paths will fail in creative ways. <code>steam-run</code> exists for this, and the nixpkgs Steam package works fine, but if you need to run some random closed-source binary you found somewhere, good luck.
 </p>

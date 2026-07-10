@@ -8,8 +8,13 @@
 <link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="alternate" type="application/atom+xml" title="vmargb's blog" href="/atom.xml">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../blog.css">
+<style>
+p { margin-top: 0; margin-bottom: 1em; }
+ul, ol { margin-bottom: 1em; }
+</style>
 </head>
 <body>
 <div id="content" class="content">
@@ -30,9 +35,9 @@
 <p>
 Flashcards persistently remain essential for all forms of learning and disciplines. Anki's spaced-repetition excels for simple tasks like remembering facts, definitions, vocabulary etc&#x2026; However it clearly reveals its limitation with complex tasks like coding, problem-solving or studying grammar(over vocabulary) which demand more sophisticated approaches. The obvious answer here would be to transition to traditional note-taking for anything that goes beyond brute-memorisation, but what if there's a better way? This post outlines my vision for a next-generation flashcard system which prioritises multi-step active recall and adaptive learning.
 </p>
-<div id="outline-container-org82bc846" class="outline-2">
-<h2 id="org82bc846">The Problem with Linear Flashcards</h2>
-<div class="outline-text-2" id="text-org82bc846">
+<div id="outline-container-orgb1dbe15" class="outline-2">
+<h2 id="orgb1dbe15">The Problem with Linear Flashcards</h2>
+<div class="outline-text-2" id="text-orgb1dbe15">
 <p>
 Most flashcards assume knowledge is binary, you either know it or you don’t. But learning is often more of a <i>progressive</i> process.
 </p>
@@ -64,9 +69,9 @@ Instead of a single "answer," each flashcard has multiple checkpoints, each rein
 </p>
 </div>
 </div>
-<div id="outline-container-orgf425705" class="outline-2">
-<h2 id="orgf425705">Multi-Step Active Recall</h2>
-<div class="outline-text-2" id="text-orgf425705">
+<div id="outline-container-orga69bae8" class="outline-2">
+<h2 id="orga69bae8">Multi-Step Active Recall</h2>
+<div class="outline-text-2" id="text-orga69bae8">
 <p>
 Traditional flashcards present linear front/back interactions, but more complicated concepts are not as simple as that, sometimes understanding a concept requires passing through multiple <i>bridges</i> or middle-men that help you arrive at the conclusion. For example, lets say we're solving a coding problem:
 </p>
@@ -87,9 +92,9 @@ Traditional flashcards present linear front/back interactions, but more complica
 <li><b>Third Recall</b>: Code implementation</li>
 </ol>
 </div>
-<div id="outline-container-org4ee64d0" class="outline-3">
-<h3 id="org4ee64d0">Example</h3>
-<div class="outline-text-3" id="text-org4ee64d0">
+<div id="outline-container-org84d7e74" class="outline-3">
+<h3 id="org84d7e74">Example</h3>
+<div class="outline-text-3" id="text-org84d7e74">
 <blockquote>
 <p>
 <b>Front</b>
@@ -149,9 +154,9 @@ The system should evaluate each recall layer independently. A user might:
 </div>
 </div>
 </div>
-<div id="outline-container-orgf28b385" class="outline-2">
-<h2 id="orgf28b385">Branching Paths for Adaptive Learning</h2>
-<div class="outline-text-2" id="text-orgf28b385">
+<div id="outline-container-org6ae874e" class="outline-2">
+<h2 id="org6ae874e">Branching Paths for Adaptive Learning</h2>
+<div class="outline-text-2" id="text-org6ae874e">
 <p>
 Some topics require different approaches. Instead of rigid steps, we could instead allow optional alternate pathways:
 </p>

@@ -10,9 +10,9 @@
   <span class="post-label">app</span>
   <h1 class="post-title">Creating a unified bookmark system in Emacs</h1>
   <div class="post-meta">
-    <span>11 Jul 2026</span>
+    <span>12 Jul 2026</span>
     <span class="post-meta-sep">·</span>
-    <span>6 min read</span>
+    <span>7 min read</span>
     <span class="post-meta-sep">·</span>
     <span>vmargb</span>
   </div>
@@ -96,7 +96,7 @@ Putting all of this together, I now have the final solution to handling my bookm
 #+BEGIN_EXPORT html
 <footer class="post-footer">
   <a href="../blog.html">← back to blog</a>
-  <span>Published 11 Jul 2026</span>
+  <span>Published 12 Jul 2026</span>
 </footer>
 </div>
 #+END_EXPORT
