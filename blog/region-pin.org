@@ -1,0 +1,103 @@
+#+SETUPFILE: ../blog-setup.org
+#+TITLE: region-pin.el a lightweight floating preview & why you may not need LSP
+
+# ----Post metadata---- (boilerplate)
+# .post-meta bar underneath title
+#+BEGIN_EXPORT html
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">emacs</span>
+  <h1 class="post-title">region-pin.el a lightweight floating preview & why you may not need LSP</h1>
+  <div class="post-meta">
+    <span>23 Jul 2026</span>
+    <span class="post-meta-sep">·</span>
+    <span>5 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+#+END_EXPORT
+
+# ----normal Org mode----
+# Export: C-c C-e h o
+
+LSP is a nice all-in-one solution to merging IDE features into your editor. Though most of the time, I just want my text editor to be a text editor. Having a heavy process like =clangd= or =rust-analyzer= in the background all the time just doesn't feel right with me. Especially with how much resources some of these language servers consume. This problem scales even worse when a large project requires running multiple language servers running at once. It's not just me, but even my poor laptop with limited memory is screaming for an alternative.
+
+This post is about my ongoing journey of finding a minimal solution to this problem, one LSP feature at a time, and how I did my part by implementing
+
+[[https://github.com/vmargb/region-pin][region-pin.el]].
+
+-----
+
+* Where it started: LSP
+The usual flow of setting up your editor is throwing on =treesitter=, =LSP=, your favourite =fuzzy-finder=, and you're more or less good to go. For most *minimal* setups, that covers about everything you absolutely really need in an editor, anything extra is nice but not really a demand. In my case, I wanted to take it an extra step further and decide that you don't even really need LSP either.
+
+To be clear, there are larger and more sophisticated packages out there fighting for the resistance against LSP. =region-pin= is merely a small contribution that fills in for just one LSP feature, which is the *signature help*.
+
+** Signature help: show function parameter hints as you type
+One of the features I miss when I don't use LSP are the small indicators telling you the label names of each argument. This way I didn't need to remember all the field names in a class, enum, or the parameters of a function/method. Embarassingly, I would always hop back and forth between the definition to fill in those details every time.
+
+Which naturally raised the suspicion, why do you even need LSP to do this? All that's really happening is we're resurfacing the definition of the thing we're calling, you don't need anything fancy for that, just simple old search and display.
+
+The searching part is easy, especially in Emacs thanks to its =xref= layer and existing packages like =dumb-jump=, which uses standard plain elisp combined with =ripgrep= (if available), it works for most small to medium projects. For larger projects Emacs also comes with =etags=, which scans your source code *once* and records all its identifiers in one place, tracking its locations as jump targets. This obviously gives you quick constant time lookup of all your definitions once the =TAGS= file is made.
+
+Also to do this, just run:
+
+#+begin_src sh
+etags example.c
+# or for multiple files
+etags *.el
+#+end_src
+
+Then open the generated =TAGS= file in Emacs with:
+- =M-x visit-tags-table=
+- After that, jump with =M-.= when your cursor is on a symbol
+
+To /append/ new symbols to the =TAGS= file, do:
+#+begin_src sh
+etags -a newfile.c
+#+end_src
+
+So our job is just to collect its output(dumb-jump, etags) and accurately generate a preview of the code snippet at that marker. No need for an LSP client to run in the background at all.
+
+** region-pin.el: a lightweight floating preview for definitions and snippets
+=region-pin= is my attempt to solve exactly this slice of the IDE experience without the LSP overhead. It lets you find and pin any chunk of code (function, struct, class, enum, whatever) so it floats in the corner of your window as a persistent, read-only preview that you can easily toggle on & off. 
+
+-----
+
+*** How it works under the hood
+
+=region-pin= keeps things plain and simple. At its core it's just a =hash-table= mapping a name (string) to a =plist= containing the captured =:text=, original =:mode=, source =:file=, =:line=, timestamp, and sometimes a =:backend= tag so you can see whether it came from LSP, =dumb-jump=, =etags= or an =imenu= lookup.
+
+When you save a region, it first makes sure the text is properly font-locked (=font-lock-ensure=), then grabs the raw text with =buffer-substring=. That chunk, along with metadata, gets stuffed into the hash table which is then saved to disk.
+
+In terminal emacs, this child frame obviously can't be displayed, in which case it fallbacks to the older design of just docking a window at the top of the frame instead. Not ideal, but at least it does /something/.
+
+=region-pin-follow=, is the usual workflow most people will use. It simply reuses =xref= like we explained before. If there are multiple candidates you get a quick =completing-read= with file/line context. Once that returns a marker, you jump to that location without moving the window or cursor. Now just use =beginning-of-defun= / =end-of-defun= to grab the logical definition (with a fallback to =N= surrounding lines), =re-fontify= and then hand it off to the display engine to handle the rest. The whole round-trip stays fast because we're just leveraging Emacs primitives in the time it would take a language server to even load.
+
+That's really it. No background processes. No daemons.
+
+* What about the other parts of LSP?
+- Syntax highlighting
+- debugging
+- formatting
+- refactoring?
+- etc...
+
+Formatting is actually a solved problem (thanks =apheleia=, =format-all=, etc.), but the rest...
+
+=Treesitter= is often good enough for most syntax-highlighting, but it doesn't have intelligent diagnostic color coding like errors and unused variables. You can get away with buffer-based autocompletion, but in a real project LSP (or AI) is just better. There are *some* solutions for refactoring, one of the main ones not having been updated in the past 5 years... and they are not perfect either, only being limited to a small set of languages. Not to mention, refactoring is one of those areas you can't afford to cheap out on. And that's not all of it.
+
+Lets just say we're not quite there yet...
+
+However, I'm happy with the existing solutions on the table already. Most often than not, I have my LSP turned /off/, only enabled when a task *really* demands it. For the 80% of cases, raw Elisp extensibility will take you a long way!
+
+# ----Post footer---- (boilerplate)
+#+BEGIN_EXPORT html
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 23 Jul 2026</span>
+</footer>
+</div>
+#+END_EXPORT

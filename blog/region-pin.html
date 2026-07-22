@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>region-pin.el a lightweight floating preview &amp; why you may not need LSP</title>
+<meta name="generator" content="Org Mode" />
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="alternate" type="application/atom+xml" title="vmargb's blog" href="/atom.xml">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog.css">
+<style>
+p { margin-top: 0; margin-bottom: 1em; }
+ul, ol { margin-bottom: 1em; }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">emacs</span>
+  <h1 class="post-title">region-pin.el a lightweight floating preview & why you may not need LSP</h1>
+  <div class="post-meta">
+    <span>23 Jul 2026</span>
+    <span class="post-meta-sep">·</span>
+    <span>5 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+
+<p>
+LSP is a nice all-in-one solution to merging IDE features into your editor. Though most of the time, I just want my text editor to be a text editor. Having a heavy process like <code>clangd</code> or <code>rust-analyzer</code> in the background all the time just doesn't feel right with me. Especially with how much resources some of these language servers consume. This problem scales even worse when a large project requires running multiple language servers running at once. It's not just me, but even my poor laptop with limited memory is screaming for an alternative.
+</p>
+
+<p>
+This post is about my ongoing journey of finding a minimal solution to this problem, one LSP feature at a time, and how I did my part by implementing
+</p>
+
+<p>
+<a href="https://github.com/vmargb/region-pin">region-pin.el</a>.
+</p>
+
+<hr>
+<div id="outline-container-org5ed7e21" class="outline-2">
+<h2 id="org5ed7e21">Where it started: LSP</h2>
+<div class="outline-text-2" id="text-org5ed7e21">
+<p>
+The usual flow of setting up your editor is throwing on <code>treesitter</code>, <code>LSP</code>, your favourite <code>fuzzy-finder</code>, and you're more or less good to go. For most <b>minimal</b> setups, that covers about everything you absolutely really need in an editor, anything extra is nice but not really a demand. In my case, I wanted to take it an extra step further and decide that you don't even really need LSP either.
+</p>
+
+<p>
+To be clear, there are larger and more sophisticated packages out there fighting for the resistance against LSP. <code>region-pin</code> is merely a small contribution that fills in for just one LSP feature, which is the <b>signature help</b>.
+</p>
+</div>
+<div id="outline-container-orgbc5a744" class="outline-3">
+<h3 id="orgbc5a744">Signature help: show function parameter hints as you type</h3>
+<div class="outline-text-3" id="text-orgbc5a744">
+<p>
+One of the features I miss when I don't use LSP are the small indicators telling you the label names of each argument. This way I didn't need to remember all the field names in a class, enum, or the parameters of a function/method. Embarassingly, I would always hop back and forth between the definition to fill in those details every time.
+</p>
+
+<p>
+Which naturally raised the suspicion, why do you even need LSP to do this? All that's really happening is we're resurfacing the definition of the thing we're calling, you don't need anything fancy for that, just simple old search and display.
+</p>
+
+<p>
+The searching part is easy, especially in Emacs thanks to its <code>xref</code> layer and existing packages like <code>dumb-jump</code>, which uses standard plain elisp combined with <code>ripgrep</code> (if available), it works for most small to medium projects. For larger projects Emacs also comes with <code>etags</code>, which scans your source code <b>once</b> and records all its identifiers in one place, tracking its locations as jump targets. This obviously gives you quick constant time lookup of all your definitions once the <code>TAGS</code> file is made.
+</p>
+
+<p>
+Also to do this, just run:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">etags example.c
+# or for multiple files
+etags *.el
+</pre>
+</div>
+
+<p>
+Then open the generated <code>TAGS</code> file in Emacs with:
+</p>
+<ul class="org-ul">
+<li><code>M-x visit-tags-table</code></li>
+<li>After that, jump with <code>M-.</code> when your cursor is on a symbol</li>
+</ul>
+
+<p>
+To <i>append</i> new symbols to the <code>TAGS</code> file, do:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">etags -a newfile.c
+</pre>
+</div>
+
+<p>
+So our job is just to collect its output(dumb-jump, etags) and accurately generate a preview of the code snippet at that marker. No need for an LSP client to run in the background at all.
+</p>
+</div>
+</div>
+<div id="outline-container-org07111c4" class="outline-3">
+<h3 id="org07111c4">region-pin.el: a lightweight floating preview for definitions and snippets</h3>
+<div class="outline-text-3" id="text-org07111c4">
+<p>
+<code>region-pin</code> is my attempt to solve exactly this slice of the IDE experience without the LSP overhead. It lets you find and pin any chunk of code (function, struct, class, enum, whatever) so it floats in the corner of your window as a persistent, read-only preview that you can easily toggle on &amp; off. 
+</p>
+
+<hr>
+</div>
+<div id="outline-container-orgc78a835" class="outline-4">
+<h4 id="orgc78a835">How it works under the hood</h4>
+<div class="outline-text-4" id="text-orgc78a835">
+<p>
+<code>region-pin</code> keeps things plain and simple. At its core it's just a <code>hash-table</code> mapping a name (string) to a <code>plist</code> containing the captured <code>:text</code>, original <code>:mode</code>, source <code>:file</code>, <code>:line</code>, timestamp, and sometimes a <code>:backend</code> tag so you can see whether it came from LSP, <code>dumb-jump</code>, <code>etags</code> or an <code>imenu</code> lookup.
+</p>
+
+<p>
+When you save a region, it first makes sure the text is properly font-locked (<code>font-lock-ensure</code>), then grabs the raw text with <code>buffer-substring</code>. That chunk, along with metadata, gets stuffed into the hash table which is then saved to disk.
+</p>
+
+<p>
+In terminal emacs, this child frame obviously can't be displayed, in which case it fallbacks to the older design of just docking a window at the top of the frame instead. Not ideal, but at least it does <i>something</i>.
+</p>
+
+<p>
+<code>region-pin-follow</code>, is the usual workflow most people will use. It simply reuses <code>xref</code> like we explained before. If there are multiple candidates you get a quick <code>completing-read</code> with file/line context. Once that returns a marker, you jump to that location without moving the window or cursor. Now just use <code>beginning-of-defun</code> / <code>end-of-defun</code> to grab the logical definition (with a fallback to <code>N</code> surrounding lines), <code>re-fontify</code> and then hand it off to the display engine to handle the rest. The whole round-trip stays fast because we're just leveraging Emacs primitives in the time it would take a language server to even load.
+</p>
+
+<p>
+That's really it. No background processes. No daemons.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org14792f2" class="outline-2">
+<h2 id="org14792f2">What about the other parts of LSP?</h2>
+<div class="outline-text-2" id="text-org14792f2">
+<ul class="org-ul">
+<li>Syntax highlighting</li>
+<li>debugging</li>
+<li>formatting</li>
+<li>refactoring?</li>
+<li>etc&#x2026;</li>
+</ul>
+
+<p>
+Formatting is actually a solved problem (thanks <code>apheleia</code>, <code>format-all</code>, etc.), but the rest&#x2026;
+</p>
+
+<p>
+<code>Treesitter</code> is often good enough for most syntax-highlighting, but it doesn't have intelligent diagnostic color coding like errors and unused variables. You can get away with buffer-based autocompletion, but in a real project LSP (or AI) is just better. There are <b>some</b> solutions for refactoring, one of the main ones not having been updated in the past 5 years&#x2026; and they are not perfect either, only being limited to a small set of languages. Not to mention, refactoring is one of those areas you can't afford to cheap out on. And that's not all of it.
+</p>
+
+<p>
+Lets just say we're not quite there yet&#x2026;
+</p>
+
+<p>
+However, I'm happy with the existing solutions on the table already. Most often than not, I have my LSP turned <i>off</i>, only enabled when a task <b>really</b> demands it. For the 80% of cases, raw Elisp extensibility will take you a long way!
+</p>
+
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 23 Jul 2026</span>
+</footer>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
