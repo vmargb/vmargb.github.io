@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Zoxide inside of Emacs</title>
+<meta name="generator" content="Org Mode" />
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="alternate" type="application/atom+xml" title="vmargb's blog" href="/atom.xml">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog.css">
+<style>
+p { margin-top: 0; margin-bottom: 1em; }
+ul, ol { margin-bottom: 1em; }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<div class="page-wrap">
+<a href="../blog.html" class="back">← all posts</a>
+<header class="post-header">
+  <span class="post-label">ai</span>
+  <h1 class="post-title">Zoxide inside of Emacs.</h1>
+  <div class="post-meta">
+    <span>7 Sept 2026</span>
+    <span class="post-meta-sep">·</span>
+    <span>10 min read</span>
+    <span class="post-meta-sep">·</span>
+    <span>vmargb</span>
+  </div>
+</header>
+<div id="outline-container-orgace9b8e" class="outline-2">
+<h2 id="orgace9b8e">Minimal Zoxide inside of Emacs</h2>
+<div class="outline-text-2" id="text-orgace9b8e">
+<p>
+If you're like me, you love using every CLI/TUI tool out there that enhances the terminal experience, some of which are:
+</p>
+
+<ul class="org-ul">
+<li><code>tmux</code></li>
+<li><code>fzf</code></li>
+<li><code>deja</code></li>
+<li><code>eza</code></li>
+<li><code>bat</code></li>
+</ul>
+
+<p>
+and most importantly -&gt; <code>zoxide</code>
+</p>
+
+<p>
+The problem is that the more I use Emacs these days, the less I look at the terminal. Most of the things in that list are replaced by the Emacs experience itself&hellip; everything except <b>zoxide</b>.
+</p>
+
+<hr>
+</div>
+<div id="outline-container-orgc151e4c" class="outline-3">
+<h3 id="orgc151e4c">zoxide.el</h3>
+<div class="outline-text-3" id="text-orgc151e4c">
+<p>
+Now the <i>tldr</i> solution to all of this is to just install <code>zoxide.el</code> from <b>Melpa</b>. However, something about loading a package for this use-case just didn't sit right with me. Zoxide is already installed on the system, I only use <b>one</b> command in the entire workflow. Surely that's just a single defun in my init.el that calls the <code>z</code> command with my user input.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf4fb90d" class="outline-3">
+<h3 id="orgf4fb90d">Emacspeak</h3>
+<div class="outline-text-3" id="text-orgf4fb90d">
+<p>
+Now I did have a go at writing the Elisp myself until I found someone already did it over at the <a href="https://emacspeak.blogspot.com/2023/09/augment-with-zoxide.html">emacspeak zoxide blog</a>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><code>;; zoxide integration: query zoxide and open the result in dired
+(defun emacs-zoxide (q)
+  "Query zoxide Q and launch Dired."
+  (interactive "sZoxide: ")
+  (if-let*
+      ((zoxide (executable-find "zoxide"))
+       (target
+        (with-temp-buffer
+          (if (= 0 (call-process zoxide nil t nil "query" q))
+              (string-trim (buffer-string))))))
+      (funcall-interactively #'dired target)
+    (unless zoxide (error "Install zoxide"))
+    (unless target (error "No Match"))))
+</code></pre>
+</div>
+
+<p>
+I may have made one change to the string output somewhere but all credit goes to this blog. It did most of what I needed, I navigate to where I want using my terminal already, that covers all the essential locations in the zoxide database. Then I simply call <code>emacs-zoxide</code> from within Emacs and boom I'm there!
+</p>
+
+<p>
+Everything was perfect&hellip; until it wasn't. The more and more I used Emacs, the less I touched the terminal, and the more outdated the Zoxide registry became, it stopped updating and being in sync with my more recent activity and over the weeks and months, Zoxide stopped being useful compared to just standard <code>consult-bookmark</code>, <code>find-file</code>, <code>dired</code> etc&hellip;
+</p>
+
+<p>
+Now I can either succumb to pressure and install the damn <code>zoxide.el</code> like any normal person would&hellip; or I can write just one more defun&hellip;
+</p>
+</div>
+</div>
+<div id="outline-container-orgf5693ca" class="outline-3">
+<h3 id="orgf5693ca">My own additions</h3>
+<div class="outline-text-3" id="text-orgf5693ca">
+</div>
+<div id="outline-container-org090c208" class="outline-4">
+<h4 id="org090c208">Making it automatic</h4>
+<div class="outline-text-4" id="text-org090c208">
+<p>
+Now lets think about the problem here, all that's really missing is a hook that simply just calls the same process that <code>z ~/path/</code> in your terminal does, doesn't sound hard enough.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><code>(defun emacs-zoxide-add-dired ()
+  "Silently add the current dired dir to zoxide."
+  (when-let ((zoxide (executable-find "zoxide")))
+    (call-process zoxide nil nil nil "add" (directory-file-name default-directory))))
+
+(add-hook 'dired-mode-hook #'my-zoxide-add-dired-dir-hack)
+</code></pre>
+</div>
+
+<p>
+Following the same convention as the original code, we check if Zoxide is available, if so we call the process to add the current <code>default-directory</code> to Zoxide. Then we just add a hook that calls this function whenever entering a directory in <code>Dired</code>.
+</p>
+
+<p>
+Looks good enough, everything synced over to my terminal, but there was one problem. Often times I still used <code>cd</code> over <code>zoxide</code> in the terminal to avoid registering every single folder. Whether you think that's a good idea or not, I only wanted to store the essential locations. The point is I may not want to use zoxide all the time and I'm sure there's gonna be other reasons for this too.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf1f798b" class="outline-4">
+<h4 id="orgf1f798b">Making it manual</h4>
+<div class="outline-text-4" id="text-orgf1f798b">
+<p>
+One more defun, but I promise this is the last one. If you only want to manually insert a particulary directory yourself, this is the command that worked for me:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><code>(defun emacs-zoxide-add ()
+  "Manually add dir to zoxide."
+  (interactive)
+  (if-let ((zoxide (executable-find "zoxide")))
+      (let* ((raw-dir (read-directory-name "Add to zoxide: " default-directory default-directory t))
+             (clean-dir (expand-file-name raw-dir)))
+        (if (= 0 (call-process zoxide nil nil nil "add" clean-dir))
+            (message "Registered %s in zoxide" (abbreviate-file-name clean-dir))
+          (error "Failed to register %s in zoxide" clean-dir)))
+    (error "Install zoxide")))
+</code></pre>
+</div>
+
+<p>
+Now this defun was much simpler, before it would just auto-add whatever directory I'm currently sitting on, but then it was obvious that I might want to navigate to a parent directory or some other external dir without manually having to move backwards.
+</p>
+
+<p>
+Therefore, this now uses the built-in <code>read-directory-name</code> to grab the dir you want, pre-filled with the current directory.
+</p>
+
+<p>
+<b>Note</b>: Always use <code>expand-file-name</code> whenever reading a directory from the user (in <code>clean-dir</code>). <i>I was definitely not banging my head over this.</i>
+</p>
+
+<p>
+So now I can <code>ctrl+backspace</code> to a parent, use tab-completion or go anywhere else to a different path externally.
+</p>
+
+<p>
+And that's it!
+</p>
+
+<p>
+That's all I absolutely needed out of Zoxide inside of Emacs. I hope this may be of use to you and perhaps you can add your own additions too. If you do, please let me know whatever you come up with!
+</p>
+
+<hr>
+</div>
+</div>
+</div>
+<div id="outline-container-orgca785e2" class="outline-3">
+<h3 id="orgca785e2">Why not just use bookmarks?</h3>
+<div class="outline-text-3" id="text-orgca785e2">
+<p>
+With Zoxide, I don't have to <i>think</i> about doing anything, it handles the insertion and ordering for me. It has a much more intelligent filtering system which automatically learns from your usage, its search handles subdirectories and fuzzy searching very well, you can read more about it <a href="https://zoxide.org/features/">here</a>.
+</p>
+
+<p>
+Moreover, bookmark searching is simply not as snappy, especially as you add more options in there, which doesn't make it a good candidate to handle your whole filesystem. For this reason, I reserve it for the most frequent 1-9 locations while letting Zoxide handle everything else.
+</p>
+
+
+<footer class="post-footer">
+  <a href="../blog.html">← back to blog</a>
+  <span>Published 7 Sept 2026</span>
+</footer>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
