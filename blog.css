@@ -8,19 +8,27 @@
   src: url("/fonts/Inconsolata-Bold.woff") format("woff");
   font-weight: bold;
 }
-/*  Variables  */
+
+/* variables */
 :root {
-  --bg: #faf8f5;
-  --bg2: #f2efe9;
-  --bg3: #e8e4dc;
-  --border: #d4cfc4;
-  --text: #2d2a26;
-  --muted: #6b6358;
-  --accent: #d97706;
-  --accent2: #b45309;
-  --green: #059669;
+  --bg: #16120e;
+  --bg2: #1a1510;
+  --bg3: #221c14;
+  --border: #2e2619;
+  --border-soft: #251f14;
+  --text: #ddd2bd;
+  --prose: #cfc3ac;
+  --muted: #8d8171;
+  --faint: #5f574a;
+  --amber: #d9a04e;
+  --amber-hi: #edbd77;
+  --green: #93b072;
+
+  --mono: "Inconsolata", ui-monospace, monospace;
+  --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
 }
-/*  Reset  */
+
+/* seset */
 *,
 *::before,
 *::after {
@@ -28,207 +36,336 @@
   margin: 0;
   padding: 0;
 }
+
+html {
+  color-scheme: dark;
+}
+
 body {
-  font-family: "Inconsolata", monospace;
+  font-family: var(--mono);
   background: var(--bg);
   color: var(--text);
   font-size: 15px;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
-/*  CRT scanline  */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.03) 0px,
-    rgba(0, 0, 0, 0.03) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  pointer-events: none;
-  z-index: 999;
+
+::selection {
+  background: rgba(217, 160, 78, 0.28);
 }
-/*  Topbar  */
+
+:focus-visible {
+  outline: 1px solid var(--amber);
+  outline-offset: 2px;
+}
+
+/* topbar */
 .topbar {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  padding: 0 1.2rem;
-  height: 40px;
+  padding: 0 1.25rem;
+  height: 44px;
   background: var(--bg2);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 10;
 }
+
 .topbar-left {
   display: flex;
-  align-items: center;
-  gap: 0;
+  align-items: baseline;
+  gap: 0.45rem;
 }
+
 .topbar-logo {
-  color: var(--accent);
+  color: var(--amber);
   font-weight: bold;
-  font-family: "Inconsolata", monospace;
 }
+
 .topbar-sep {
-  color: var(--muted);
-  margin: 0 1px;
+  color: var(--faint);
 }
+
 .topbar-path {
-  color: var(--accent2);
-  font-family: "Inconsolata", monospace;
+  color: var(--muted);
 }
+
 .cursor {
-  color: var(--accent);
-  animation: blink 1s step-end infinite;
+  display: none;
 }
+
 .topbar-nav {
   display: flex;
   gap: 1.5rem;
 }
+
 .topbar-nav a {
   color: var(--muted);
-  text-decoration: none;
-  font-family: "Inconsolata", monospace;
-  font-size: 0.88rem;
-  transition: color 0.15s;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-underline-offset: 4px;
+  transition: color 0.12s, text-decoration-color 0.12s;
 }
+
 .topbar-nav a:hover {
-  color: var(--accent2);
+  color: var(--amber-hi);
+  text-decoration-color: var(--amber-hi);
 }
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
+
+.topbar-nav a.active {
+  color: var(--amber);
+  text-decoration-color: var(--amber);
 }
-/*  Reading progress bar  */
+
+/* reading progress bar */
 #progress {
   position: fixed;
   top: 0;
   left: 0;
   height: 2px;
-  background: var(--accent);
+  background: var(--amber);
   width: 0%;
   z-index: 1000;
   transition: width 0.1s linear;
 }
-/*  Shared page wrapper  */
+
+/* shared page */
 .page-wrap {
   max-width: 700px;
   margin: 0 auto;
-  padding: 3rem 1.5rem 6rem;
+  padding: 3.2rem 1.5rem 6rem;
 }
-/*  Back link  */
+
+/* back link */
 .back {
   display: inline-block;
   color: var(--muted);
-  text-decoration: none;
   font-size: 0.85rem;
   margin-bottom: 2rem;
-  transition: color 0.15s;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: color 0.12s, text-decoration-color 0.12s;
 }
+
 .back:hover {
-  color: var(--accent2);
+  color: var(--amber-hi);
+  text-decoration-color: var(--amber-hi);
 }
-/* ═══════════════════════════════════════════════════════════════
-BLOG INDEX
-═══════════════════════════════════════════════════════════════ */
-.blog-header {
-  margin-bottom: 3rem;
-  border-bottom: 1px solid var(--border);
+
+/* BLOG INDEX */
+
+.blog-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3.2rem 1.5rem 4.5rem;
+}
+
+.blog-header,
+.blog-head {
+  margin-bottom: 2.6rem;
+  border-bottom: 1px dotted var(--border);
   padding-bottom: 1.5rem;
 }
-.blog-header h1 {
-  font-size: 1.8rem;
-  color: var(--accent2);
-  margin-bottom: 0.3rem;
+
+.blog-header h1,
+.blog-head h1 {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--amber);
+  margin-bottom: 0.4rem;
 }
-.blog-header p {
+
+.blog-header p,
+.blog-head p {
+  font-family: var(--serif);
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 480px;
+  margin-bottom: 0.9rem;
 }
-.year-group {
-  margin-bottom: 2.5rem;
+
+.feed-link {
+  font-size: 0.82rem;
+  color: var(--amber);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(217, 160, 78, 0.35);
+  transition: color 0.12s, text-decoration-color 0.12s;
 }
-.year-label {
+
+.feed-link:hover {
+  color: var(--amber-hi);
+  text-decoration-color: var(--amber-hi);
+}
+
+.year-group,
+.blog-year {
+  margin-bottom: 2.4rem;
+}
+
+.year-label,
+.blog-year h2 {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.6rem;
+  color: var(--amber);
+  margin-bottom: 0.4rem;
 }
+
+.year-label::after,
+.blog-year h2::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px dotted var(--border);
+}
+
+.post-list {
+  list-style: none;
+}
+
+.post-list li,
 .post-row {
   display: grid;
-  grid-template-columns: 80px 1fr auto;
-  gap: 0.4rem 1.2rem;
-  align-items: baseline;
-  padding: 0.65rem 0;
-  border-bottom: 1px dashed var(--border);
+  grid-template-columns: 76px 1fr auto;
+  gap: 0.4rem 1.1rem;
+  align-items: start;
+  padding: 0.9rem 0;
+  border-bottom: 1px dotted var(--border);
+}
+
+.post-list li:last-child {
+  border-bottom: none;
+}
+
+.post-row {
   text-decoration: none;
   color: var(--text);
-  transition: color 0.15s;
+  transition: color 0.12s;
 }
-.post-row:hover {
-  color: var(--accent2);
+
+.post-row:hover .post-title {
+  color: var(--amber-hi);
+  text-decoration-color: var(--amber-hi);
 }
+
 .post-date {
-  color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
+  color: var(--faint);
+  padding-top: 0.2rem;
 }
+
 .post-title {
-  font-size: 0.95rem;
+  font-family: var(--serif);
+  font-size: 1.04rem;
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(217, 160, 78, 0.25);
+  transition: color 0.12s, text-decoration-color 0.12s;
 }
-.post-tag {
-  font-size: 0.72rem;
-  color: var(--accent);
-  border: 1px solid var(--border);
-  padding: 0.1rem 0.4rem;
-  border-radius: 3px;
-  white-space: nowrap;
+
+.post-title:hover {
+  color: var(--amber-hi);
+  text-decoration-color: var(--amber-hi);
 }
+
+.post-desc,
 .post-excerpt {
   grid-column: 2 / 4;
+  font-family: var(--serif);
+  font-size: 0.9rem;
   color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.5;
-  margin-top: -0.1rem;
+  line-height: 1.6;
+  margin-top: 0.05rem;
 }
+
+.post-tag {
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  padding-top: 0.25rem;
+  white-space: nowrap;
+}
+
+.blog-note,
 .index-footer {
-  color: var(--muted);
+  color: var(--faint);
   font-size: 0.8rem;
-  margin-top: 3rem;
+  margin-top: 2.4rem;
 }
-/* ═══════════════════════════════════════════════════════════════
-BLOG POST — applies to both hand-written and Org-exported posts
-/* Post header (hand-written posts use these classes) */
+
+/* footer */
+.statusbar {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0 1.25rem;
+  height: 32px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  color: var(--faint);
+  font-size: 0.75rem;
+}
+
+.statusbar a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.12s;
+}
+
+.statusbar a:hover {
+  color: var(--amber-hi);
+}
+
+.sb-sep {
+  opacity: 0.5;
+}
+
+.sb-count {
+  margin-left: auto;
+}
+
+/* BLOG POSTS */
+
+/* post header */
 .post-header {
   margin-bottom: 2.5rem;
 }
+
+/* plain small-caps label */
 .post-label {
   display: inline-block;
-  font-size: 0.75rem;
-  color: var(--accent);
-  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  color: var(--amber);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  border: 1px solid var(--border);
-  padding: 0.15rem 0.45rem;
-  border-radius: 3px;
   margin-bottom: 1rem;
 }
-/* Org exports the document title as <h1 class="title"> */
-/* Hand-written posts use <h1 class="post-title"> */
+
+/* org exports the title as <h1 class="title"> */
 h1.title,
 h1.post-title {
-  font-family: "Lora", Georgia, serif;
-  font-size: 2.2rem;
-  font-weight: 600;
+  font-family: var(--serif);
+  font-size: 2.1rem;
+  font-weight: 700;
   line-height: 1.25;
-  color: var(--text);
+  letter-spacing: -0.01em;
+  color: var(--amber);
   margin-bottom: 1rem;
+  text-wrap: balance;
 }
+
 .post-meta {
   display: flex;
   align-items: center;
@@ -236,88 +373,95 @@ h1.post-title {
   gap: 0.4rem 1rem;
   font-size: 0.82rem;
   color: var(--muted);
-  border-top: 1px dashed var(--border);
-  border-bottom: 1px dashed var(--border);
+  border-top: 1px dotted var(--border);
+  border-bottom: 1px dotted var(--border);
   padding: 0.7rem 0;
   margin-bottom: 2rem;
 }
+
 .post-meta-sep {
   opacity: 0.35;
 }
-/*  Body typography  */
-/* The content area, Org wraps in #content, hand-written in .post-body */
+
+/* body typography */
+/* org wraps content in #content, hand-written posts in .post-body */
 #content,
 .post-body {
-  font-family: "Lora", Georgia, serif;
+  font-family: var(--serif);
   font-size: 1.05rem;
   line-height: 1.85;
-  color: #3d3a36;
+  color: var(--prose);
 }
-/* Org puts the title inside #content, pull it out of body flow */
-#content h1.title {
-  font-family: "Lora", Georgia, serif;
-}
+
 #content p,
 .post-body p {
   margin-bottom: 1.5rem;
+  text-wrap: pretty;
 }
-/* Org h2 = ## headings = section titles */
+
+/* org h2 = section titles */
 #content h2,
 .post-body h2 {
-  font-family: "Inconsolata", monospace;
-  font-size: 1.05rem;
+  font-family: var(--mono);
+  font-size: 1rem;
   font-weight: bold;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent2);
-  margin: 2.5rem 0 0.8rem;
+  color: var(--amber);
+  margin: 2.6rem 0 0.8rem;
 }
-/* Org h3 = ### headings = subheadings */
+
+/* org h3 = subheadings */
 #content h3,
 .post-body h3 {
-  font-family: "Lora", serif;
+  font-family: var(--serif);
   font-size: 1.12rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text);
   margin: 2rem 0 0.6rem;
 }
+
 #content a,
 .post-body a {
-  color: var(--accent2);
+  color: var(--amber);
   text-decoration: underline;
-  text-decoration-color: rgba(180, 83, 9, 0.3);
-  transition: text-decoration-color 0.15s;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(217, 160, 78, 0.35);
+  transition: color 0.12s, text-decoration-color 0.12s;
 }
+
 #content a:hover,
 .post-body a:hover {
-  text-decoration-color: var(--accent2);
+  color: var(--amber-hi);
+  text-decoration-color: var(--amber-hi);
 }
+
 /* Inline code */
 #content code,
 .post-body code {
-  font-family: "Inconsolata", monospace;
+  font-family: var(--mono);
   font-size: 0.88em;
-  background: var(--bg2);
+  background: var(--bg3);
   border: 1px solid var(--border);
   padding: 0.1em 0.35em;
-  border-radius: 3px;
-  color: var(--accent2);
+  color: var(--amber);
 }
-/* Code blocks, Org wraps in <pre> */
+
+/* code blocks org wraps in <pre> */
 #content pre,
 .post-body pre {
   background: var(--bg2);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  border-radius: 4px;
+  border-left: 2px solid var(--amber);
   padding: 1.2rem 1.5rem;
   overflow-x: auto;
   margin: 1.5rem 0;
-  font-family: "Inconsolata", monospace;
+  font-family: var(--mono);
   font-size: 0.88rem;
   line-height: 1.6;
-  color: var(--muted);
+  color: var(--prose);
 }
+
 #content pre code,
 .post-body pre code {
   background: none;
@@ -326,50 +470,54 @@ h1.post-title {
   color: inherit;
   font-size: 1em;
 }
-/* Org src container */
+
+/* org src container */
 .org-src-container {
   margin: 1.5rem 0;
 }
+
 .org-src-container pre.src {
   background: var(--bg2);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  border-radius: 4px;
+  border-left: 2px solid var(--amber);
   padding: 1.2rem 1.5rem;
   overflow-x: auto;
-  font-family: "Inconsolata", monospace;
+  font-family: var(--mono);
   font-size: 0.88rem;
   line-height: 1.6;
-  color: var(--muted);
+  color: var(--prose);
   margin: 0;
 }
+
 /* Blockquote */
 #content blockquote,
 .post-body blockquote {
-  border-left: 3px solid var(--accent);
+  border-left: 2px solid var(--amber);
   margin: 1.8rem 0;
-  padding: 0.8rem 1.5rem;
+  padding: 0.6rem 1.4rem;
   color: var(--muted);
   font-style: italic;
 }
-/* Callout, use #+BEGIN_QUOTE with a leading // in Org, or .callout class */
+
+/* #+BEGIN_QUOTE with a leading // in org or .callout */
 .callout,
 #content .callout {
-  background: rgba(217, 119, 6, 0.08);
-  border: 1px solid rgba(217, 119, 6, 0.25);
-  border-radius: 4px;
+  background: rgba(217, 160, 78, 0.07);
+  border: 1px solid rgba(217, 160, 78, 0.22);
   padding: 1rem 1.2rem;
-  font-family: "Inconsolata", monospace;
+  font-family: var(--mono);
   font-size: 0.88rem;
   color: var(--text);
   font-style: normal;
   margin: 1.8rem 0;
 }
+
 .callout::before,
 #content .callout::before {
   content: "// ";
-  color: var(--accent);
+  color: var(--amber);
 }
+
 /* HR */
 #content hr,
 .post-body hr {
@@ -377,17 +525,20 @@ h1.post-title {
   border-top: 1px dashed var(--border);
   margin: 2.5rem 0;
 }
-/* Org outline wrappers, strip any default margin/padding */
+
+/* org outline wrappers strip default margin/padding */
 .outline-2,
 .outline-3,
 .outline-4 {
   margin: 0;
 }
-/* Hide Org postamble (we supply our own footer) */
+
+/* hide Org postamble since own footer */
 #postamble {
   display: none;
 }
-/*  Post footer  */
+
+/* post footer */
 .post-footer {
   margin-top: 3rem;
   padding-top: 1.5rem;
@@ -398,39 +549,65 @@ h1.post-title {
   font-size: 0.85rem;
   color: var(--muted);
 }
+
 .post-footer a {
   color: var(--muted);
-  text-decoration: none;
-  transition: color 0.15s;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border);
+  transition: color 0.12s, text-decoration-color 0.12s;
 }
+
 .post-footer a:hover {
-  color: var(--accent2);
+  color: var(--amber-hi);
+  text-decoration-color: var(--amber-hi);
 }
-/*  Scrollbars  */
+
+/* scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
-  background: var(--bg2);
+  background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 3px;
 }
-/*  Mobile  */
+
+/* mobile */
 @media (max-width: 640px) {
+  .page-wrap {
+    padding: 2rem 1.25rem 4rem;
+  }
+
   h1.title,
   h1.post-title {
     font-size: 1.6rem;
   }
+
   #content,
   .post-body {
     font-size: 0.98rem;
   }
-  .post-row {
-    grid-template-columns: 70px 1fr;
+
+  .blog-header h1,
+  .blog-head h1 {
+    font-size: 1.7rem;
   }
+
+  .post-list li,
+  .post-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .post-date {
+    padding-top: 0;
+  }
+
   .post-tag {
-    display: none;
+    padding-top: 0;
   }
 }
