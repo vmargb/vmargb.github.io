@@ -18,299 +18,160 @@
   <nav class="topbar-nav">
     <a href="index.html" class="active">about</a>
     <a href="blog.html">blog</a>
+    <a href="library.html">library</a>
     <a href="https://github.com/vmargb">github</a>
   </nav>
 </header>
 
-<div class="fm-layout">
+<main class="blog">
+  <div class="blog-inner">
 
-  <aside class="fm-sidebar">
-    <div class="sidebar-header">index</div>
-    <ul class="tree">
-      <li class="tree-item active" data-panel="about"><span class="ti">·</span>about_me.txt</li>
+    <div class="blog-head">
+      <h1>vmargb</h1>
+      <p class="intro">I am a Computer Science & AI grad + developer. Most of what I build are small tools for the way I read, take notes and remember things, mostly as TUI's or Plugins. Usually that means Emacs Lisp, sometimes Rust. Away from the keyboard I write, learn languages, do calisthenics and watch horror. Current Favourites: Hereditary and Midnight Mass.</p>
+      <p class="intro">I'm open to work. Email me at vmargb AT proton DOT me and I'll usually reply within a few days.</p>
+    </div>
 
-      <li class="tree-sep">──────────────</li>
-      <li class="tree-dir">projects/</li>
-      <li class="tree-item indent" data-panel="parts-of-speech"><span class="ti">▸</span>parts-of-speech</li>
-      <li class="tree-item indent" data-panel="arrow"><span class="ti">▸</span>arrow.el</li>
-      <li class="tree-item indent" data-panel="project-x"><span class="ti">▸</span>project-x</li>
-      <li class="tree-item indent" data-panel="region-pin"><span class="ti">▸</span>region-pin</li>
-      <li class="tree-item indent" data-panel="myoso"><span class="ti">▸</span>myoso</li>
-      <li class="tree-item indent" data-panel="leitner"><span class="ti">▸</span>leitner.el</li>
-      <li class="tree-item indent" data-panel="funcy"><span class="ti">▸</span>funcy.nvim</li>
-      <li class="tree-item indent" data-panel="lookahead"><span class="ti">▸</span>lookahead</li>
-      <li class="tree-item indent" data-panel="evo-loop"><span class="ti">▸</span>evo-loop</li>
-      <li class="tree-item indent" data-panel="chess-ai"><span class="ti">▸</span>chess-ai</li>
-      <li class="tree-item indent" data-panel="pathfinder"><span class="ti">▸</span>pathfinder</li>
-
-      <li class="tree-sep">──────────────</li>
-      <li class="tree-dir">old_cs_notes/</li>
-      <li class="tree-item indent" data-panel="algorithms"><span class="ti">▸</span>algorithms.md</li>
-      <li class="tree-item indent" data-panel="cryptography"><span class="ti">▸</span>cryptography.md</li>
-      <li class="tree-item indent" data-panel="intro-ai"><span class="ti">▸</span>intro_ai.md</li>
-      <li class="tree-item indent" data-panel="linux"><span class="ti">▸</span>linux_nixos.md</li>
-
-      <li class="tree-sep">──────────────</li>
-      <li class="tree-item" data-panel="contact"><span class="ti">·</span>contact.txt</li>
-    </ul>
-  </aside>
-
-  <main class="fm-content">
-
-    <section class="panel active" id="about">
-      <div class="panel-file-header">
-        <span class="fh-name">about_me.txt</span>
-        <span class="fh-meta">plain text · 312 bytes</span>
-      </div>
-      <div class="panel-body">
-        <h1 class="big-name">vmargb</h1>
-        <p class="tagline">CS &amp; AI grad · Web dev · Emacs package author</p>
-        <div class="about-grid">
-          <div class="about-block"><span class="ab-label">favourite langs</span><span class="ab-val">Elisp, Rust</span></div>
-          <div class="about-block"><span class="ab-label">daily tools</span><span class="ab-val">Emacs, Org-mode, NixOS</span></div>
-          <div class="about-block"><span class="ab-label">hobbies</span><span class="ab-val">Hobbyist writer, Language-learning, Calisthenics</span></div>
-          <div class="about-block"><span class="ab-label">horror picks</span><span class="ab-val">Hereditary &amp; Midnight Mass</span></div>
-          <div class="about-block"><span class="ab-label">favourite books</span><span class="ab-val">Ready Player One &amp; Mistborn</span></div>
-          <div class="about-block"><span class="ab-label">status</span><span class="ab-val status-open">open to opportunities</span></div>
-        </div>
-      </div>
+    <section class="blog-year">
+      <h2>Emacs</h2>
+      <ul class="post-list work-list">
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/vmargb/project-x">project-x</a>
+            <p class="post-desc">Extends project.el with session persistence and restoration, isolates each project's context using tab-bar-mode.</p>
+            <p class="work-links"><a class="feed-link" href="https://karthinks.com/software/persistent-project-switching-in-emacs">karthinks' original post</a></p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/vmargb/arrow.el">arrow.el</a>
+            <p class="post-desc">A port of arrow.nvim. Global, per-project and buffer-local bookmarks on a flat prefix tree, so you choose the keystroke for each mark. Includes an org-mode integration isolated to each project.</p>
+            <p class="work-links"><a class="feed-link" href="./blog/arrow.html">blog post</a></p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/vmargb/region-pin">region-pin</a>
+            <p class="post-desc">Shows a syntax-highlighted floating snippet of the current definition under your cursor. Acting as a lightweight stand-in for LSP's signature-help.</p>
+            <p class="work-links"><a class="feed-link" href="./blog/region-pin.html">blog post</a></p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/zk-phi/indent-guide">indent-guide.el</a>
+            <p class="post-desc">Helped optimise and maintain indent-guide.el for drawing vertical indentation guides inside of Emacs.</p>
+            <p class="work-links"><a class="feed-link" href="">blog post (wip)</a></p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/vmargb/leitner.el">resurface.el</a>
+            <p class="post-desc">Brings your buried org-mode notes back for re-reading, scheduled with Leitner boxes and SM-2. As well as an incremental-reading mode.</p>
+            <p class="work-links"><a class="feed-link" href="./blog/spacedreview.html">blog post</a></p>
+          </div>
+        </li>
+      </ul>
     </section>
 
-    <section class="panel panel-project" id="parts-of-speech">
-      <div class="panel-file-header">
-        <span class="fh-name">parts-of-speech/</span>
-        <span class="fh-meta">project · voiceovers</span>
-      </div>
-      <div class="panel-body">
-        <h2>parts-of-speech</h2>
-        <p>A non-linear voice recording app that lets you record your audio in manageable segments. Designed to emulate a recording-booth workflow (aka talkback) compared to traditional recording software.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/vmargb/parts-of-speech">→ open on github</a>
-          <a class="proj-link" href="./blog/partsofspeech.html">→ blog post</a>
-        </div>
-      </div>
+    <section class="blog-year">
+      <h2>Learning Sciences</h2>
+      <ul class="post-list work-list">
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/vmargb/myoso">Myoso</a>
+            <p class="post-desc">An Anki-like terminal flashcard app with a multi-step spaced-repetition strategy built on FSRS. I made it because I wanted long chains of thought to fit inside one card.</p>
+            <p class="work-links">
+              <a class="feed-link" href="./blog/spaced-repetition-1.html">blog post 1</a>
+              <a class="feed-link" href="./blog/spaced-repetition-2.html">blog post 2</a>
+            </p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/vmargb/henle">henle</a>
+            <p class="post-desc">A sentence-mining CLI app for language-learning, using a novel technique from the book Henle's Latin</p>
+            <p class="work-links"><a class="feed-link" href="">blog post (WIP)</a></p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/vmargb/yourepeatme">yourepeatme</a>
+            <p class="post-desc">A new way to drill hard problems as opposed to traditional flashcards, based on worked-example fading and step-wise theories.</p>
+            <p class="work-links"><a class="feed-link" href="">blog post (WIP)</a></p>
+          </div>
+        </li>
+      </ul>
     </section>
 
-    <section class="panel panel-project" id="arrow">
-      <div class="panel-file-header">
-        <span class="fh-name">arrow.el/</span>
-        <span class="fh-meta">project · emacs</span>
-      </div>
-      <div class="panel-body">
-        <h2>arrow.el</h2>
-        <p>An Emacs package implementation of arrow.nvim, designed to provide global, per-project and buffer-local bookmarks that you can seamlessly navigate between. Each bookmark uses a flat prefix-tree which lets you dynamically control the keystroke for each mark. Also includes an org-mode integration that is isolated to each project.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/vmargb/arrow.el">→ open on github</a>
-          <a class="proj-link" href="./blog/arrow.html">→ blog post</a>
-        </div>
-      </div>
+
+    <section class="blog-year">
+      <h2>Audio Programming</h2>
+      <ul class="post-list work-list">
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/vmargb/parts-of-speech">parts-of-speech</a>
+            <p class="post-desc">A voice recorder that works in controlled short segments, modelled on the talkback workflow of a recording booth.</p>
+            <p class="work-links"><a class="feed-link" href="./blog/partsofspeech.html">blog post</a></p>
+          </div>
+        </li>
+      </ul>
     </section>
 
-    <section class="panel panel-project" id="project-x">
-      <div class="panel-file-header">
-        <span class="fh-name">project-x/</span>
-        <span class="fh-meta">project · emacs</span>
-      </div>
-      <div class="panel-body">
-        <h2>project-x</h2>
-        <p>An Emacs package that extends the built-in project.el package. Project-x adds session persistence and restoration to your projects by saving window and buffer state to memory. Additionally it provides context isolation by extending tab-bar-mode.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/vmargb/project-x">→ open on github</a>
-          <a class="proj-link" href="https://karthinks.com/software/persistent-project-switching-in-emacs">→ karthinks original post</a>
-        </div>
-      </div>
+    <section class="blog-year">
+      <h2>Other tools</h2>
+      <ul class="post-list work-list">
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/vmargb/funcy.nvim">funcy.nvim</a>
+            <p class="post-desc">A work in progress. A Neovim plugin that uses LSP and regex snippets to generate function and class declarations from calls, like JetBrains does.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/vmargb/lookahead">Lookahead</a>
+            <p class="post-desc">A Firefox extension with a keyboard-driven file picker for jumping between your links, so you stop going back and forth to find the right site.</p>
+          </div>
+        </li>
+      </ul>
     </section>
 
-    <section class="panel panel-project" id="region-pin">
-      <div class="panel-file-header">
-        <span class="fh-name">region-pin/</span>
-        <span class="fh-meta">project · emacs</span>
-      </div>
-      <div class="panel-body">
-        <h2>region-pin</h2>
-        <p>An Emacs package that finds and displays a syntax-highlighted code snippet of the definition on the current symbol. A lightweight alternative to provide code hints like in LSP's 'signature-help' feature.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/vmargb/region-pin">→ open on github</a>
-          <a class="proj-link" href="./blog/region-pin.html">→ blog post</a>
-        </div>
-      </div>
+    <section class="blog-year">
+      <h2>Experiments</h2>
+      <ul class="post-list work-list">
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/physicsKnight/Artificial-Life">Evo-Loop Simulator</a>
+            <p class="post-desc">Self-replicating cellular automata based on Langton loops, following Langton and Sayama's work on artificial life.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/physicsKnight/MCTS-Minimax">Chess AI</a>
+            <p class="post-desc">Monte-Carlo Tree Search combined with Minimax, as a test of exploration against exploitation.</p>
+            <p class="work-links"><a class="feed-link" href="./blog/mcts-vs-minimax.html">blog post</a></p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <a class="post-title" href="https://github.com/physicsKnight/Pathfinder">Pathfinding Visualiser</a>
+            <p class="post-desc">DFS, BFS, UCS and A* running on a live grid. An old project for building intuition about graph traversal.</p>
+          </div>
+        </li>
+      </ul>
     </section>
 
-    <section class="panel panel-project" id="myoso">
-      <div class="panel-file-header">
-        <span class="fh-name">myoso/</span>
-        <span class="fh-meta">project · TUI</span>
-      </div>
-      <div class="panel-body">
-        <h2>Myoso</h2>
-        <p>An Anki-like flashcard app with a new multi-step spaced-repetition strategy built on top of FSRS. This was designed to scratch my own itch with fitting long chains of thought inside of a flashcard.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/vmargb/myoso">→ open on github</a>
-          <a class="proj-link" href="./blog/spaced-repetition-1.html">→ blog post 1</a>
-          <a class="proj-link" href="./blog/spaced-repetition-2.html">→ blog post 2</a>
-        </div>
-      </div>
+    <section class="blog-year">
+      <h2>Old uni notes</h2>
+      <p class="intro end-note">
+        <a class="feed-link" href="notes/algorithms.html">Algorithms</a>,
+        <a class="feed-link" href="notes/cryptography.html">cryptography</a>,
+        <a class="feed-link" href="notes/introai.html">intro AI</a>, and my
+        <a class="feed-link" href="https://www.notion.so/Installation-part-1-2401ea842a24801397f9f70795379bc2">Linux and NixOS setup guide</a> on Notion.
+      </p>
     </section>
 
-    <section class="panel panel-project" id="leitner">
-      <div class="panel-file-header">
-        <span class="fh-name">leitner.el/</span>
-        <span class="fh-meta">project · emacs</span>
-      </div>
-      <div class="panel-body">
-        <h2>resurface.el</h2>
-        <p>An Emacs package to resurface your org-mode notes for re-reading &amp; reviewing using the Leitner box system and the sm-2 algorithm. Designed to prevent your long-form notes from being buried away for too long.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/vmargb/leitner.el">→ open on github</a>
-          <a class="proj-link" href="./blog/spacedreview.html">→ blog post</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel panel-project" id="funcy">
-      <div class="panel-file-header">
-        <span class="fh-name">funcy.nvim/</span>
-        <span class="fh-meta">project · WIP</span>
-      </div>
-      <div class="panel-body">
-        <h2>funcy.nvim</h2>
-        <p>A Neovim plugin that leverages LSP and pre-defined regex snippets to create function and class declarations from function calls in code. Inspired by the same feature in Jetbrains IDEs.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/vmargb/funcy.nvim">→ open on github</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel panel-project" id="lookahead">
-      <div class="panel-file-header">
-        <span class="fh-name">lookahead/</span>
-        <span class="fh-meta">project · Firefox extension</span>
-      </div>
-      <div class="panel-body">
-        <h2>Lookahead</h2>
-        <p>A Firefox extension that automates web navigation and adds a keyboard-driven "file-picker" for quick-switching between your links. This prevents constant back-and-forths when trying to find the right website.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/vmargb/lookahead">→ open on github</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel panel-project" id="evo-loop">
-      <div class="panel-file-header">
-        <span class="fh-name">evo-loop/</span>
-        <span class="fh-meta">project · simulation</span>
-      </div>
-      <div class="panel-body">
-        <h2>Evo-Loop Simulator</h2>
-        <p>Self-reproducing &amp; self-replicating cellular automata based on the famous Langton loops. This is an implementation of Christopher Langton and Sayama's ideas on artificial life.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/physicsKnight/Artificial-Life">→ open on github</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel panel-project" id="chess-ai">
-      <div class="panel-file-header">
-        <span class="fh-name">chess-ai/</span>
-        <span class="fh-meta">project · AI</span>
-      </div>
-      <div class="panel-body">
-        <h2>Chess AI</h2>
-        <p>A hybrid of Monte-Carlo Tree Search with Minimax for a chess-playing agent. This project is more of an experiment of testing between exploration and exploitation.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/physicsKnight/MCTS-Minimax">→ open on github</a>
-          <a class="proj-link" href="./blog/mcts-vs-minimax.html">→ blog post</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel panel-project" id="pathfinder">
-      <div class="panel-file-header">
-        <span class="fh-name">pathfinder/</span>
-        <span class="fh-meta">project · visualiser</span>
-      </div>
-      <div class="panel-body">
-        <h2>Pathfinding Visualiser</h2>
-        <p>Interactive tool for visualising DFS, BFS, UCS, and A* on a live grid. This is an old project for building intuition around graph traversal.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://github.com/physicsKnight/Pathfinder">→ open on github</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel panel-note" id="algorithms">
-      <div class="panel-file-header">
-        <span class="fh-name">algorithms.md</span>
-        <span class="fh-meta">old notes · read-only</span>
-      </div>
-      <div class="panel-body">
-        <h2>Algorithms</h2>
-        <p>Sorting, searching, asymptotic notation, dynamic programming, graph theory.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="notes/algorithms.html">→ open notes</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel panel-note" id="cryptography">
-      <div class="panel-file-header">
-        <span class="fh-name">cryptography.md</span>
-        <span class="fh-meta">old notes · read-only</span>
-      </div>
-      <div class="panel-body">
-        <h2>Cryptography</h2>
-        <p>RSA, ECC, hashing, number theory, Diffie-Hellman.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="notes/cryptography.html">→ open notes</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel panel-note" id="intro-ai">
-      <div class="panel-file-header">
-        <span class="fh-name">intro_ai.md</span>
-        <span class="fh-meta">old notes · read-only</span>
-      </div>
-      <div class="panel-body">
-        <h2>Intro AI</h2>
-        <p>Search algorithms, Minimax, MCTS, knowledge representation, optimisations.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="notes/introai.html">→ open notes</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel panel-note" id="linux">
-      <div class="panel-file-header">
-        <span class="fh-name">linux_nixos.md</span>
-        <span class="fh-meta">old notes · external</span>
-      </div>
-      <div class="panel-body">
-        <h2>Linux / NixOS</h2>
-        <p>Complete guide and setup notes on Linux and NixOS. Hosted on Notion.</p>
-        <div class="proj-links">
-          <a class="proj-link" href="https://www.notion.so/Installation-part-1-2401ea842a24801397f9f70795379bc2">→ open on notion</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel" id="contact">
-      <div class="panel-file-header">
-        <span class="fh-name">contact.txt</span>
-        <span class="fh-meta">plain text · 128 bytes</span>
-      </div>
-      <div class="panel-body">
-        <div class="about-grid">
-          <div class="about-block"><span class="ab-label">email</span><span class="ab-val">vmargb AT proton DOT me</span></div>
-          <div class="about-block"><span class="ab-label">youtube</span><span class="ab-val"><a href="https://www.youtube.com/@formulaint">@formulaint</a></span></div>
-          <div class="about-block"><span class="ab-label">github</span><span class="ab-val"><a href="https://github.com/vmargb">vmargb</a></span></div>
-          <div class="about-block"><span class="ab-label">response</span><span class="ab-val">usually within a few days</span></div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-</div>
+  </div>
+</main>
 
 <footer class="statusbar">
   <span>vmargb AT proton DOT me</span>
@@ -318,34 +179,8 @@
   <a href="https://github.com/vmargb">github</a>
   <span class="sb-sep">·</span>
   <a href="https://www.youtube.com/@formulaint">youtube</a>
-  <span class="sb-count">13 files</span>
+  <span class="sb-count"><a href="blog.html">blog →</a></span>
 </footer>
-
-<script>
-  const items = document.querySelectorAll(".tree-item[data-panel]");
-  const panels = document.querySelectorAll(".panel");
-  const content = document.querySelector(".fm-content");
-
-  function openPanel(item) {
-    items.forEach(i => i.classList.remove("active"));
-    panels.forEach(p => p.classList.remove("active"));
-    item.classList.add("active");
-    document.getElementById(item.dataset.panel).classList.add("active");
-    content.scrollTop = 0;
-  }
-
-  items.forEach(item => {
-    item.setAttribute("tabindex", "0");
-    item.setAttribute("role", "button");
-    item.addEventListener("click", () => openPanel(item));
-    item.addEventListener("keydown", e => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        openPanel(item);
-      }
-    });
-  });
-</script>
 
 </body>
 </html>

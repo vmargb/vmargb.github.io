@@ -582,3 +582,79 @@ body.home {
     padding-top: 0;
   }
 }
+
+/* homepage, shares the blog layout */
+.intro {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.75;
+  color: var(--prose);
+  max-width: 34em;
+  margin-bottom: 1rem;
+  text-wrap: pretty;
+}
+
+.blog-head .intro {
+  max-width: 34em;
+  color: var(--prose);
+}
+
+.work-list li {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.work-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1.2rem;
+  margin-top: 0.5rem;
+}
+
+.end-note {
+  font-size: 1rem;
+  margin-top: 0.8rem;
+}
+
+/* library */
+.book-list li {
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+
+.book-title {
+  font-family: var(--serif);
+  font-size: 1.04rem;
+  color: var(--text);
+}
+
+.book-status {
+  font-size: 0.82rem;
+  color: var(--faint);
+  white-space: nowrap;
+}
+
+.book-status.done {
+  color: var(--green);
+}
+
+.book-status.now {
+  color: var(--amber);
+}
+
+.book-note {
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--prose);
+  margin-top: 0.4rem;
+  max-width: 34em;
+}
+
+@media (max-width: 640px) {
+  .book-list li {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
